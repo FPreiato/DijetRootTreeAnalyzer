@@ -64,41 +64,94 @@ analysisClass::analysisClass(string * inputList, string * cutFile, string * tree
     //std::string L2L3ResidualPath = "data/Summer15_25nsV5_DATA/Summer15_25nsV5_DATA_L2L3Residual_AK4PFchs.txt" ;
     //
 
+    /* JEC v6
     std::string L1Path = "data/Summer15_25nsV6_MC/Summer15_25nsV6_MC_L1FastJet_AK4PFchs.txt";
     std::string L2Path = "data/Summer15_25nsV6_MC/Summer15_25nsV6_MC_L2Relative_AK4PFchs.txt"; 
     std::string L3Path = "data/Summer15_25nsV6_MC/Summer15_25nsV6_MC_L3Absolute_AK4PFchs.txt";
+
     std::string L1DATAPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L1FastJet_AK4PFchs.txt";
     std::string L2DATAPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L2Relative_AK4PFchs.txt"; 
     std::string L3DATAPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L3Absolute_AK4PFchs.txt";
     std::string L2L3ResidualPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L2L3Residual_AK4PFchs.txt" ;
 
+    std::string L1DATAHLTPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L1FastJet_AK4PFchs.txt";
+    std::string L2DATAHLTPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L2Relative_AK4PFchs.txt"; 
+    std::string L3DATAHLTPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L3Absolute_AK4PFchs.txt";
+    std::string L2L3ResidualHLTPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L2L3Residual_AK4PFchs.txt" ;
+    */
+
+    /*
+    // HLT + v6Res
+    std::string L1Path = "data/Summer15_25nsV6_MC/Summer15_25nsV6_MC_L1FastJet_AK4PFchs.txt";
+    std::string L2Path = "data/Summer15_25nsV6_MC/Summer15_25nsV6_MC_L2Relative_AK4PFchs.txt"; 
+    std::string L3Path = "data/Summer15_25nsV6_MC/Summer15_25nsV6_MC_L3Absolute_AK4PFchs.txt";
+
+    std::string L1DATAPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L1FastJet_AK4PFchs.txt";
+    std::string L2DATAPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L2Relative_AK4PFchs.txt"; 
+    std::string L3DATAPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L3Absolute_AK4PFchs.txt";
+    std::string L2L3ResidualPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L2L3Residual_AK4PFchs.txt" ;
+
+    std::string L1DATAHLTPath = "data/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_MC/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_L1FastJet_AK4PFchs.txt";
+    std::string L2DATAHLTPath = "data/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_MC/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_L2Relative_AK4PFchs.txt"; 
+    std::string L3DATAHLTPath = "data/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_MC/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_L3Absolute_AK4PFchs.txt";
+    std::string L2L3ResidualHLTPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L2L3Residual_AK4PFchs.txt" ;
+    */
+
+    // HLT + v7Res
+    std::string L1Path = "data/Summer15_25nsV7_MC/Summer15_25nsV7_MC_L1FastJet_AK4PFchs.txt";
+    std::string L2Path = "data/Summer15_25nsV7_MC/Summer15_25nsV7_MC_L2Relative_AK4PFchs.txt"; 
+    std::string L3Path = "data/Summer15_25nsV7_MC/Summer15_25nsV7_MC_L3Absolute_AK4PFchs.txt";
+
+    std::string L1DATAPath = "data/Summer15_25nsV7_DATA/Summer15_25nsV7_DATA_L1FastJet_AK4PFchs.txt";
+    std::string L2DATAPath = "data/Summer15_25nsV7_DATA/Summer15_25nsV7_DATA_L2Relative_AK4PFchs.txt"; 
+    std::string L3DATAPath = "data/Summer15_25nsV7_DATA/Summer15_25nsV7_DATA_L3Absolute_AK4PFchs.txt";
+    std::string L2L3ResidualPath = "data/Summer15_25nsV7_DATA/Summer15_25nsV7_DATA_L2L3Residual_AK4PFchs.txt" ;
+
+    std::string L1DATAHLTPath = "data/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_MC/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_L1FastJet_AK4PFchs.txt";
+    std::string L2DATAHLTPath = "data/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_MC/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_L2Relative_AK4PFchs.txt"; 
+    std::string L3DATAHLTPath = "data/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_MC/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_L3Absolute_AK4PFchs.txt";
+    std::string L2L3ResidualHLTPath = "data/Summer15_25nsV7_DATA/Summer15_25nsV7_DATA_L2L3Residual_AK4PFchs.txt" ;
+
     L1Par = new JetCorrectorParameters(L1Path);
     L2Par = new JetCorrectorParameters(L2Path);
     L3Par = new JetCorrectorParameters(L3Path);
+
     L1DATAPar = new JetCorrectorParameters(L1DATAPath);
     L2DATAPar = new JetCorrectorParameters(L2DATAPath);
     L3DATAPar = new JetCorrectorParameters(L3DATAPath);
     L2L3Residual = new JetCorrectorParameters(L2L3ResidualPath);
 
+    L1DATAHLTPar = new JetCorrectorParameters(L1DATAHLTPath);
+    L2DATAHLTPar = new JetCorrectorParameters(L2DATAHLTPath);
+    L3DATAHLTPar = new JetCorrectorParameters(L3DATAHLTPath);
+    L2L3ResidualHLT = new JetCorrectorParameters(L2L3ResidualHLTPath);
+
     std::vector<JetCorrectorParameters> vPar;
     std::vector<JetCorrectorParameters> vPar_data;
+    std::vector<JetCorrectorParameters> vPar_dataHLT;
     vPar.push_back(*L1Par);
     vPar.push_back(*L2Par);
     vPar.push_back(*L3Par);
-   
+
     //residuals are applied only to data
     vPar_data.push_back(*L1DATAPar);
     vPar_data.push_back(*L2DATAPar);
     vPar_data.push_back(*L3DATAPar);
     vPar_data.push_back(*L2L3Residual);
+    //residuals are applied only to data -- HLT
+    vPar_dataHLT.push_back(*L1DATAHLTPar);
+    vPar_dataHLT.push_back(*L2DATAHLTPar);
+    vPar_dataHLT.push_back(*L3DATAHLTPar);
+    vPar_dataHLT.push_back(*L2L3ResidualHLT);
 
     JetCorrector = new FactorizedJetCorrector(vPar);
     JetCorrector_data = new FactorizedJetCorrector(vPar_data);
+    JetCorrector_dataHLT = new FactorizedJetCorrector(vPar_dataHLT);
 
     //uncertainty
     //unc = new JetCorrectionUncertainty("data/Summer15_50nsV5_DATA/Summer15_50nsV5_DATA_Uncertainty_AK4PFchs.txt");
     //unc = new JetCorrectionUncertainty("data/Summer15_25nsV5_DATA/Summer15_25nsV5_DATA_Uncertainty_AK4PFchs.txt");
-    unc = new JetCorrectionUncertainty("data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_Uncertainty_AK4PFchs.txt");
+    unc = new JetCorrectionUncertainty("data/Summer15_25nsV7_DATA/Summer15_25nsV7_DATA_Uncertainty_AK4PFchs.txt");
   }
   
   std::cout << "analysisClass::analysisClass(): ends " << std::endl;
@@ -177,7 +230,7 @@ void analysisClass::Loop()
    ////// these lines may need to be updated.                                 /////    
    Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) { // running over all events
-   //   for (Long64_t jentry=0; jentry<10;jentry++) { //runnig over 2 events
+     //  for (Long64_t jentry=0; jentry<2;jentry++) { //runnig over 2 events
      Long64_t ientry = LoadTree(jentry);
      if (ientry < 0) break;
      nb = fChain->GetEntry(jentry);   nbytes += nb;
@@ -207,9 +260,13 @@ void analysisClass::Loop()
 
      vector<TLorentzVector> AK4recojets;
      TLorentzVector ak4j1Reco, ak4j2Reco, ak4dijetReco;      
+     TLorentzVector ak4j3Reco;
+     bool thirdRecoJetPresent = false;
 
      vector<TLorentzVector> AK4jets;
      TLorentzVector ak4j1, ak4j2, ak4dijet;      
+     TLorentzVector ak4j3;
+     bool thirdJetPresent = false ;
 
      resetCuts();
 
@@ -238,15 +295,15 @@ void analysisClass::Loop()
      if( int(getPreCutValue1("useJECs"))==1 )
        {
 	 if(verbose) std::cout << "USE JECS"<<std::endl;
+	 // Reco jets
 	 // sort jets by increasing pT
 	 std::multimap<double, unsigned> sortedRecoJets;
-
 	 for(size_t j=0; j<no_jetsReco_ak4; ++j)
 	   { // Reco Jets
-	     // if(verbose) std::cout << "Reco jets # "<< j << std::endl;
-	     // if(verbose) std::cout << "pT "<< jetPtAK4reco->at(j)<< " Eta "<<jetEtaAK4reco->at(j) <<" Area " << jetAreaAK4reco->at(j)<< std::endl;
-	     // if(verbose) std::cout << "Old Jec factor " << jetJecAK4reco->at(j) << std::endl;
-	     // if(verbose) std::cout << "Rho " << rho << std::endl;
+	     if(verbose) std::cout << "Reco jets # "<< j << std::endl;
+	     if(verbose) std::cout << "pT "<< jetPtAK4reco->at(j)<< " Eta "<<jetEtaAK4reco->at(j) <<" Area " << jetAreaAK4reco->at(j)<< std::endl;
+	     if(verbose) std::cout << "Old Jec factor " << jetJecAK4reco->at(j) << std::endl;
+	     if(verbose) std::cout << "Rho " << rhoreco << std::endl;
 	     //MC
 	     JetCorrector->setJetEta(jetEtaAK4reco->at(j));
 	     JetCorrector->setJetPt(jetPtAK4reco->at(j)/jetJecAK4reco->at(j)); //pTraw
@@ -307,30 +364,30 @@ void analysisClass::Loop()
 	     if(verbose) std::cout << "newPt "<< newpT << " ; jet # "<< sortedRecoJetIdx[j] << std::endl;   
 	   }
 	 }
-	 
+	 //HLT jets
 	 // sort jets by increasing pT
 	 std::multimap<double, unsigned> sortedJets;
 	 for(size_t j=0; j<no_jets_ak4; ++j)
 	   { // HLT Jets
-	     //  if(verbose) std::cout << "HLT jets # "<< j << std::endl;
-	     //  if(verbose) std::cout << "pT "<< jetPtAK4->at(j)<< " Eta "<<jetEtaAK4->at(j) <<" Area " << jetAreaAK4->at(j)<< std::endl;
-	     //  if(verbose) std::cout << "Old Jec factor " << jetJecAK4->at(j) << std::endl;
-	     //  if(verbose) std::cout << "Rho " << rho << std::endl;
+	     if(verbose) std::cout << "HLT jets # "<< j << std::endl;
+	     if(verbose) std::cout << "pT "<< jetPtAK4->at(j)<< " Eta "<<jetEtaAK4->at(j) <<" Area " << jetAreaAK4->at(j)<< std::endl;
+	     if(verbose) std::cout << "Old Jec factor " << jetJecAK4->at(j) << std::endl;
+	     if(verbose) std::cout << "Rho " << rho << std::endl;
 	     
 	     JetCorrector->setJetEta(jetEtaAK4->at(j));
 	     JetCorrector->setJetPt(jetPtAK4->at(j)/jetJecAK4->at(j)); //pTraw
 	     JetCorrector->setJetA(jetAreaAK4->at(j));
 	     JetCorrector->setRho(rho);
 	     
-	     JetCorrector_data->setJetEta(jetEtaAK4->at(j));
-	     JetCorrector_data->setJetPt(jetPtAK4->at(j)/jetJecAK4->at(j)); //pTraw
-	     JetCorrector_data->setJetA(jetAreaAK4->at(j));
-	     JetCorrector_data->setRho(rho);
+	     JetCorrector_dataHLT->setJetEta(jetEtaAK4->at(j));
+	     JetCorrector_dataHLT->setJetPt(jetPtAK4->at(j)/jetJecAK4->at(j)); //pTraw
+	     JetCorrector_dataHLT->setJetA(jetAreaAK4->at(j));
+	     JetCorrector_dataHLT->setRho(rho);
 	     
 	     //nominal value of JECs
 	     double correction;//, old_correction, nominal_correction;
 	     //if( int(getPreCutValue1("shiftJECs"))==0 ){
-	     if (isData == 1) correction = JetCorrector_data->getCorrection();
+	     if (isData == 1) correction = JetCorrector_dataHLT->getCorrection();
 	     else correction = JetCorrector->getCorrection();
 	     //nominal_correction=correction;
 	     //old_correction = jetJecAK4->at(j);
@@ -561,8 +618,7 @@ void analysisClass::Loop()
 	       std::cout << "Eta: " << jetEtaAK4reco->at(sortedRecoJetIdx[ijet])<< std::endl;	       
 	     }	   
 	 }
-       
-	
+	 // building widejet
 	 if(no_jetsReco_ak4>=2)
 	   {
 	     if(fabs(jetEtaAK4reco->at(sortedRecoJetIdx[0])) < getPreCutValue1("jetFidRegion") 
@@ -670,47 +726,72 @@ void analysisClass::Loop()
        
      //AK4reco jets
      if(no_jetsReco_ak4>=2)
-       //cout << "eta j1 " << jetEtaAK4reco->at(sortedRecoJetIdx[0]) << endl;
-       //cout << "pt j1 " << (jecFactorsReco[sortedRecoJetIdx[0]]/jetJecAK4reco->at(sortedRecoJetIdx[0])) *jetPtAK4reco->at(sortedRecoJetIdx[0]) << endl;
        {
+	 //cout << "eta j1 " << jetEtaAK4reco->at(sortedRecoJetIdx[0]) << endl;
+	 //cout << "pt j1 " << (jecFactorsReco[sortedRecoJetIdx[0]]/jetJecAK4reco->at(sortedRecoJetIdx[0])) *jetPtAK4reco->at(sortedRecoJetIdx[0]) << endl;
 	 if(fabs(jetEtaAK4reco->at(sortedRecoJetIdx[0])) < getPreCutValue1("jetFidRegion") 
 	    && (jecFactorsReco[sortedRecoJetIdx[0]]/jetJecAK4reco->at(sortedRecoJetIdx[0]))*jetPtAK4reco->at(sortedRecoJetIdx[0]) > getPreCutValue1("pt0Cut"))
 	   {
 	     if(fabs(jetEtaAK4reco->at(sortedRecoJetIdx[1])) < getPreCutValue1("jetFidRegion") 
 		&& (jecFactorsReco[sortedRecoJetIdx[1]]/jetJecAK4reco->at(sortedRecoJetIdx[1]))*jetPtAK4reco->at(sortedRecoJetIdx[1]) > getPreCutValue1("pt1Cut"))
 	       {
-		 //cout << "filling ak4j1 and ak4j2" << endl;
-		 //cout << "pt ak4 j1 = " << (jecFactorsReco[sortedRecoJetIdx[0]]/jetJecAK4reco->at(sortedRecoJetIdx[0])) *jetPtAK4reco->at(sortedRecoJetIdx[0]) << endl;
+		 // cout << "filling ak4j1 and ak4j2" << endl;
+		 // cout << "pt ak4 j1 = " << (jecFactorsReco[sortedRecoJetIdx[0]]/jetJecAK4reco->at(sortedRecoJetIdx[0])) *jetPtAK4reco->at(sortedRecoJetIdx[0]) << endl;
 		 ak4j1Reco.SetPtEtaPhiM( (jecFactorsReco[sortedRecoJetIdx[0]]/jetJecAK4reco->at(sortedRecoJetIdx[0])) *jetPtAK4reco->at(sortedRecoJetIdx[0])
-				     ,jetEtaAK4reco->at(sortedRecoJetIdx[0])
-				     ,jetPhiAK4reco->at(sortedRecoJetIdx[0])
-				     , (jecFactorsReco[sortedRecoJetIdx[0]]/jetJecAK4reco->at(sortedRecoJetIdx[0])) *jetMassAK4reco->at(sortedRecoJetIdx[0]));
+					 ,jetEtaAK4reco->at(sortedRecoJetIdx[0])
+					 ,jetPhiAK4reco->at(sortedRecoJetIdx[0])
+					 , (jecFactorsReco[sortedRecoJetIdx[0]]/jetJecAK4reco->at(sortedRecoJetIdx[0])) *jetMassAK4reco->at(sortedRecoJetIdx[0]));
 		 ak4j2Reco.SetPtEtaPhiM( (jecFactorsReco[sortedRecoJetIdx[1]]/jetJecAK4reco->at(sortedRecoJetIdx[1])) *jetPtAK4reco->at(sortedRecoJetIdx[1])
-				     ,jetEtaAK4reco->at(sortedRecoJetIdx[1])
-				     ,jetPhiAK4reco->at(sortedRecoJetIdx[1])
-				     , (jecFactorsReco[sortedRecoJetIdx[1]]/jetJecAK4reco->at(sortedRecoJetIdx[1])) *jetMassAK4reco->at(sortedRecoJetIdx[1]));
+					 ,jetEtaAK4reco->at(sortedRecoJetIdx[1])
+					 ,jetPhiAK4reco->at(sortedRecoJetIdx[1])
+					 , (jecFactorsReco[sortedRecoJetIdx[1]]/jetJecAK4reco->at(sortedRecoJetIdx[1])) *jetMassAK4reco->at(sortedRecoJetIdx[1]));
+
+		 // saving third jet
+		 if(no_jetsReco_ak4>=3){
+		   if(fabs(jetEtaAK4reco->at(sortedRecoJetIdx[2])) < getPreCutValue1("jetFidRegion")
+		      && idTAK4reco->at(sortedRecoJetIdx[2]) == getPreCutValue1("tightJetID") ){ 
+		     //	  && (jecFactorsReco[sortedRecoJetIdx[2]]/jetJecAK4reco->at(sortedRecoJetIdx[2]))*jetPtAK4reco->at(sortedRecoJetIdx[2]) > getPreCutValue1("pt2Cut")){
+
+		     thirdRecoJetPresent = true;
+
+		     ak4j3Reco.SetPtEtaPhiM( (jecFactorsReco[sortedRecoJetIdx[2]]/jetJecAK4reco->at(sortedRecoJetIdx[2])) *jetPtAK4reco->at(sortedRecoJetIdx[2])
+					     ,jetEtaAK4reco->at(sortedRecoJetIdx[2])
+					     ,jetPhiAK4reco->at(sortedRecoJetIdx[2])
+					     , (jecFactorsReco[sortedRecoJetIdx[2]]/jetJecAK4reco->at(sortedRecoJetIdx[2])) *jetMassAK4reco->at(sortedRecoJetIdx[2]));
+
+		     if(verbose){
+		       std::cout<< "RecoJet 3" << std::endl;
+		       std::cout<< "pT " << ak4j3Reco.Pt() << " Eta "<<ak4j3Reco.Eta() << " Phi "<< ak4j3Reco.Phi() << " M "<< ak4j3Reco.M() << cout<<endl;
+		     }
+
+		   }
+		 }		 
 	       }
 	   }
-       }// end of two reco jets  
-   
+       }// end of two reco jets
+
      double MJJAK4reco = 0; 
      double DeltaEtaJJAK4reco = 0;
      double DeltaPhiJJAK4reco = 0;
      
      //std::cout << "ak4j1.Pt()=" << ak4j1.Pt() << "   ak4j2.Pt()=" << ak4j2.Pt() << std::endl;
      if( ak4j1Reco.Pt()>0 && ak4j2Reco.Pt()>0 )
-     {
-       // Create dijet system
-       ak4dijetReco = ak4j1Reco + ak4j2Reco;
-       MJJAK4reco = ak4dijetReco.M();
-       DeltaEtaJJAK4reco = fabs(ak4j1Reco.Eta()-ak4j2Reco.Eta());
-       DeltaPhiJJAK4reco = fabs(ak4j1Reco.DeltaPhi(ak4j2Reco));
+       {
+	 // Create dijet system
+	 ak4dijetReco = ak4j1Reco + ak4j2Reco;
+	 MJJAK4reco = ak4dijetReco.M();
+	 DeltaEtaJJAK4reco = fabs(ak4j1Reco.Eta()-ak4j2Reco.Eta());
+	 DeltaPhiJJAK4reco = fabs(ak4j1Reco.DeltaPhi(ak4j2Reco));
+	 
+	 // Put widejets in the container
+	 AK4recojets.push_back( ak4j1Reco );
+	 AK4recojets.push_back( ak4j2Reco );
+	 if( ak4j3Reco.Pt()>0 )
+	   {
+	     AK4recojets.push_back( ak4j3Reco );
+	   }
+       }
 
-       // Put widejets in the container
-       AK4recojets.push_back( ak4j1Reco );
-       AK4recojets.push_back( ak4j2Reco );
-     }
-   
      if(verbose)     std::cout<<"Start HLT analysis"<<std::endl;  
 
      // +++++++++++++++++++++ HLT Analysis
@@ -759,7 +840,7 @@ void analysisClass::Loop()
 	 TLorentzVector wj1_tmp, wj2_tmp;
 	 TLorentzVector wj1_shift_tmp, wj2_shift_tmp;
 	 double wideJetDeltaR_ = getPreCutValue1("DeltaR");
-	 
+	 // building widejets
 	 if(no_jets_ak4>=2)
 	   {
 	     if(fabs(jetEtaAK4->at(sortedJetIdx[0])) < getPreCutValue1("jetFidRegion") 
@@ -880,9 +961,30 @@ void analysisClass::Loop()
 				     ,jetEtaAK4->at(sortedJetIdx[1])
 				     ,jetPhiAK4->at(sortedJetIdx[1])
 				     , (jecFactors[sortedJetIdx[1]]/jetJecAK4->at(sortedJetIdx[1])) *jetMassAK4->at(sortedJetIdx[1]));
+		 
+		 // saving third jet
+		 if(no_jets_ak4>=3){
+		   if(fabs(jetEtaAK4->at(sortedJetIdx[2])) < getPreCutValue1("jetFidRegion")
+		      && idTAK4->at(sortedJetIdx[2]) == getPreCutValue1("tightJetID") ){ 
+		     //	  && (jecFactors[sortedJetIdx[2]]/jetJecAK4->at(sortedJetIdx[2]))*jetPtAK4->at(sortedJetIdx[2]) > getPreCutValue1("pt2Cut")){
+
+		     thirdJetPresent = true;
+		     
+		     ak4j3.SetPtEtaPhiM( (jecFactors[sortedJetIdx[2]]/jetJecAK4->at(sortedJetIdx[2])) *jetPtAK4->at(sortedJetIdx[2])
+					 ,jetEtaAK4->at(sortedJetIdx[2])
+					 ,jetPhiAK4->at(sortedJetIdx[2])
+					 , (jecFactors[sortedJetIdx[2]]/jetJecAK4->at(sortedJetIdx[2])) *jetMassAK4->at(sortedJetIdx[2]));
+
+		     if(verbose){
+		       std::cout<< "Jet 3" << std::endl;
+		       std::cout<< "pT " << ak4j3.Pt() << " Eta "<<ak4j3.Eta() << " Phi "<< ak4j3.Phi() << " M "<< ak4j3.M() << cout<<endl;
+		     }
+		     
+		   }
+		 }
 	       }
 	   }
-       }   
+       }
      
      double MJJAK4 = 0; 
      double DeltaEtaJJAK4 = 0;
@@ -900,9 +1002,12 @@ void analysisClass::Loop()
 	 // Put widejets in the container
 	 AK4jets.push_back( ak4j1 );
 	 AK4jets.push_back( ak4j2 );
+	 if( ak4j3.Pt()>0 )
+	   {
+	     AK4jets.push_back( ak4j3 );
+	   }
        }
-   
-        
+
      //////////////////////
      if(verbose)     std::cout<<"Start fillVariableWithValue"<<std::endl;
 
@@ -935,9 +1040,10 @@ void analysisClass::Loop()
 
      /////////////////////// RECO Variables
 
+     fillVariableWithValue( "NAK4_recojets",AK4recojets.size());
+     fillVariableWithValue( "NAK4_jets",AK4jets.size());
+
      if( AK4recojets.size() >=1 ){
-      //cout << "AK4recojets.size() " <<  AK4recojets.size() << endl;
-       //cout << "IdTight_recoj1 : " << idTAK4reco->at(sortedRecoJetIdx[0]) << endl;
        fillVariableWithValue( "IdTight_recoj1",idTAK4reco->at(sortedRecoJetIdx[0]));
        fillVariableWithValue( "pTAK4_recoj1", AK4recojets[0].Pt());
        fillVariableWithValue( "etaAK4_recoj1", AK4recojets[0].Eta());
@@ -985,6 +1091,16 @@ void analysisClass::Loop()
        fillVariableWithValue( "CosThetaStarAK4reco", TMath::TanH( (AK4recojets[0].Eta()-AK4recojets[1].Eta())/2 )); 
        fillVariableWithValue( "deltaETAjjAK4reco", DeltaEtaJJAK4reco ) ;
        fillVariableWithValue( "deltaPHIjjAK4reco", DeltaPhiJJAK4reco) ;
+     }
+
+     if( AK4recojets.size() >=3 ){
+       //cout << "IdTight_recoj2 : " << idTAK4->at(sortedRecoJetIdx[1]) << endl << endl;
+       fillVariableWithValue( "IsPresent_recoj3", thirdRecoJetPresent);
+       fillVariableWithValue( "IdTight_recoj3",idTAK4reco->at(sortedRecoJetIdx[2]));
+       fillVariableWithValue( "pTAK4_recoj3", AK4recojets[2].Pt() );
+       fillVariableWithValue( "etaAK4_recoj3", AK4recojets[2].Eta());
+       fillVariableWithValue( "phiAK4_recoj3", AK4recojets[2].Phi());
+       fillVariableWithValue( "massAK4_recoj3", AK4recojets[2].M());
      }
 
      if( widejetsReco.size() >= 1 ){
@@ -1071,6 +1187,17 @@ void analysisClass::Loop()
        fillVariableWithValue( "deltaPHIjjAK4", DeltaPhiJJAK4) ;
      }
 
+     if( AK4jets.size() >=3 ){
+       //cout << "IdTight_j2 : " << idTAK4->at(sortedJetIdx[1]) << endl << endl;
+       fillVariableWithValue( "IsPresent_j3", thirdJetPresent);
+       fillVariableWithValue( "IdTight_j3",idTAK4->at(sortedJetIdx[2]));
+       //       std::cout<<"pT terzo jet = "<<AK4jets[2].Pt() << std::endl;
+       fillVariableWithValue( "pTAK4_j3", AK4jets[2].Pt() );
+       fillVariableWithValue( "etaAK4_j3", AK4jets[2].Eta());
+       fillVariableWithValue( "phiAK4_j3", AK4jets[2].Phi());
+       fillVariableWithValue( "massAK4_j3", AK4jets[2].M());
+     }
+
      if( widejets.size() >= 1 ){
 
          fillVariableWithValue( "pTWJ_j1", widejets[0].Pt() );
@@ -1128,6 +1255,8 @@ void analysisClass::Loop()
 	                                                                        // OR DST_L1HTT_BTagScouting_v* (run>=259636)    
 	 fillVariableWithValue("passHLT_L1HTT150",triggerResult->at(3));// DST_L1HTT_CaloScouting_PFScouting_v* (run>=259636)
 
+	 fillVariableWithValue("passHLT_CaloScoutingHT250",triggerResult->at(4));// DST_HT250_CaloScouting_v* 
+
 	 fillVariableWithValue("passHLT_HT450_BtagSeq",triggerResult->at(5));// DST_HT450_PFReco_PFBTagCSVReco_PFScouting_v* (257933<=run<259636) 
 	                                                                     // OR DST_HT450_BTagScouting_v* (run>=259636)    
 	 fillVariableWithValue("passHLT_HT450",triggerResult->at(6));// DST_HT450_PFScouting_v* (run>=259636)        
@@ -1139,35 +1268,71 @@ void analysisClass::Loop()
 
      // Evaluate cuts (but do not apply them)
      evaluateCuts();
-     
+     /*
+     cout<< "Cuts:"<< endl;
+     cout<< "PassJSON: "<< passJSON(runNo, lumi, isData) << endl;
+     cout<< "nVtx: "<< nvtx << endl;
+     cout<< "nVtxreco: "<< nvtxreco << endl;
+     cout<< "IdTIght_j1: "<< idTAK4->at(sortedJetIdx[0]) << endl;
+     cout<< "IdTIght_j2: "<< idTAK4->at(sortedJetIdx[1]) << endl;
+     cout<< "IdTIght_recoj1: "<< idTAK4reco->at(sortedRecoJetIdx[0]) << endl;
+     cout<< "IdTIght_recoj2: "<< idTAK4reco->at(sortedRecoJetIdx[1]) << endl;
+     cout<< "nJet: "<< widejets.size() << endl;
+     cout<< "nJetReco: "<< widejetsReco.size() << endl;
+     if(widejetsReco.size()>=1){
+       cout<< "pTWJ_recoj1: "<< AK4recojets[0].Pt()   << endl;
+       cout<< "etaWJ_recoj1: "<< AK4recojets[0].Eta()   << endl;
+     }
+     if(widejetsReco.size()>=2){
+       cout<< "pTWJ_recoj2: "<< AK4recojets[1].Pt()   << endl;
+       cout<< "etaWJ_recoj2: "<< AK4recojets[1].Eta()   << endl;
+     }
+     if(widejets.size()>=1){
+       cout<< "pTWJ_j1: "<< AK4jets[0].Pt()   << endl;
+       cout<< "etaWJ_j1: "<< AK4jets[0].Eta()   << endl;
+     }
+     if(widejets.size()>=2){
+       cout<< "pTWJ_j2: "<< AK4jets[1].Pt()   << endl;
+       cout<< "etaWJ_j2: "<< AK4jets[1].Eta()   << endl;
+     }
+     */
+
      // optional call to fill a skim with the full content of the input roottuple
      //if( passedCut("nJetFinal") ) fillSkimTree();
      if( passedCut("PassJSON")
 	 && passedCut("nVtx") 
+	 && passedCut("nVtxreco") 
 	 && passedCut("IdTight_j1")
 	 && passedCut("IdTight_j2")
+	 && passedCut("IdTight_recoj1")
+	 && passedCut("IdTight_recoj2")
 	 && passedCut("nJet")
+	 && passedCut("nJetreco")
+	 && passedCut("pTWJ_recoj1")
+	 && passedCut("etaWJ_recoj1")
+	 && passedCut("pTWJ_recoj2")
+	 && passedCut("etaWJ_recoj2")
 	 && passedCut("pTWJ_j1")
 	 && passedCut("etaWJ_j1")
 	 && passedCut("pTWJ_j2")
-	 && passedCut("etaWJ_j2")
-	 && getVariableValue("deltaETAjj") <  getPreCutValue1("DetaJJforTrig") ){
+	 && passedCut("etaWJ_j2") ){ 
+	 //	 && getVariableValue("deltaETAjj") <  getPreCutValue1("DetaJJforTrig") ){
 
-       h_mjj_NoTrigger -> Fill(MJJWideReco); 
+       h_mjj_NoTrigger -> Fill(MJJWide); 
        
        if( (getVariableValue("passHLT_ZeroBias_BtagSeq")||getVariableValue("passHLT_ZeroBias")) )
-	 h_mjj_HLTpass_ZeroBias -> Fill(MJJWideReco);  
+	 h_mjj_HLTpass_ZeroBias -> Fill(MJJWide);  
 
        if( (getVariableValue("passHLT_ZeroBias_BtagSeq")||getVariableValue("passHLT_ZeroBias")) 
 	   && (getVariableValue("passHLT_L1HTT150_BtagSeq")||getVariableValue("passHLT_L1HTT150")) )
-	 h_mjj_HLTpass_ZeroBias_L1HTT150 -> Fill(MJJWideReco);  
+	 h_mjj_HLTpass_ZeroBias_L1HTT150 -> Fill(MJJWide);  
 
        if( (getVariableValue("passHLT_L1HTT150_BtagSeq")||getVariableValue("passHLT_L1HTT150")) )
-	 h_mjj_HLTpass_L1HTT150 -> Fill(MJJWideReco);  
+	 h_mjj_HLTpass_L1HTT150 -> Fill(MJJWide);  
 
        if( (getVariableValue("passHLT_L1HTT150_BtagSeq")||getVariableValue("passHLT_L1HTT150")) 
 	   && (getVariableValue("passHLT_HT450_BtagSeq")||getVariableValue("passHLT_HT450")) )
-	 h_mjj_HLTpass_L1HTT150_HT450 -> Fill(MJJWideReco);  
+	 h_mjj_HLTpass_L1HTT150_HT450 -> Fill(MJJWide);  
        
      }
 
