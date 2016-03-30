@@ -1,0 +1,10 @@
+#!/bin/bash
+
+export SCRAM_ARCH=slc6_amd64_gcc491
+
+cd /cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/
+
+eval `scramv1 runtime -sh`
+
+make all
+./main config/inputList_JEC_HLT_v7_RecoLowerCuts.txt config/cutFile_HLTRecoComparison.txt rootTupleTree/tree output/HLTReco_Comparison/rootFile_JEC_HLT_v7_RecoLowerCuts_pTCut10GeV_ChangedEtaPtBin_HT450_mJJBias_NoCut output/HLTReco_Comparison/cutEfficiency_JEC_HLT_v7_RecoLowerCuts_pTCut10GeV_ChangedEtaPtBin_HT450__mJJBias_NoCut
