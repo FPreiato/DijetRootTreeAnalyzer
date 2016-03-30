@@ -1,0 +1,19 @@
+HLTRecoCorrections
+mJJCorrections
+Plot
+Plot_mJJ
+# Pictures and plots #
+######################
+*.png
+*.pdf
+*.eps
+*.svg
+
+# Rootfiles
+#################
+*.root
+
+
+##################
+\#*
+*~
