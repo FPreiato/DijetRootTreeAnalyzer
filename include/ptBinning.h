@@ -68,12 +68,18 @@ class PtBinning {
       mPtBins.push_back(std::make_pair(pt_min, pt_max));
       }
       */
+
+      //  double ptBins[] = {60, 140, 190, 215, 240, 270, 300, 390, 10000};                                                           
       
-      mPtBins.push_back(std::make_pair(0., 10000.));                        
-      //      mPtBins.push_back(std::make_pair(200., 6000.));                        
+      mPtBins.push_back(std::make_pair(30. , 100.));                        
+      mPtBins.push_back(std::make_pair(100., 300.));                        
+      mPtBins.push_back(std::make_pair(300., 400.)); 
+      mPtBins.push_back(std::make_pair(400., 500.));                                               
+      mPtBins.push_back(std::make_pair(500., 600.));                                               
+      mPtBins.push_back(std::make_pair(600., 700.));
+      // ultimo bin non lo uso per i fit vs pT -> estrapolo ad alto pT                                               
+      mPtBins.push_back(std::make_pair(700., 2500.));                                               
       
-      
-    
     }
 };
 
