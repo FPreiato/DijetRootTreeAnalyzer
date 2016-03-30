@@ -15,6 +15,7 @@
 #include <iomanip>
 #include <TH1F.h>
 #include <TH2F.h>
+#include <TProfile.h>
 #include <math.h>
 #include <stdlib.h>
 
@@ -195,6 +196,10 @@ class baseClass : public rootNtupleClass {
   void CreateUserTH2D(const char* nameAndTitle, Int_t nbinsx, Double_t * x, Int_t nbinsy, Double_t * y );
   void FillUserTH2D(const char*   nameAndTitle, Double_t value_x,  Double_t value_y, Double_t weight=1);
   void FillUserTH2DLower(const char*   nameAndTitle, Double_t value_x,  Double_t value_y, Double_t weight=1);
+  void CreateAndFillUserTProfile(const char*  nameAndTitle, Int_t nbinsx, Double_t xlow, Double_t xup, Double_t ylow, Double_t yup,  Double_t xvalue,  Double_t yvalue, Double_t weight=1);
+  void CreateAndFillUserTProfile(const char*  nameAndTitle, Int_t nbinsx, Double_t xVariableBin[], Double_t ylow, Double_t yup,  Double_t xvalue,  Double_t yvalue, Double_t weight=1);
+
+
 
   void fillSkimTree();
   void fillReducedSkimTree();
@@ -220,6 +225,7 @@ class baseClass : public rootNtupleClass {
   vector<string> orderedCutNames_;
   map<std::string , TH1D*> userTH1Ds_;
   map<std::string , TH2D*> userTH2Ds_;
+  map<std::string , TProfile*> userTProfiles_;
   void init();
   int readInputList();
   void readCutFile();
