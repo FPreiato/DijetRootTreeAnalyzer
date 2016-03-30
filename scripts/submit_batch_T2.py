@@ -35,7 +35,7 @@ parser.add_option('-I', '--interactive',
 ################################################
 
 os.system("mkdir -p "+opt.output)
-os.system("rm -rf batch")
+#os.system("rm -rf batch")
 os.system("mkdir -p batch")
 pwd = os.environ['PWD']
 
