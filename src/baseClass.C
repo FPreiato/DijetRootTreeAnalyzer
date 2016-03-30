@@ -1384,7 +1384,41 @@ void baseClass::FillUserTH1D(const char* nameAndTitle, Double_t value, Double_t 
       nh_h->second->Fill(value, weight);
     }
 }
-
+////////////////////
+void baseClass::CreateAndFillUserTProfile(const char* nameAndTitle, Int_t nbinsx, Double_t xlow, Double_t xup, Double_t ylow, Double_t yup, Double_t xvalue, Double_t yvalue, Double_t weight)
+{
+  map<std::string , TProfile*>::iterator nh_h = userTProfiles_.find(std::string(nameAndTitle));
+  TProfile * h;
+  if( nh_h == userTProfiles_.end() )
+    {
+      h = new TProfile(nameAndTitle, nameAndTitle, nbinsx, xlow, xup, ylow, yup);
+      h->Sumw2();
+      userTProfiles_[std::string(nameAndTitle)] = h;
+      h->Fill(xvalue, yvalue);
+    }
+  else
+    {
+      nh_h->second->Fill(xvalue, yvalue, weight);
+    }
+}
+//////////////////
+void baseClass::CreateAndFillUserTProfile(const char* nameAndTitle, Int_t nbinsx, Double_t xVariableBin[], Double_t ylow, Double_t yup, Double_t xvalue, Double_t yvalue, Double_t weight)
+{
+  map<std::string , TProfile*>::iterator nh_h = userTProfiles_.find(std::string(nameAndTitle));
+  TProfile * h;
+  if( nh_h == userTProfiles_.end() )
+    {
+      h = new TProfile(nameAndTitle, nameAndTitle, nbinsx, xVariableBin, ylow, yup);
+      h->Sumw2();
+      userTProfiles_[std::string(nameAndTitle)] = h;
+      h->Fill(xvalue, yvalue);
+    }
+  else
+    {
+      nh_h->second->Fill(xvalue, yvalue, weight);
+    }
+}
+//////////////////
 void baseClass::CreateAndFillUserTH2D(const char* nameAndTitle, Int_t nbinsx, Double_t xlow, Double_t xup, Int_t nbinsy, Double_t ylow, Double_t yup,  Double_t value_x,  Double_t value_y, Double_t weight)
 {
   map<std::string , TH2D*>::iterator nh_h = userTH2Ds_.find(std::string(nameAndTitle));
@@ -1501,6 +1535,12 @@ bool baseClass::writeUserHistos()
       uh_h->second->Write();
     }
   for (map<std::string, TH2D*>::iterator uh_h = userTH2Ds_.begin(); uh_h != userTH2Ds_.end(); uh_h++)
+    {
+      //      STDOUT("uh_h = "<< uh_h->first<<" "<< uh_h->second );
+      output_root_->cd();
+      uh_h->second->Write();
+    }
+  for (map<std::string, TProfile*>::iterator uh_h = userTProfiles_.begin(); uh_h != userTProfiles_.end(); uh_h++)
     {
       //      STDOUT("uh_h = "<< uh_h->first<<" "<< uh_h->second );
       output_root_->cd();
