@@ -59,3 +59,5 @@ Thumbs.db
 # Directory #
 ###########
 batch
+main
+src/rootNtupleClass.C
