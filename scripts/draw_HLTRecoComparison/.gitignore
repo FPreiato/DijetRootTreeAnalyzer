@@ -2,6 +2,7 @@ drawAsymmetry
 drawHLTRecoComparison
 drawHLTRecoComparison_2Files
 drawHLTRecoComparison_Binning
+drawRawJetsStudy
 *Test*
 */*.png
 Plot
