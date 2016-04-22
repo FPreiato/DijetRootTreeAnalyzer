@@ -41,12 +41,22 @@ SOBJECTS	= $(SOURCES:.$(SrcSuf)=.$(DllSuf))
 
 ###
 
-all: HLTRecoCorrections mJJCorrections
+
+all: AK4Jets_Corrections AK4Jets_ClosureTest WideJets_Corrections mJJCorrections
 
 clean:
 	@rm *.o;
 
 HLTRecoCorrections: HLTRecoCorrections.o
+	$(LD) $(LIBS) $(SOFLAGS) $(LDFLAGS) $+ -o $@
+
+AK4Jets_Corrections: AK4Jets_Corrections.o
+	$(LD) $(LIBS) $(SOFLAGS) $(LDFLAGS) $+ -o $@
+
+AK4Jets_ClosureTest: AK4Jets_ClosureTest.o
+	$(LD) $(LIBS) $(SOFLAGS) $(LDFLAGS) $+ -o $@
+
+WideJets_Corrections: WideJets_Corrections.o
 	$(LD) $(LIBS) $(SOFLAGS) $(LDFLAGS) $+ -o $@
 
 mJJCorrections: mJJCorrections.o
@@ -55,7 +65,6 @@ mJJCorrections: mJJCorrections.o
 
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
-
 
 # Make the dependencies
 %.d: %.cpp

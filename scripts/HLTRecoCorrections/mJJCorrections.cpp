@@ -23,6 +23,9 @@
 
 using namespace std;
 
+bool ClosureTest = true;
+bool ComputeCorrections = false;
+
 map<std::string , TGraphErrors*> userTGraphs_;
 
 void CreateAndFillUserTGraph(const char* nameAndTitle, Int_t npoint, Double_t xvalue, Double_t yvalue, Double_t xErr, Double_t yErr)
@@ -43,14 +46,8 @@ void CreateAndFillUserTGraph(const char* nameAndTitle, Int_t npoint, Double_t xv
     }
 }
 
-
-//double pTMeanArray[] = {30, 100, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000};
-//int binnum = sizeof(pTMeanArray)/sizeof(double) - 1;
-//double etaBins[] = {-2.50, -1.50, -1.25, -1.00, -0.75, -0.50, -0.25, 0.00, 0.25, 0.50, 0.75, 1.00, 1.25, 1.50, 2.50};
-//intbinnumEta = sizeof(etaBins)/sizeof(double) -1;                                                    
-
 //TH2D *Histo_Corrections = new TH2D("Histo_Corrections","Corrections", binnumEta, etaBins, binnum, pTMeanArray);
-TH1D *Histo_Corrections = new TH1D("Histo_Corrections","Corrections", 25, 500, 3000);
+TH1D *Histo_Corrections = new TH1D("Histo_Corrections","Corrections", 26, 400, 3000);
 
 /////////////////////////////////////////////////////////////////
 int main(int argc, char* argv[]) {
@@ -69,7 +66,11 @@ int main(int argc, char* argv[]) {
 
   TString dataFileName_HT450;
   //  dataFileName_HT450 = TString::Format("../../output/HLTReco_Comparison/rootFile_JEC_HLT_v7_RecoLowerCuts_pTCut10GeV_FinerPtBin_HT450.root");
-  dataFileName_HT450 = TString::Format("../../output/HLTReco_mJJComparison/rootFile_JEC_HLT_v7_SamePtCuts_HT450.root");
+  //  dataFileName_HT450 = TString::Format("../../output/HLTReco_mJJComparison/rootFile_JEC_HLT_v7_SamePtCuts_HT450.root");
+
+  if(ComputeCorrections)  dataFileName_HT450 = TString::Format("../../output/HLTReco_mJJComparison/rootFile_JEC_HLT_v7_SamePtCuts_mJJCut400_L1HTT150_HT450.root");
+  if(ClosureTest)  dataFileName_HT450 = TString::Format("../../output/HLTReco_mJJClosureTest/rootFile_mJJClosureTest_mJJCut400_L1HTT150_HT450_Check.root");
+
   TFile* dataFile_HT450 = TFile::Open(dataFileName_HT450);
   if (dataFile_HT450) {
     std::cout << "Opened data file '" << dataFileName_HT450 << "'." << std::endl;
@@ -77,93 +78,170 @@ int main(int argc, char* argv[]) {
 
   gErrorIgnoreLevel = kWarning;
 
+  TF1* lineup      = new TF1("lineup", " 0.02", -2.5, 3000);
+  TF1* linedown = new TF1("linedown", "-0.02", -2.5, 3000);
+  lineup->SetLineColor(kBlack);
+  lineup->SetLineStyle(2);
+  linedown->SetLineColor(kBlack);
+  linedown->SetLineStyle(2);
 
-  mJJBinning mMjjBinning;
-  size_t mJJBinningSize = mMjjBinning.size();
+
+  if(ComputeCorrections){
+    mJJBinning mMjjBinning;
+    size_t mJJBinningSize = mMjjBinning.size();
+
+    // disegno bias 1D 
+    for(size_t jj = 0; jj < mJJBinningSize ; jj++){ 
+    
+      std::pair<float, float> mJJBins = mMjjBinning.getBinValue(jj);	       
+      std::string Histo = TString::Format("mJJBias_mJJ_%i_%i", (int) mJJBins.first, (int) mJJBins.second ).Data();
+      cout<< Histo.c_str() << endl;
+    
+      TH1D *h  = (TH1D*)dataFile_HT450->Get( Histo.c_str() );
+      if( !h) continue;
+    
+      TCanvas *c1 = new TCanvas("c1", "c1", 800, 800);
+      h->GetXaxis()->SetRangeUser(-0.5, 0.5);
+      h->SetMarkerStyle(20);
+      h->SetMarkerSize(1.5);
+      h->Draw();
+      c1->SaveAs( Form("Plot_mJJ/%s.png", Histo.c_str() ) );
+    }
+
+    ///////
+    TH1D *h2  = (TH1D*)dataFile_HT450->Get( "mJJBias_vs_Eta" );
+    TCanvas *c3 = new TCanvas("c3", "c3", 800, 800);
+    h2->SetStats(0);
+    h2->SetTitle("");
+    h2->SetXTitle("#eta");
+    h2->SetYTitle("mJJ Bias");
+    h2-> GetYaxis()->SetTitleOffset(1.4);
+    h2->GetXaxis()->SetRangeUser(-2.5, 2.5);
+    h2->SetMaximum(0.1);
+    h2->SetMinimum(-0.1);
+    h2 -> SetMarkerStyle(20);
+    h2 -> SetMarkerSize(1.5);
+    c3->SetLeftMargin(0.13);
+    h2 -> Draw();
+    lineup->Draw("same");
+    linedown->Draw("same");
+    c3-> SaveAs( "Plot_mJJ/mJJBias_vs_Eta.png" );   
+
+    //Histo da fittare per le correzioni
+    TH1D *h  = (TH1D*)dataFile_HT450->Get( "mJJBias_vs_Mjj" );
   
-  for(size_t jj = 0; jj < mJJBinningSize ; jj++){ 
-    
-    std::pair<float, float> mJJBins = mMjjBinning.getBinValue(jj);	       
-    std::string Histo = TString::Format("mJJBias_mJJ_%i_%i", (int) mJJBins.first, (int) mJJBins.second ).Data();
-    cout<< Histo.c_str() << endl;
-    
-    TH1D *h  = (TH1D*)dataFile_HT450->Get( Histo.c_str() );
-    
+    //  TF1* functionFit = new TF1( "functionFit", "-[0]*(log(x)*log(x)) + [1]*log(x)+[2]", 500, 2500); // quadratica log
+    TF1* functionFit = new TF1( "functionFit", "[0]*(log(x)*log(x)*log(x)) + [1]*(log(x)*log(x)) + [2]*log(x) + [3]", 400, 2100); // quadratica log
+    // functionFit->SetParLimits(0, 0., 10000);
+    // functionFit->SetParLimits(1, 0., 10000);
+  
     TCanvas *c1 = new TCanvas("c1", "c1", 800, 800);
-    h->GetXaxis()->SetRangeUser(-0.5, 0.5);
-    h->SetMarkerStyle(20);
-    h->SetMarkerSize(1.5);
-    h->Draw();
-    c1->SaveAs( Form("Plot_mJJ/%s.png", Histo.c_str() ) );
-  }
+    h->SetStats(0);
+    h->SetTitle("");
+    h->SetXTitle("mJJ [GeV]");
+    h->SetYTitle("mJJ Bias");
+    h-> GetYaxis()->SetTitleOffset(1.4);
+    h->GetXaxis()->SetRangeUser(400,2100);
+    h->SetMaximum(0.1);
+    h->SetMinimum(-0.1);
+    h -> SetMarkerStyle(20);
+    h -> SetMarkerSize(1.5);
+    h -> Fit(functionFit, "R");
+    c1->SetLeftMargin(0.13);
+    h -> Draw();
+    lineup->Draw("same");
+    linedown->Draw("same");
+    c1-> SaveAs( "Plot_mJJ/mJJBias_vs_Mjj.png" );
   
-
-  TH1D *h  = (TH1D*)dataFile_HT450->Get( "mJJBias_vs_Mjj" );
+    double Par0       =  functionFit->GetParameter(0);                                                                                                                           
+    double Par1       =  functionFit->GetParameter(1);                                                                                                               
+    double Par2       =  functionFit->GetParameter(2);             
+    double Par3       =  functionFit->GetParameter(3);             
+    double NDF       =  functionFit->GetNDF();
+    double Chisquare      =  functionFit->GetChisquare();
+    cout<< "Par 0 = " << Par0 << endl;                                                                                                                                           
+    cout<< "Par 1 = " << Par1 << endl;                                                                                                                                           
+    cout<< "Par 2 = " << Par2 << endl;                                                                                                                                           
+    cout<< "Par 3 = " << Par3 << endl;                                                                                                                                           
+    cout<< "Chisquare / NDF = " << Chisquare<<"/"<<NDF << endl;
   
-  //  TF1* functionFit = new TF1( "functionFit", "-[0]*(log(x)*log(x)) + [1]*log(x)+[2]", 500, 2500); // quadratica log
-  TF1* functionFit = new TF1( "functionFit", "[0]*(log(x)*log(x)*log(x)) + [1]*(log(x)*log(x)) + [2]*log(x) + [3]", 500, 2100); // quadratica log
-  // functionFit->SetParLimits(0, 0., 10000);
-  // functionFit->SetParLimits(1, 0., 10000);
-  
-  TCanvas *c1 = new TCanvas("c1", "c1", 800, 800);
-  h->SetStats(0);
-  h->SetTitle("");
-  h->SetXTitle("mJJ [GeV]");
-  h->SetYTitle("mJJ Bias");
-  h-> GetYaxis()->SetTitleOffset(1.4);
-  h->GetXaxis()->SetRangeUser(500,2100);
-  h -> SetMarkerStyle(20);
-  h -> SetMarkerSize(1.5);
-  h -> Fit(functionFit, "R");
-  c1->SetLeftMargin(0.13);
-  h -> Draw();
-  c1-> SaveAs( "Plot_mJJ/mJJBias_vs_Mjj.png" );
-  
-  double Par0       =  functionFit->GetParameter(0);                                                                                                                           
-  double Par1       =  functionFit->GetParameter(1);                                                                                                               
-  double Par2       =  functionFit->GetParameter(2);             
-  double Par3       =  functionFit->GetParameter(3);             
-  double NDF       =  functionFit->GetNDF();
-  double Chisquare      =  functionFit->GetChisquare();
-  cout<< "Par 0 = " << Par0 << endl;                                                                                                                                           
-  cout<< "Par 1 = " << Par1 << endl;                                                                                                                                           
-  cout<< "Par 2 = " << Par2 << endl;                                                                                                                                           
-  cout<< "Par 3 = " << Par3 << endl;                                                                                                                                           
-  cout<< "Chisquare / NDF = " << Chisquare<<"/"<<NDF << endl;
-  
-  for(size_t jj = 0; jj < mJJBinningSize ; jj++){ 
-    std::pair<float, float> mJJBins = mMjjBinning.getBinValue(jj);	       
-    int mJJMin = mJJBins.first;
-    int mJJMax = mJJBins.second;
-    double mJJMean= (mJJMin + mJJMax) /2. ;
+    for(size_t jj = 0; jj < mJJBinningSize ; jj++){ 
+      std::pair<float, float> mJJBins = mMjjBinning.getBinValue(jj);	       
+      int mJJMin = mJJBins.first;
+      int mJJMax = mJJBins.second;
+      double mJJMean= (mJJMin + mJJMax) /2. ;
     
-    //    double mJJBiasFit = -Par0*(log(mJJMean)*log(mJJMean)) + Par1*log(mJJMean) + Par2;                                                                                                      
-    double mJJBiasFit = Par0*(log(mJJMean)*log(mJJMean)*log(mJJMean)) + Par1*(log(mJJMean)*log(mJJMean)) + Par2*log(mJJMean) + Par3; 
-    cout<<"mJJ Mean = " << mJJMean <<endl;
-    cout<<"mJJ Bias from fit = " << mJJBiasFit <<endl;
-    
-    Histo_Corrections -> SetBinContent(jj+1, mJJBiasFit);
+      //    double mJJBiasFit = -Par0*(log(mJJMean)*log(mJJMean)) + Par1*log(mJJMean) + Par2;                                                                                                      
+      double mJJBiasFit = Par0*(log(mJJMean)*log(mJJMean)*log(mJJMean)) + Par1*(log(mJJMean)*log(mJJMean)) + Par2*log(mJJMean) + Par3; 
+      cout<<"mJJ Mean = " << mJJMean <<endl;
+      cout<<"mJJ Bias from fit = " << mJJBiasFit <<endl;    
+      Histo_Corrections -> SetBinContent(jj+1, mJJBiasFit);
+    }
+  
+    TCanvas *c2 = new TCanvas("c2", "c2", 800, 800);                                                                                       
+    Histo_Corrections->SetStats(0);                                                                          
+    Histo_Corrections->SetTitle("");    
+    Histo_Corrections->SetXTitle("mJJ [GeV]");              
+    Histo_Corrections->SetYTitle("Correction");                                                         
+    Histo_Corrections->SetMaximum(0.1);
+    Histo_Corrections->SetMinimum(-0.1);
+    Histo_Corrections-> GetYaxis()->SetTitleOffset(1.4);                                                
+    Histo_Corrections-> GetXaxis()->SetRangeUser(400, 3000);                                 
+    Histo_Corrections-> SetMarkerStyle(20);                                                                          
+    Histo_Corrections-> SetMarkerSize(1.5);                                                     
+    c2->SetLeftMargin(0.13);                                                                                               
+    Histo_Corrections-> Draw();                                                                                                           
+    lineup->Draw("same");
+    linedown->Draw("same");
+    c2-> SaveAs( "Plot_mJJ/Histo_Corrections.png" );   
+
+    TFile* outputFile= new TFile("mJJCorrections_JEC_HLT_v7.root","RECREATE");                                                                                                      
+    outputFile->cd();                                                                                                                                                            
+    Histo_Corrections -> Write();                                                                                                                                                
+    outputFile->Close();   
   }
 
+  if(ClosureTest){
 
-  TCanvas *c2 = new TCanvas("c2", "c2", 800, 800);                                                                                       
-  Histo_Corrections->SetStats(0);                                                                          
-  Histo_Corrections->SetTitle("");    
-  Histo_Corrections->SetXTitle("mJJ [GeV]");              
-  Histo_Corrections->SetYTitle("Correction");                                                                                              Histo_Corrections-> GetYaxis()->SetTitleOffset(1.4);                                                
-  Histo_Corrections-> GetXaxis()->SetRangeUser(500,2100);                                 
-  Histo_Corrections-> SetMarkerStyle(20);                                                                          
-  Histo_Corrections-> SetMarkerSize(1.5);                                                     
-  c2->SetLeftMargin(0.13);                                                                                               
-  Histo_Corrections-> Draw();                                                                                                           
-  c2-> SaveAs( "Plot_mJJ/Histo_Corrections.png" );   
+    TH1D *h  = (TH1D*)dataFile_HT450->Get( "mJJBias_vs_Mjj" );    
+    TCanvas *c1 = new TCanvas("c1", "c1", 800, 800);
+    h->SetStats(0);
+    h->SetTitle("");
+    h->SetXTitle("mJJ [GeV]");
+    h->SetYTitle("mJJ Bias");
+    h-> GetYaxis()->SetTitleOffset(1.4);
+    h->GetXaxis()->SetRangeUser(400,2100);
+    h->SetMaximum(0.1);
+    h->SetMinimum(-0.1);
+    h -> SetMarkerStyle(20);
+    h -> SetMarkerSize(1.5);
+    c1->SetLeftMargin(0.13);
+    h -> Draw();
+    lineup->Draw("same");
+    linedown->Draw("same");
+    c1-> SaveAs( "Plot_mJJ/ClosureTest_mJJBias_vs_Mjj.png" );   
+
+    TH1D *h2  = (TH1D*)dataFile_HT450->Get( "mJJBias_vs_Eta" );
+    TCanvas *c2 = new TCanvas("c2", "c2", 800, 800);
+    h2->SetStats(0);
+    h2->SetTitle("");
+    h2->SetXTitle("#eta");
+    h2->SetYTitle("mJJ Bias");
+    h2-> GetYaxis()->SetTitleOffset(1.4);
+    h2->GetXaxis()->SetRangeUser(-2.5, 2.5);
+    h2->SetMaximum(0.1);
+    h2->SetMinimum(-0.1);
+    h2 -> SetMarkerStyle(20);
+    h2 -> SetMarkerSize(1.5);
+    c2->SetLeftMargin(0.13);
+    h2 -> Draw();
+    lineup->Draw("same");
+    linedown->Draw("same");
+    c2-> SaveAs( "Plot_mJJ/ClosureTest_mJJBias_vs_Eta.png" );   
 
 
+  }
 
-  TFile* outputFile= new TFile("mJJCorrections_JEC_HLT_v7.root","RECREATE");                                                                                                      
-  outputFile->cd();                                                                                                                                                            
-  Histo_Corrections -> Write();                                                                                                                                                
-  outputFile->Close();   
   
   return 0;
   
