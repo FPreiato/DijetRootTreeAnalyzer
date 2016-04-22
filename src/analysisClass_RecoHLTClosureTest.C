@@ -13,7 +13,7 @@
 #include "mJJBinning.h"
 #include "vertexBinning.h"
 
-bool verbose = false;
+bool verbose;
 bool AK4Comparison = true;                                                                                                                                                  
 bool WJComparison = true; 
 int Counter = 0;   // debugging -- can be erased    
@@ -38,9 +38,10 @@ analysisClass::analysisClass(string * inputList, string * cutFile, string * tree
   DeltaR_ = getPreCutValue1("DeltaR");
   DeltaEtaJJ_ = getPreCutValue1("DeltaEtaJJ");
   MJJCut_ = getPreCutValue1("MJJCut");
+  verbose = getPreCutValue1("verbose");
 
   TString dataFileName_Corrections;
-  dataFileName_Corrections = TString::Format("/cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/scripts/HLTRecoCorrections/Corrections_JEC_HLT_v7.root");
+  dataFileName_Corrections = TString::Format("/cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/scripts/HLTRecoCorrections/AK4JetsCorrections_JEC_HLT_v7.root");
   TFile* dataFile_Corrections = TFile::Open(dataFileName_Corrections);
   Histo_Corrections = (TH2D*)dataFile_Corrections->Get("Histo_Corrections");
 
@@ -72,6 +73,10 @@ void analysisClass::Loop()
    int  binnum = sizeof(ptBins)/sizeof(double) -1;                                                                                                      
    TH1F* h_pTJet_Binned = new TH1F("pTJet_Binned","pTJet", binnum, ptBins);
 
+   //   double etaBins[] = {-2.50, -1.50, -1.25, -1.00, -0.75, -0.50, -0.25, 0.00, 0.25, 0.50, 0.75, 1.00, 1.25, 1.50, 2.50};  
+   double etaBins[] = {0.00, 0.50, 1.00, 1.50, 2.50};  
+   int  binnumEta = sizeof(etaBins)/sizeof(double) -1;                                                                                                      
+   
    /////////initialize variables
 
    Long64_t nentries = fChain->GetEntriesFast();
@@ -99,36 +104,32 @@ void analysisClass::Loop()
      // cout<< "Usato "<<jentry<<endl;
 
      ////////////////////// User's code starts here ///////////////////////
-     
-     if(verbose){
-     std::cout<< std::endl;
-     std::cout<<"Start"<< std::endl;
-     std::cout<<"PassJSON "<< PassJSON<<std::endl;
-
-     std::cout<<"AK4"<< std::endl;
-     std::cout<<"Reco1"<< std::endl;
-     std::cout<<"Pt: "<< pTAK4_recoj1<<" eta: "<<etaAK4_recoj1<<" phi: "<<phiAK4_recoj1<< std::endl;
-     std::cout<<"Reco2"<< std::endl;
-     std::cout<<"Pt: "<< pTAK4_recoj2<<" eta: "<<etaAK4_recoj2<<" phi: "<<phiAK4_recoj2<< std::endl;
-     std::cout<<"Reco3"<< std::endl;
-     std::cout<<"Pt: "<< pTAK4_recoj3<<" eta: "<<etaAK4_recoj3<<" phi: "<<phiAK4_recoj3<< std::endl;
-     std::cout<<"HLT 1"<< std::endl;
-     std::cout<<"Pt: "<< pTAK4_j1<<" eta: "<<etaAK4_j1<<" phi: "<<phiAK4_j1<< std::endl;
-     std::cout<<"HLT2"<< std::endl;
-     std::cout<<"Pt: "<< pTAK4_j2<<" eta: "<<etaAK4_j2<<" phi: "<<phiAK4_j2<< std::endl;
-     std::cout<<"HLT3"<< std::endl;
-     std::cout<<"Pt: "<< pTAK4_j3<<" eta: "<<etaAK4_j3<<" phi: "<<phiAK4_j3<< std::endl;
-     }
-
-     //     if( !PassJSON) std::cout << "TEST  CONFIGURATION: Pass JSON FALSE"<<std::endl;
-     //       if( deltaETAjjreco < DeltaEtaJJ_ && deltaETAjj < DeltaEtaJJ_){
-     //	 if( mjjreco > MJJCut_ ){ // cut only on mJJ Reco
 
      if( PassJSON){
+     
+       if(verbose){
+	 std::cout<< std::endl;
+	 std::cout<<"Start"<< std::endl;
+	 std::cout<<"PassJSON "<< PassJSON<<std::endl;
+
+	 std::cout<<"AK4"<< std::endl;
+	 std::cout<<"Reco1"<< std::endl;
+	 std::cout<<"Pt: "<< pTAK4_recoj1<<" eta: "<<etaAK4_recoj1<<" phi: "<<phiAK4_recoj1<< std::endl;
+	 std::cout<<"Reco2"<< std::endl;
+	 std::cout<<"Pt: "<< pTAK4_recoj2<<" eta: "<<etaAK4_recoj2<<" phi: "<<phiAK4_recoj2<< std::endl;
+	 std::cout<<"Reco3"<< std::endl;
+	 std::cout<<"Pt: "<< pTAK4_recoj3<<" eta: "<<etaAK4_recoj3<<" phi: "<<phiAK4_recoj3<< std::endl;
+	 std::cout<<"HLT 1"<< std::endl;
+	 std::cout<<"Pt: "<< pTAK4_j1<<" eta: "<<etaAK4_j1<<" phi: "<<phiAK4_j1<< std::endl;
+	 std::cout<<"HLT2"<< std::endl;
+	 std::cout<<"Pt: "<< pTAK4_j2<<" eta: "<<etaAK4_j2<<" phi: "<<phiAK4_j2<< std::endl;
+	 std::cout<<"HLT3"<< std::endl;
+	 std::cout<<"Pt: "<< pTAK4_j3<<" eta: "<<etaAK4_j3<<" phi: "<<phiAK4_j3<< std::endl;
+       }
 
        CreateAndFillUserTH1D("mJJ_NoTrigger", 30, 0, 3000, mjjreco); 
 
-       if( passHLT_ZeroBias_BtagSeq || passHLT_ZeroBias || passHLT_L1DoubleMu_BtagSeq || passHLT_L1DoubleMu || passHLT_CaloJet40_BtagSeq || passHLT_CaloJet40 || passHLT_L1HTT150_BtagSeq || passHLT_L1HTT150 || passHLT_CaloScoutingHT250 || passHLT_HT450_BtagSeq || passHLT_HT450 || passHLT_PFHT800 || passHLT_PFHT650MJJ950 || passHLT_PFHT650MJJ900 ){
+       if( passHLT_ZeroBias_BtagSeq || passHLT_ZeroBias || passHLT_L1DoubleMu_BtagSeq || passHLT_L1DoubleMu || passHLT_CaloJet40_BtagSeq || passHLT_CaloJet40 || passHLT_L1HTT150_BtagSeq || passHLT_L1HTT150 || passHLT_CaloScoutingHT250 || passHLT_HT450_BtagSeq || passHLT_HT450){
 	 CreateAndFillUserTH1D("mJJ_passTriggers", 30, 0, 3000, mjjreco); 
 	 CreateAndFillUserTH1D("deltaEtaJJ_passTriggers", 100, 0, 3, deltaETAjjreco); 
        }
@@ -174,35 +175,17 @@ void analysisClass::Loop()
 	 CreateAndFillUserTH1D("mJJ_passHLT_HT450", 30, 0, 3000, mjjreco); 
 	 CreateAndFillUserTH1D("deltaEtaJJ_passHLT_HT450", 100, 0, 3, deltaETAjjreco); 
        }
-       // #7
-       CreateAndFillUserTH1D("passHLT_PFHT800", 2 , -0.5, 1.5, passHLT_PFHT800);
-       if( passHLT_PFHT800 ){
-	 CreateAndFillUserTH1D("mJJ_passHLT_PFHT800", 30, 0, 3000, mjjreco); 
-	 CreateAndFillUserTH1D("deltaEtaJJ_passHLT_PFHT800", 100, 0, 3, deltaETAjjreco); 
-       }
-       // #8
-       CreateAndFillUserTH1D("passHLT_PFHT650MJJ950", 2 , -0.5, 1.5, passHLT_PFHT650MJJ950);
-       if( passHLT_PFHT650MJJ950 ){
-	 CreateAndFillUserTH1D("mJJ_passHLT_PFHT650MJJ950", 30, 0, 3000, mjjreco); 
-	 CreateAndFillUserTH1D("deltaEtaJJ_passHLT_PFHT650MJJ950", 100, 0, 3, deltaETAjjreco); 
-       }
-       // #9
-       CreateAndFillUserTH1D("passHLT_PFHT650MJJ900", 2 , -0.5, 1.5, passHLT_PFHT650MJJ900);
-       if( passHLT_PFHT650MJJ900 ){
-	 CreateAndFillUserTH1D("mJJ_passHLT_PFHT650MJJ900", 30, 0, 3000, mjjreco); 
-	 CreateAndFillUserTH1D("deltaEtaJJ_passHLT_PFHT650MJJ900", 100, 0, 3, deltaETAjjreco); 
-       }
        //////////////////// end of trigger study
-       //  if( mjj > MJJCut_ ){ // cut only on mJJ HLT	   
-       //  if( passHLT_ZeroBias_BtagSeq || passHLT_ZeroBias || passHLT_L1DoubleMu_BtagSeq || passHLT_L1DoubleMu || passHLT_CaloJet40_BtagSeq || passHLT_CaloJet40 || passHLT_L1HTT150_BtagSeq || passHLT_L1HTT150 || passHLT_CaloScoutingHT250 || passHLT_HT450_BtagSeq || passHLT_HT450 || passHLT_PFHT800 || passHLT_PFHT650MJJ950 || passHLT_PFHT650MJJ900 ){
+
+       //       if( passHLT_ZeroBias_BtagSeq || passHLT_ZeroBias || passHLT_L1DoubleMu_BtagSeq || passHLT_L1DoubleMu || passHLT_CaloJet40_BtagSeq || passHLT_CaloJet40 || passHLT_L1HTT150_BtagSeq || passHLT_L1HTT150 || passHLT_CaloScoutingHT250 || passHLT_HT450_BtagSeq || passHLT_HT450 ){
 
        // trigger selected
        //   if( passHLT_ZeroBias_BtagSeq || passHLT_ZeroBias ){ // #1
-       //   if( passHLT_L1DoubleMu_BtagSeq || passHLT_L1DoubleMu ){ // #2
+       if( passHLT_L1DoubleMu_BtagSeq || passHLT_L1DoubleMu ){ // #2
        //   if( passHLT_CaloJet40_BtagSeq || passHLT_CaloJet40 ){ // #3
        //   if( passHLT_L1HTT150_BtagSeq || passHLT_L1HTT150 ){ // #4
        //   if( passHLT_CaloScoutingHT250 ){ // #5
-       if( passHLT_HT450_BtagSeq || passHLT_HT450 ){ // #6
+       //   if( passHLT_HT450_BtagSeq || passHLT_HT450 ){ // #6
 	 
 	 CreateAndFillUserTH1D("AK4_HTReco", 20 , 0, 2000, htAK4reco);
 	 CreateAndFillUserTH1D("AK4_HTHLT", 20 , 0, 2000, htAK4);
@@ -352,16 +335,16 @@ void analysisClass::Loop()
 
 	       // correggo qui i jet HLT
 	       //debug                                                                                                    
-	       /*                                                                                                         
-	       int etabinHisto = Histo_Corrections->GetXaxis()->FindBin(AK4jets[ii].Eta());
+	       if(verbose){
+		 int etabinHisto = Histo_Corrections->GetXaxis()->FindBin( fabs(AK4jets[ii].Eta() ));
 	       int ptbinHisto  = Histo_Corrections->GetYaxis()->FindBin(AK4jets[ii].Pt());                                
 	       if(verbose)             cout<< "eta bin= "<<etabinHisto << " pt bin= "<< ptbinHisto <<endl;                
 	       double correction1 = Histo_Corrections-> GetBinContent( etabinHisto, ptbinHisto);                          
-	       cout<< "correction1 = "<< correction1<<endl;                                                               
-	       */
-
-	       double correction = 1 + Histo_Corrections-> GetBinContent( Histo_Corrections->GetXaxis()->FindBin(AK4jets[ii].Eta()), Histo_Corrections->GetYaxis()->FindBin(AK4jets[ii].Pt()) );
-	       if(verbose) cout<< "correction = "<< correction<<endl;
+	       cout<< "correction = "<< correction1<<endl;                                                               
+	       }
+	       
+	       double correction = 1 + Histo_Corrections-> GetBinContent( Histo_Corrections->GetXaxis()->FindBin( fabs(AK4jets[ii].Eta()) ), Histo_Corrections->GetYaxis()->FindBin(AK4jets[ii].Pt()) );
+	       if(verbose) cout<< "1+ correction = "<< correction<<endl;
 	       
 	       double pTCorr = AK4jets[ii].Pt() * correction;
 	       if(verbose) cout<< "pT corretto = "<< pTCorr<<endl;
@@ -413,7 +396,7 @@ void analysisClass::Loop()
 	       double pTBias = (AK4recojets[IdxMatched.at(ii)].Pt() - pTCorr ) / pTCorr;
 	       if(verbose) std::cout<<"pT Bias= "<<pTBias << std::endl;
 
-	       int AK4_etaBin = mEtaBinning.getBin( fabs(AK4jets[ii].Eta()) );
+	       int AK4_etaBin = mEtaBinning.getBin(  fabs(AK4jets[ii].Eta()) );
 	       int AK4_ptBin   = mPtBinning.getPtBin( pTCorr );
 	       std::pair<float, float> AK4_ptBins = mPtBinning.getBinValue( AK4_ptBin );
 	       std::string AK4_etaName = mEtaBinning.getBinName( AK4_etaBin );
@@ -433,7 +416,8 @@ void analysisClass::Loop()
 	       }
 
 	       CreateAndFillUserTH1D("AK4_pTBias", 300, -2, 2, pTBias );
-	       CreateAndFillUserTH1D( Form("AK4_pTBias_%s", AK4_Bin.c_str()), 300, -2., 2., pTBias );
+	       // devo guardare questi e... --> fit per prendere il picco
+	       CreateAndFillUserTH1D( Form("AK4_pTBias_%s", AK4_Bin.c_str()), 1200, -2., 2., pTBias );
 	       
 	       // bias vs HLT quantity
 	       ////// TProfile: pTBias vs nVtx
@@ -450,6 +434,8 @@ void analysisClass::Loop()
 	       CreateAndFillUserTProfile( Form("AK4_pTBias_vs_Eta_%s", AK4_PtBin.c_str()),  20, -2.5, 2.5, -2., 2.,      AK4jets[ii].Eta(), pTBias );
 	       CreateAndFillUserTProfile( Form("AK4_pT_vs_EtaReco_%s", AK4_PtBin.c_str()), 20, -2.5, 2.5, 0., 5000., AK4recojets[IdxMatched.at(ii)].Eta(), AK4recojets[IdxMatched.at(ii)].Pt() );
 	       CreateAndFillUserTProfile( Form("AK4_pT_vs_EtaHLT_%s", AK4_PtBin.c_str()),  20, -2.5, 2.5, 0., 5000., AK4jets[ii].Eta(), pTCorr );
+	       // ...e questo che e' quello importante -- adesso sto usando il bias 1D
+	       CreateAndFillUserTProfile( Form("AK4_pTBias_vs_Eta_VariableBin_%s", AK4_PtBin.c_str()),  binnumEta, etaBins, -2., 2., AK4jets[ii].Eta(), pTBias );
 	       ////// TProfile: pTBias vs Pt
 	       CreateAndFillUserTProfile("AK4_pTBias_vs_Pt",  50, 0., 5000., -2., 2.,      pTCorr, pTBias );
 	       CreateAndFillUserTProfile("AK4_pT_vs_PtReco", 50, 0., 5000., 0., 5000., AK4recojets[IdxMatched.at(ii)].Pt(), AK4recojets[IdxMatched.at(ii)].Pt() );
@@ -847,7 +833,7 @@ void analysisClass::Loop()
 
      //////////write histos 
 
-   h_pTJet_Binned -> Write();
+   //   h_pTJet_Binned -> Write(); // tenta di scriverlo sul file delle correzioni
 
    //  h_mjj_NoTrigger -> Write();
    //  h_mjj_HLTpass_ZeroBias -> Write();

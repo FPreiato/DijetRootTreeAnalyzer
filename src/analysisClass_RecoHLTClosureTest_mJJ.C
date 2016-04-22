@@ -22,7 +22,7 @@ double MJJCut_;
 EtaBinning mEtaBinning;                                                                                                               
 PtBinning mPtBinning; 
 mJJBinning mMjjBinning; 
-TH2D *Histo_Corrections;
+TH1D *Histo_Corrections;
 
 analysisClass::analysisClass(string * inputList, string * cutFile, string * treeName, string * outputFileName, string * cutEfficFile)
   :baseClass(inputList, cutFile, treeName, outputFileName, cutEfficFile)
@@ -41,7 +41,7 @@ analysisClass::analysisClass(string * inputList, string * cutFile, string * tree
   TString dataFileName_Corrections;
   dataFileName_Corrections = TString::Format("/cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/scripts/HLTRecoCorrections/mJJCorrections_JEC_HLT_v7.root");
   TFile* dataFile_Corrections = TFile::Open(dataFileName_Corrections);
-  Histo_Corrections = (TH2D*)dataFile_Corrections->Get("Histo_Corrections");
+  Histo_Corrections = (TH1D*)dataFile_Corrections->Get("Histo_Corrections");
 
   //  if( jetAlgo == "AntiKt" )
   //    fjJetDefinition = JetDefPtr( new fastjet::JetDefinition(fastjet::antikt_algorithm, rParam) );
@@ -188,7 +188,7 @@ void analysisClass::Loop()
        //   if( passHLT_CaloJet40_BtagSeq || passHLT_CaloJet40 ){ // #3
        //   if( passHLT_L1HTT150_BtagSeq || passHLT_L1HTT150 ){ // #4
        //   if( passHLT_CaloScoutingHT250 ){ // #5
-       if( passHLT_HT450_BtagSeq || passHLT_HT450 ){ // #6
+       //   if( passHLT_HT450_BtagSeq || passHLT_HT450 ){ // #6
 	     
 	   vector<TLorentzVector> widejetsReco;
 	   TLorentzVector wj1Reco, wj2Reco, wdijetReco; 	   
@@ -343,19 +343,38 @@ void analysisClass::Loop()
 	     if(verbose) std::cout<<"Both jets matched " << std::endl;
 	     if( deltaETAjj < DeltaEtaJJ_){ // cut only on HLT
 	       if(verbose) std::cout<<"deltaEta Cut Passed " << std::endl;
-	       if(verbose) cout<< "mJJ = "<< mjj<<endl;
-	       // correggo mJJ
+	       if( mjj > MJJCut_ ){ //mass HLT
+		 if(verbose) std::cout<<"mJJCut Passed " << std::endl;
 
+
+
+	       if(verbose)
+		 {
+		   std::cout<<"mjj= " << mjj << std::endl;
+		   if( passHLT_L1HTT150_BtagSeq || passHLT_L1HTT150 ){
+		     cout<<"Trigger L1HTT passato"<< endl;
+		   }
+		   if( passHLT_HT450_BtagSeq ||passHLT_HT450 ){
+		     cout<<"Trigger HT450 passato"<< endl;
+		   }
+		 }
+	       
+	       if(mjj < 600 &&  !passHLT_L1HTT150_BtagSeq && !passHLT_L1HTT150 ) continue;
+	       if(mjj > 600 &&  !passHLT_HT450_BtagSeq && !passHLT_HT450 ) continue;
+	       
+	       if(verbose) cout<<"Evento Passato"<< endl;
+
+	       // correggo mJJ
+	       if(verbose) cout<< "mJJ = "<< mjj<<endl;
+	       
 	       double correctionPre = Histo_Corrections-> GetBinContent( Histo_Corrections->FindBin(mjj) );
 	       if(verbose) cout<< "correctionPre = "<< correctionPre<<endl;
 	       double correction = 1 + Histo_Corrections-> GetBinContent( Histo_Corrections->FindBin(mjj) );
 	       if(verbose) cout<< "correction = "<< correction<<endl;
-
+	       
 	       double mjjCorr = mjj * correction;
 	       if(verbose) cout<< "mJJ corretto = "<< mjjCorr<<endl;
-
-	       if( mjjCorr > MJJCut_ ){ //mass HLT
-	       if(verbose) std::cout<<"mJJCut Passed " << std::endl;
+	       
 		 /*		 
 		 CreateAndFillUserTH1D("metHLT", 50, 0, 5000, met );
 		 CreateAndFillUserTH1D("metReco", 50, 0, 5000, metreco );
@@ -404,6 +423,19 @@ void analysisClass::Loop()
 		 CreateAndFillUserTProfile( Form("mJJBias_vs_Nvtx_%s", mJJBin.c_str()),  50, 0., 50., -2., 2.,      nVtx, mJJBias );
 		 CreateAndFillUserTProfile( Form("mJJ_vs_NvtxReco_%s", mJJBin.c_str()), 50, 0., 50., 0., 5000., nVtxreco, mjjreco );
 		 CreateAndFillUserTProfile( Form("mJJ_vs_NvtxHLT_%s", mJJBin.c_str()),  50, 0., 50., 0., 5000., nVtx, mjjCorr );
+
+		 // for sui jet
+		 for(int ii=0; ii<deltaR_min.size(); ii++){
+		   // 2 entries per massa --> considero entrambi i jet
+		   ////// TProfile: mJJBias vs Eta
+		   CreateAndFillUserTProfile("mJJBias_vs_Eta",  20, -2.5, 2.5, -2., 2.,      widejets[ii].Eta(), mJJBias );
+		   CreateAndFillUserTProfile("mJJ_vs_EtaReco", 20, -2.5, 2.5, 0., 5000., widejetsReco[IdxMatched.at(ii)].Eta(), mjjreco );
+		   CreateAndFillUserTProfile("mJJ_vs_EtaHLT",  20, -2.5, 2.5, 0., 5000., widejets[ii].Eta(), mjjCorr );
+		   CreateAndFillUserTProfile( Form("mJJBias_vs_Eta_%s", mJJBin.c_str()),  20, -2.5, 2.5, -2., 2.,      widejets[ii].Eta(), mJJBias );
+		   CreateAndFillUserTProfile( Form("mJJ_vs_EtaReco_%s", mJJBin.c_str()), 20, -2.5, 2.5, 0., 5000., widejetsReco[IdxMatched.at(ii)].Eta(), mjjreco );
+		   CreateAndFillUserTProfile( Form("mJJ_vs_EtaHLT_%s", mJJBin.c_str()),  20, -2.5, 2.5, 0., 5000., widejets[ii].Eta(), mjjCorr );
+		 }
+
 		 ////// TProfile: mJJBias vs mJJ
 		 // ... e questo.. che e' quello importante!!! basta fittare questo e ho le correzioni
 		 CreateAndFillUserTProfile("mJJBias_vs_Mjj",  25, 500., 3000., -2., 2.,  mjjCorr, mJJBias );
@@ -437,7 +469,7 @@ void analysisClass::Loop()
 	     }// deltaEtaJJ < cut	
 	   }//both matched
       	  	   
-       } // triggers
+	   //       } // triggers
      } // passJson
        
        /////////////////////////////////////////////////////////////////
