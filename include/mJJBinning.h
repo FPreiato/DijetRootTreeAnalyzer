@@ -61,7 +61,7 @@ class mJJBinning {
       // ogni bin uguale -- per adesso faccio Macrobins      
       int n_bin = mjj_max/ step_mjj;
       
-      for(int jj=5; jj<n_bin ; jj++){	 
+      for(int jj=4; jj<n_bin ; jj++){	 
       int mjj_min = ( (jj-1)*step_mjj)+step_mjj;
       int mjj_max = (jj*step_mjj)+step_mjj;
       

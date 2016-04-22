@@ -18,7 +18,7 @@ class EtaBinning {
     }
 
     int getBin(float eta) const {
-      //      eta = fabs(eta); // separo positivi e negativi
+      eta = fabs(eta); // positivi e negativi insieme
       std::vector<EtaBin>::const_iterator it = mEtaBins.begin();
       for (; it != mEtaBins.end(); ++it) {
         EtaBin bin = *it;
@@ -54,6 +54,31 @@ class EtaBinning {
 
       EtaBin bin;
       //      bin.title = "|#eta| < 1.5";  
+
+      bin.bin = std::make_pair(0.00, 0.50); // #1 
+      bin.name = "eta_000_050";
+      mEtaBins.push_back(bin);
+
+      bin.bin = std::make_pair(0.50, 1.00); // #2
+      bin.name = "eta_050_100";
+      mEtaBins.push_back(bin);
+
+      bin.bin = std::make_pair(1.00, 1.50); // #3 
+      bin.name = "eta_100_150";
+      mEtaBins.push_back(bin);
+
+      bin.bin = std::make_pair(1.50, 2.50); // #4
+      bin.name = "eta_150_250";
+      mEtaBins.push_back(bin);
+
+    }
+};
+
+
+
+
+////////////////////////////////
+
       /*
       bin.bin = std::make_pair(-2.5, -2.25); // #1
       bin.name = "eta_Minus_250_225";
@@ -72,6 +97,8 @@ class EtaBinning {
       mEtaBins.push_back(bin);
 */
 
+
+      /*
       bin.bin = std::make_pair(-2.50, -1.50); // #4  #1
       bin.name = "eta_Minus_250_150";
       mEtaBins.push_back(bin);
@@ -128,7 +155,7 @@ class EtaBinning {
       bin.name = "eta_Plus_150_250";
       mEtaBins.push_back(bin);
 
-      /*
+      
       bin.bin = std::make_pair(1.50, 1.75); // #17
       bin.name = "eta_Plus_150_175";
       mEtaBins.push_back(bin);
@@ -145,6 +172,3 @@ class EtaBinning {
       bin.name = "eta_Plus_225_250";
       mEtaBins.push_back(bin);
       */
-
-    }
-};
