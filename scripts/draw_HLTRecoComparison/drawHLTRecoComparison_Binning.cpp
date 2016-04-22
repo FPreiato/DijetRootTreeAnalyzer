@@ -132,17 +132,17 @@ int main(int argc, char* argv[]) {
 
 
   TString dataFileName_ZeroBias; // #1
-  dataFileName_ZeroBias = TString::Format("/cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/output/HLTReco_mJJComparison/rootFile_JEC_HLT_v7_SamePtCuts_NoMjjCut_ZeroBias.root" );
+  dataFileName_ZeroBias = TString::Format("/cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/output/HLTReco_Comparison/rootFile_JEC_HLT_v7_RecoLowerCuts10GeV_ZeroBias.root" );
   TString dataFileName_DoubleMu; // #2
-  dataFileName_DoubleMu = TString::Format("/cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/output/HLTReco_mJJComparison/rootFile_JEC_HLT_v7_SamePtCuts_NoMjjCut_DoubleMu.root" );
+  dataFileName_DoubleMu = TString::Format("/cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/output/HLTReco_Comparison/rootFile_JEC_HLT_v7_RecoLowerCuts10GeV_DoubleMu.root" );
   TString dataFileName_CaloJet40; // #3
-  dataFileName_CaloJet40 = TString::Format("/cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/output/HLTReco_mJJComparison/rootFile_JEC_HLT_v7_SamePtCuts_NoMjjCut_CaloJet40.root" );
+  dataFileName_CaloJet40 = TString::Format("/cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/output/HLTReco_Comparison/rootFile_JEC_HLT_v7_RecoLowerCuts10GeV_CaloJet40.root" );
   TString dataFileName_L1HTT150; // #4
-  dataFileName_L1HTT150 = TString::Format("/cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/output/HLTReco_mJJComparison/rootFile_JEC_HLT_v7_SamePtCuts_NoMjjCut_L1HTT150.root" );
+  dataFileName_L1HTT150 = TString::Format("/cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/output/HLTReco_Comparison/rootFile_JEC_HLT_v7_RecoLowerCuts10GeV_L1HTT150.root" );
   TString dataFileName_HT250; // #5
-  dataFileName_HT250 = TString::Format("/cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/output/HLTReco_mJJComparison/rootFile_JEC_HLT_v7_SamePtCuts_NoMjjCut_HT250.root" );
+  dataFileName_HT250 = TString::Format("/cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/output/HLTReco_Comparison/rootFile_JEC_HLT_v7_RecoLowerCuts10GeV_HT250.root" );
   TString dataFileName_HT450; // #6
-  dataFileName_HT450 = TString::Format("/cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/output/HLTReco_mJJComparison/rootFile_JEC_HLT_v7_SamePtCuts_NoMjjCut_HT450.root" );
+  dataFileName_HT450 = TString::Format("/cmshome/fpreiato/Scouting_Dijet/CMSSW_7_4_15/src/CMSDIJET/DijetRootTreeAnalyzer/output/HLTReco_Comparison/rootFile_JEC_HLT_v7_RecoLowerCuts10GeV_HT450.root" );
 
 
   TFile* dataFile_ZeroBias    = TFile::Open(dataFileName_ZeroBias);
@@ -179,7 +179,8 @@ int main(int argc, char* argv[]) {
 
   /////////////////////////////////// starting draw
 
-  drawComparison_New(dataFile_ZeroBias,  dataFile_DoubleMu, dataFile_CaloJet40, dataFile_L1HTT150, dataFile_HT250, dataFile_HT450, "mJJBias_vs_Mjj", "Mjj [GeV]", "mJJ Bias", false, false, false, 0, 2100, -0.1, 0.1);           
+  //  drawComparison_New(dataFile_ZeroBias,  dataFile_DoubleMu, dataFile_CaloJet40, dataFile_L1HTT150, dataFile_HT250, dataFile_HT450, "mJJBias_vs_Mjj", "Mjj [GeV]", "mJJ Bias", false, false, false, 0, 2100, -0.1, 0.1);           
+  drawComparison_New(dataFile_ZeroBias,  dataFile_DoubleMu, dataFile_CaloJet40, dataFile_L1HTT150, dataFile_HT250, dataFile_HT450, "pTBias_vs_Pt", "pT [GeV]", "pT Bias", false, false, false, 0, 2000, -0.1, 0.1);           
 
 
   /*

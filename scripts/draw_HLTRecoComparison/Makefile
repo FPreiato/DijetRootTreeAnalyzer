@@ -41,7 +41,7 @@ SOBJECTS	= $(SOURCES:.$(SrcSuf)=.$(DllSuf))
 
 ###
 
-all: drawHLTRecoComparison drawHLTRecoComparison_2Files drawHLTRecoComparison_Binning draw_Test
+all: drawHLTRecoComparison drawHLTRecoComparison_2Files drawHLTRecoComparison_Binning drawRawJetsStudy
 
 clean:
 	@rm *.o;
@@ -58,7 +58,7 @@ drawHLTRecoComparison_2Files: drawHLTRecoComparison_2Files.o
 drawHLTRecoComparison_Binning: drawHLTRecoComparison_Binning.o
 	$(LD) $(LIBS) $(SOFLAGS) $(LDFLAGS) $+ -o $@
 
-draw_Test: draw_Test.o
+drawRawJetsStudy: drawRawJetsStudy.o
 	$(LD) $(LIBS) $(SOFLAGS) $(LDFLAGS) $+ -o $@
 
 
