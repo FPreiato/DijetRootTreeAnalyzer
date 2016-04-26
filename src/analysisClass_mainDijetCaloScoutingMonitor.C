@@ -301,10 +301,10 @@ void analysisClass::Loop()
 	 std::multimap<double, unsigned> sortedRecoJets;
 	 for(size_t j=0; j<no_jetsReco_ak4; ++j)
 	   { // Reco Jets
-	     if(verbose) std::cout << "Reco jets # "<< j << std::endl;
-	     if(verbose) std::cout << "pT "<< jetPtAK4reco->at(j)<< " Eta "<<jetEtaAK4reco->at(j) <<" Area " << jetAreaAK4reco->at(j)<< std::endl;
-	     if(verbose) std::cout << "Old Jec factor " << jetJecAK4reco->at(j) << std::endl;
-	     if(verbose) std::cout << "Rho " << rhoreco << std::endl;
+	     // if(verbose) std::cout << "Reco jets # "<< j << std::endl;
+	     // if(verbose) std::cout << "pT "<< jetPtAK4reco->at(j)<< " Eta "<<jetEtaAK4reco->at(j) <<" Area " << jetAreaAK4reco->at(j)<< std::endl;
+	     // if(verbose) std::cout << "Old Jec factor " << jetJecAK4reco->at(j) << std::endl;
+	     // if(verbose) std::cout << "Rho " << rhoreco << std::endl;
 	     //MC
 	     JetCorrector->setJetEta(jetEtaAK4reco->at(j));
 	     JetCorrector->setJetPt(jetPtAK4reco->at(j)/jetJecAK4reco->at(j)); //pTraw
@@ -325,7 +325,7 @@ void analysisClass::Loop()
 	     //old_correction = jetJecAK4reco->at(j);
 	     //}
 
-	     if(verbose) std::cout << "Reco Corrections "<< correction << std::endl;
+	     //	     if(verbose) std::cout << "Reco Corrections "<< correction << std::endl;
 
 	     //JEC uncertainties
 	     unc->setJetEta(jetEtaAK4reco->at(j));
@@ -348,8 +348,6 @@ void analysisClass::Loop()
 	     jecFactorsReco.push_back(correction);
 	     sortedRecoJets.insert(std::make_pair((jetPtAK4reco->at(j)/jetJecAK4reco->at(j))*correction, j));
 
-	     //	     if(verbose) std::cout << "Reco jec factors sono "<< jecFactorsReco.size() << std::endl;
-
 	   } // end loop reco jets
 
 	 // get jet indices in decreasing pT order
@@ -357,23 +355,25 @@ void analysisClass::Loop()
 	   sortedRecoJetIdx.push_back(it->second);
 	 
 	 //	 if(verbose) std::cout << "number of sortedRecoJet "<< sortedRecoJetIdx.size() << std::endl;
-	 
-	 if(verbose){
-	   for(size_t j=0; j<sortedRecoJetIdx.size(); ++j){
-	     double rescale = (jecFactorsReco[sortedRecoJetIdx[j]]/jetJecAK4reco->at(sortedRecoJetIdx[j]));
-	     double newpT = rescale*jetPtAK4reco->at(sortedRecoJetIdx[j]);	 
-	     if(verbose) std::cout << "newPt "<< newpT << " ; jet # "<< sortedRecoJetIdx[j] << std::endl;   
-	   }
-	 }
+	 /*	 
+		 if(verbose){
+		 for(size_t j=0; j<sortedRecoJetIdx.size(); ++j){
+		 double rescale = (jecFactorsReco[sortedRecoJetIdx[j]]/jetJecAK4reco->at(sortedRecoJetIdx[j]));
+		 double newpT = rescale*jetPtAK4reco->at(sortedRecoJetIdx[j]);	 
+		 if(verbose) std::cout << "newPt "<< newpT << " ; jet # "<< sortedRecoJetIdx[j] << std::endl;   
+		 }
+		 }
+	 */
+
 	 //HLT jets
 	 // sort jets by increasing pT
 	 std::multimap<double, unsigned> sortedJets;
 	 for(size_t j=0; j<no_jets_ak4; ++j)
 	   { // HLT Jets
-	     if(verbose) std::cout << "HLT jets # "<< j << std::endl;
-	     if(verbose) std::cout << "pT "<< jetPtAK4->at(j)<< " Eta "<<jetEtaAK4->at(j) <<" Area " << jetAreaAK4->at(j)<< std::endl;
-	     if(verbose) std::cout << "Old Jec factor " << jetJecAK4->at(j) << std::endl;
-	     if(verbose) std::cout << "Rho " << rho << std::endl;
+	     // if(verbose) std::cout << "HLT jets # "<< j << std::endl;
+	     // if(verbose) std::cout << "pT "<< jetPtAK4->at(j)<< " Eta "<<jetEtaAK4->at(j) <<" Area " << jetAreaAK4->at(j)<< std::endl;
+	     // if(verbose) std::cout << "Old Jec factor " << jetJecAK4->at(j) << std::endl;
+	     // if(verbose) std::cout << "Rho " << rho << std::endl;
 	     
 	     JetCorrector->setJetEta(jetEtaAK4->at(j));
 	     JetCorrector->setJetPt(jetPtAK4->at(j)/jetJecAK4->at(j)); //pTraw
@@ -397,7 +397,7 @@ void analysisClass::Loop()
 	     //old_correction = jetJecAK4->at(j);
 	     //}
 	     
-	     if(verbose) std::cout << "HLT Corrections "<< correction << std::endl;
+	     //	     if(verbose) std::cout << "HLT Corrections "<< correction << std::endl;
 	  	     
 	     //JEC uncertainties
 	     unc->setJetEta(jetEtaAK4->at(j));
@@ -419,9 +419,7 @@ void analysisClass::Loop()
 	     
 	     jecFactors.push_back(correction);
 	     sortedJets.insert(std::make_pair((jetPtAK4->at(j)/jetJecAK4->at(j))*correction, j));
-	     
-	     //	     if(verbose) std::cout << "HLT jec factors sono "<< jecFactors.size() << std::endl;
-	     
+	     	     
 	   }// end loop HLT jets
 
 	 // get jet indices in decreasing pT order
@@ -430,19 +428,16 @@ void analysisClass::Loop()
 	 
 	 //	 if(verbose) std::cout << "number of sortedHLTJet "<< sortedJetIdx.size() << std::endl;
 	 
-
-	 if(verbose){
+	 /*
+	   if(verbose){
 	   for(size_t j=0; j<sortedJetIdx.size(); ++j){
-	     double rescale = (jecFactors[sortedJetIdx[j]]/jetJecAK4->at(sortedJetIdx[j]));
-	     double newpT = rescale*jetPtAK4->at(sortedJetIdx[j]);	 
-	     
-	     if(verbose) std::cout << "newPt "<< newpT << " ; HLT jet # "<< sortedJetIdx[j] << std::endl;
-	     
+	   double rescale = (jecFactors[sortedJetIdx[j]]/jetJecAK4->at(sortedJetIdx[j]));
+	   double newpT = rescale*jetPtAK4->at(sortedJetIdx[j]);	 	     
+	   if(verbose) std::cout << "newPt "<< newpT << " ; HLT jet # "<< sortedJetIdx[j] << std::endl;
 	   }
-	 }
-
-
-	 if(verbose) std::cout << "Ordinamento funziona "<< std::endl;	 
+	   }
+	 */
+	 //	 if(verbose) std::cout << "Ordinamento funziona "<< std::endl;	 
 	 
        }// end use JEC
      else if( int(getPreCutValue1("noJECs"))==1  )
@@ -514,16 +509,18 @@ void analysisClass::Loop()
      
      if(verbose) std::cout << "number of reco Jet "<< no_jetsReco_ak4 << std::endl;
      if(verbose) std::cout << "number of HLT Jet "<< no_jets_ak4 << std::endl;
-   
+
+     if(verbose) std::cout << "RECO JETS"<< std::endl;
      for(size_t ijet=0; ijet<no_jetsReco_ak4; ++ijet)
        {       // Reco Jets
 	 //cout << "evtNo: " << evtNo << endl;	 
 	 if(verbose){
 	   cout << "ijet=" << ijet << " , sortedRecoJetIdx[ijet]=" << sortedRecoJetIdx[ijet] 
-		<< " , raw pT=" << jetPtAK4reco->at(sortedRecoJetIdx[ijet])/jetJecAK4reco->at(sortedRecoJetIdx[ijet]) 
-		<< " , final corrected pT - old =" << jetPtAK4reco->at(sortedRecoJetIdx[ijet] ) 
-		<< " , jecFactors =" << jecFactorsReco[sortedRecoJetIdx[ijet]]
-		<< " , final corrected pT - new =" << (jecFactorsReco[sortedRecoJetIdx[ijet]]/jetJecAK4reco->at(sortedRecoJetIdx[ijet]))*jetPtAK4reco->at(sortedRecoJetIdx[ijet])
+		<< ", raw pT=" << jetPtAK4reco->at(sortedRecoJetIdx[ijet])/jetJecAK4reco->at(sortedRecoJetIdx[ijet]) 
+		<< ", corrected pT-old=" << jetPtAK4reco->at(sortedRecoJetIdx[ijet] )
+		<< ", jecFactors-old=" << jetJecAK4reco->at(sortedRecoJetIdx[ijet])
+		<< ", jecFactors=" << jecFactorsReco[sortedRecoJetIdx[ijet]]
+		<< ", final corrected pT =" << (jecFactorsReco[sortedRecoJetIdx[ijet]]/jetJecAK4reco->at(sortedRecoJetIdx[ijet]))*jetPtAK4reco->at(sortedRecoJetIdx[ijet])
 		<< endl;
 	 }	 
 	 //////////////cout << "id Tight jet" << sortedRecoJetIdx[1] << " = " << idTAK4reco->at(sortedRecoJetIdx[1]) << endl;
@@ -538,19 +535,21 @@ void analysisClass::Loop()
 	   }
        }
 
-     if(verbose) std:cout<<"Regione fiduciale, pT e Id"<< std::endl;
-     if(verbose) std::cout << "Nak4 Reco "<< Nak4Reco << std::endl;
-     if(verbose) std::cout << "HTak4 Reco "<< HTak4Reco << std::endl;
+     //     if(verbose) std:cout<<"Regione fiduciale, pT e Id"<< std::endl;
+     //     if(verbose) std::cout << "Nak4 Reco "<< Nak4Reco << std::endl;
+     //     if(verbose) std::cout << "HTak4 Reco "<< HTak4Reco << std::endl;
      
+     if(verbose) std::cout << "HLT JETS"<< std::endl;
      for(size_t ijet=0; ijet<no_jets_ak4; ++ijet)
        {	 // HLT Jets
 	 //cout << "evtNo: " << evtNo << endl;	 
 	 if(verbose){
 	   cout << "ijet=" << ijet << " , sortedJetIdx[ijet]=" << sortedJetIdx[ijet] 
-		<< " , raw pT=" << jetPtAK4->at(sortedJetIdx[ijet])/jetJecAK4->at(sortedJetIdx[ijet]) 
-		<< " , final corrected pT - old =" << jetPtAK4->at(sortedJetIdx[ijet] ) 
-		<< " , jecFactors =" << jecFactors[sortedJetIdx[ijet]]
-		<< " , final corrected pT - new =" << (jecFactors[sortedJetIdx[ijet]]/jetJecAK4->at(sortedJetIdx[ijet]))*jetPtAK4->at(sortedJetIdx[ijet])
+		<< ", raw pT=" << jetPtAK4->at(sortedJetIdx[ijet])/jetJecAK4->at(sortedJetIdx[ijet]) 
+		<< ", corrected pT-old=" << jetPtAK4->at(sortedJetIdx[ijet] ) 
+		<< ", jecFactors-old=" << jetJecAK4->at(sortedJetIdx[ijet])
+		<< ", jecFactors=" << jecFactors[sortedJetIdx[ijet]]
+		<< ", final corrected pT=" << (jecFactors[sortedJetIdx[ijet]]/jetJecAK4->at(sortedJetIdx[ijet]))*jetPtAK4->at(sortedJetIdx[ijet])
 		<< endl;
 	 }
 	 //////////////cout << "id Tight jet" << sortedJetIdx[1] << " = " << idTAK4->at(sortedJetIdx[1]) << endl;
@@ -560,13 +559,11 @@ void analysisClass::Loop()
 	   {
 	     Nak4 += 1;
 	     HTak4 += (jecFactors[sortedJetIdx[ijet]]/jetJecAK4->at(sortedJetIdx[ijet]))*jetPtAK4->at(sortedJetIdx[ijet]);
-	     //	     if(verbose) std::cout << "HLT Jet "<< sortedJetIdx[ijet]<<" PASSED" << std::endl;
-
 	   }
        }
 
-     if(verbose) std::cout << "Nak4 HLT "<< Nak4 << std::endl;
-     if(verbose) std::cout << "HTak4 HLT "<< HTak4 << std::endl;
+     //     if(verbose) std::cout << "Nak4 HLT "<< Nak4 << std::endl;
+     //     if(verbose) std::cout << "HTak4 HLT "<< HTak4 << std::endl;
    
      // +++++++++++++++++ Reco analysis
      
@@ -611,21 +608,12 @@ void analysisClass::Loop()
        }
      else // don't use FastJet
        {
-	 if(verbose) std::cout << "sono entrato qua " << std::endl;
+	 if(verbose) std::cout << "Reco Widejet Construction " << std::endl;
 
 	 TLorentzVector wj1_tmp, wj2_tmp;
 	 TLorentzVector wj1_shift_tmp, wj2_shift_tmp;
 	 double wideJetDeltaR_ = getPreCutValue1("DeltaR");
 
-	 if(verbose){
-	   std::cout << "number jets Reco: " << no_jetsReco_ak4<< std::endl;
-	   for(Long64_t ijet=0; ijet<no_jetsReco_ak4; ijet++)
-	     { //jet loop for ak4
-	       std::cout << "Jet number: " << ijet<< std::endl;
-	       std::cout << "Pt: " << (jecFactorsReco[sortedRecoJetIdx[ijet]]/jetJecAK4reco->at(sortedRecoJetIdx[ijet]))*jetPtAK4reco->at(sortedRecoJetIdx[ijet])<< std::endl; 
-	       std::cout << "Eta: " << jetEtaAK4reco->at(sortedRecoJetIdx[ijet])<< std::endl;	       
-	     }	   
-	 }
 	 // building widejet
 	 if(no_jetsReco_ak4>=2)
 	   {
@@ -650,8 +638,6 @@ void analysisClass::Loop()
 					      ,jetEtaAK4reco->at(sortedRecoJetIdx[1]),jetPhiAK4reco->at(sortedRecoJetIdx[1])
 					      , (1+ jecUncertaintyReco[sortedRecoJetIdx[1]])*(jecFactorsReco[sortedRecoJetIdx[1]]/jetJecAK4reco->at(sortedRecoJetIdx[1])) * jetMassAK4reco->at(sortedRecoJetIdx[1]));
 
-		     if(verbose) std::cout << "jet1 = "<<jet1.Pt() << std::endl;
-		     if(verbose) std::cout << "jet2 = "<<jet2.Pt() << std::endl;     
 		     
 		     for(Long64_t ijet=0; ijet<no_jetsReco_ak4; ijet++)
 		       { //jet loop for ak4
@@ -767,11 +753,6 @@ void analysisClass::Loop()
 					     ,jetPhiAK4reco->at(sortedRecoJetIdx[2])
 					     , (jecFactorsReco[sortedRecoJetIdx[2]]/jetJecAK4reco->at(sortedRecoJetIdx[2])) *jetMassAK4reco->at(sortedRecoJetIdx[2]));
 
-		     if(verbose){
-		       std::cout<< "RecoJet 3" << std::endl;
-		       std::cout<< "pT " << ak4j3Reco.Pt() << " Eta "<<ak4j3Reco.Eta() << " Phi "<< ak4j3Reco.Phi() << " M "<< ak4j3Reco.M() << cout<<endl;
-		     }
-
 		   }
 		 }		 
 	       }
@@ -800,9 +781,9 @@ void analysisClass::Loop()
 	   }
        }
 
-     if(verbose)     std::cout<<"Start HLT analysis"<<std::endl;  
-
      // +++++++++++++++++++++ HLT Analysis
+
+     if(verbose)     std::cout<<"Start HLT analysis"<<std::endl;  
 
      if( int(getPreCutValue1("useFastJet"))==1 )
        {
@@ -845,6 +826,8 @@ void analysisClass::Loop()
        }
      else // don't use FastJet
        {
+	 if(verbose) std::cout << "Widejet Construction " << std::endl;
+
 	 TLorentzVector wj1_tmp, wj2_tmp;
 	 TLorentzVector wj1_shift_tmp, wj2_shift_tmp;
 	 double wideJetDeltaR_ = getPreCutValue1("DeltaR");
@@ -927,6 +910,8 @@ void analysisClass::Loop()
 	   }
        }// end building wide jet 
      
+     if(verbose) std::cout << "widejet1 = "<<wj1.Pt() << std::endl;     
+     if(verbose) std::cout << "widejet2 = "<<wj2.Pt() << std::endl;     
    
      double MJJWide = 0; 
      double DeltaEtaJJWide = 0;
@@ -982,11 +967,6 @@ void analysisClass::Loop()
 					 ,jetEtaAK4->at(sortedJetIdx[2])
 					 ,jetPhiAK4->at(sortedJetIdx[2])
 					 , (jecFactors[sortedJetIdx[2]]/jetJecAK4->at(sortedJetIdx[2])) *jetMassAK4->at(sortedJetIdx[2]));
-
-		     if(verbose){
-		       std::cout<< "Jet 3" << std::endl;
-		       std::cout<< "pT " << ak4j3.Pt() << " Eta "<<ak4j3.Eta() << " Phi "<< ak4j3.Phi() << " M "<< ak4j3.M() << cout<<endl;
-		     }
 		     
 		   }
 		 }
