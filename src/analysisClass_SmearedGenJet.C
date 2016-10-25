@@ -8,12 +8,6 @@
 #include <TVector2.h>
 #include <TVector3.h>
 
-//#include "JetMETCorrections/Modules/interface/JetResolution.h"
-//#include "CondFormats/JetMETObjects/interface/JetResolution.h"
-//#include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
-
-//JME::JetResolution PtResolution;
-
 analysisClass::analysisClass(string * inputList, string * cutFile, string * treeName, string * outputFileName, string * cutEfficFile)
   :baseClass(inputList, cutFile, treeName, outputFileName, cutEfficFile)
 {
@@ -29,17 +23,13 @@ analysisClass::analysisClass(string * inputList, string * cutFile, string * tree
   else 
     fjJetDefinition = JetDefPtr( new fastjet::JetDefinition(fastjet::cambridge_algorithm, rParam) );
 
-  JME::JetResolution resolution = JME::JetResolution("data/Spring16_25nsV6_MC/Spring16_25nsV6_MC_PtResolution_AK4PFchs.txt");     
-
   // For JERs
   if(int(getPreCutValue1("useJERs"))==1)
     {
       std::cout << "Applying JERs on the fly" << std::endl;
       //MC Truth
-      //      const std::string PtResolutionPath = "data/Spring16_25nsV6_MC/Spring16_25nsV6_MC_PtResolution_AK4PFchs.txt";
-      //      PtResolution = new JME::JetResolution(PtResolutionPath);
-      //      PtResolution = new JME::JetResolution("data/Spring16_25nsV6_MC/Spring16_25nsV6_MC_PtResolution_AK4PFchs.txt");
-      //      JME::JetResolution resolution = JME::JetResolution("data/Spring16_25nsV6_MC/Spring16_25nsV6_MC_PtResolution_AK4PFchs.txt");      
+      std::string PtResolutionPath ="data/Spring16_25nsV6_MC/Spring16_25nsV6_MC_PtResolution_AK4PFchs.txt";
+      PtResolution = new JME::JetResolution(PtResolutionPath);
 
     }
 
