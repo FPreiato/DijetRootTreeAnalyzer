@@ -7,6 +7,8 @@
 #include <TLorentzVector.h>
 #include <TVector2.h>
 #include <TVector3.h>
+#include <TRandom.h>
+#include <TRandom3.h>
 
 analysisClass::analysisClass(string * inputList, string * cutFile, string * treeName, string * outputFileName, string * cutEfficFile)
   :baseClass(inputList, cutFile, treeName, outputFileName, cutEfficFile)
@@ -138,8 +140,8 @@ void analysisClass::Loop()
    ////// If the root version is updated and rootNtupleClass regenerated,     /////
    ////// these lines may need to be updated.                                 /////    
    Long64_t nbytes = 0, nb = 0;
-   for (Long64_t jentry=0; jentry<nentries;jentry++) {
-   //for (Long64_t jentry=0; jentry<2000;jentry++) {
+   //   for (Long64_t jentry=0; jentry<nentries;jentry++) {
+   for (Long64_t jentry=0; jentry<2000;jentry++) {
      Long64_t ientry = LoadTree(jentry);
      if (ientry < 0) break;
      nb = fChain->GetEntry(jentry);   nbytes += nb;
@@ -171,41 +173,57 @@ void analysisClass::Loop()
 
      size_t no_Genjets_ak4=jetPtGenAK4->size();
 
+     vector<TLorentzVector> AK4Genjets;
+     TLorentzVector ak4Genj1, ak4Genj2, ak4Gendijet;      
+
+     vector<TLorentzVector> Genwidejets;
      TLorentzVector Genwj1_tmp, Genwj2_tmp;
      TLorentzVector Genwj1, Genwj2;
      TLorentzVector Genwdijet;
      double GenwideJetDeltaR_ = getPreCutValue1("DeltaR");
 
      std::vector<unsigned> sortedGenJetIdx;
+     std::vector<double> jerFactors;
 
      if( int(getPreCutValue1("useJERs"))==1 )
        {
 	 // sort Genjets by increasing pT
 	 std::multimap<double, unsigned> sortedGenJets;
-	 std::vector<double> jerFactors;
 
 	 for(size_t j=0; j<no_Genjets_ak4; ++j)
 	   {
-	     /*
+
 	     JME::JetParameters JetParameters;
 	     JetParameters.setJetPt(jetPtGenAK4->at(j));
 	     JetParameters.setJetEta(jetEtaGenAK4->at(j));
+	     JetParameters.setRho(rho);
 	     //	     JetParameters.setJetA(jetAreaAK4->at(j));
-	     JetParameters.setRho(rho); // serve?
 
 	     float resolution;
-	     resolution = PtResolution.getResolution(JetParameters);
-	     
-	     jerFactors.push_back(resolution);
-	     sortedGenJets.insert(std::make_pair(jetPtGenAK4->at(j)*resolution, j));
-*/
+	     resolution = PtResolution->getResolution(JetParameters);
+
+	     double smearing;
+	     TRandom *factor=new TRandom3(0);  //factor -> SetSeed(0); 
+	     smearing = factor -> Gaus(1, resolution); 
+	 
+	     jerFactors.push_back(smearing);
+	     sortedGenJets.insert(std::make_pair(jetPtGenAK4->at(j)*smearing, j));
+	 
+	     std::cout<< "GenJet Pt = "<< jetPtGenAK4->at(j) << std::endl;
+	     std::cout<< "GenJet Resolution = "<< jerFactors[j] << std::endl;
+	     std::cout<< "New GenJet Pt = "<< jetPtGenAK4->at(j)*jerFactors[j] << std::endl;
+
 	   }
-	 for(std::multimap<double, unsigned>::const_reverse_iterator it = sortedGenJets.rbegin(); it != sortedGenJets.rend(); ++it)
-	   sortedGenJetIdx.push_back(it->second);
+	 std::cout<< "Sorting..." << std::endl;
+	 for(std::multimap<double, unsigned>::const_reverse_iterator it = sortedGenJets.rbegin(); it != sortedGenJets.rend(); ++it) //inline
+	   {
+	     std::cout<< "GenJet Pt = "<< it->first << std::endl;
+	     std::cout<< "index = "<< it->second << std::endl;
+	     sortedGenJetIdx.push_back(it->second);
+	   }
 	 
        } // use JERs
 
-     /*   
      if(no_Genjets_ak4 >= 2)
        {
 	 if( fabs(jetEtaGenAK4->at(sortedGenJetIdx[0])) < getPreCutValue1("jetFidRegion") 
@@ -219,20 +237,20 @@ void analysisClass::Loop()
 		 Genjet1.SetPtEtaPhiM(jerFactors[sortedGenJetIdx[0]]*jetPtGenAK4->at(sortedGenJetIdx[0])
 				      , jetEtaGenAK4->at(sortedGenJetIdx[0]), jetPhiGenAK4->at(sortedGenJetIdx[0])
 				      , jerFactors[sortedGenJetIdx[0]]*jetMassGenAK4->at(sortedGenJetIdx[0]) ) ;
-		 Genjet1.SetPtEtaPhiM(jerFactors[sortedGenJetIdx[1]]*jetPtGenAK4->at(sortedGenJetIdx[1])
+		 Genjet2.SetPtEtaPhiM(jerFactors[sortedGenJetIdx[1]]*jetPtGenAK4->at(sortedGenJetIdx[1])
 				      , jetEtaGenAK4->at(sortedGenJetIdx[1]), jetPhiGenAK4->at(sortedGenJetIdx[1])
 				      , jerFactors[sortedGenJetIdx[1]]*jetMassGenAK4->at(sortedGenJetIdx[1]) ) ;
-		 
 		 
 		 for( Long64_t ijet=0;  ijet<no_Genjets_ak4;  ijet++)
 		   {//genjet loop for ak4
 		     TLorentzVector currentGenJet;
-		     currentGenJet.SetPtEtaPhiM(jetPtGenAK4->at(ijet), jetEtaGenAK4->at(ijet), jetPhiGenAK4->at(ijet), jetMassGenAK4->at(ijet) );   
-		     
+
 		     if(fabs(jetEtaGenAK4->at(sortedGenJetIdx[ijet])) < getPreCutValue1("jetFidRegion") 
 			//&& idTAK4->at(sortedJetIdx[ijet]) == getPreCutValue1("tightJetID") 
 			&& jerFactors[sortedGenJetIdx[ijet]]*jetPtGenAK4->at(sortedGenJetIdx[ijet]) > getPreCutValue1("ptCut"))
 		       {
+			 TLorentzVector currentGenJet;
+			 currentGenJet.SetPtEtaPhiM(jetPtGenAK4->at(ijet), jetEtaGenAK4->at(ijet), jetPhiGenAK4->at(ijet), jetMassGenAK4->at(ijet) );   
 			 
 			 double DeltaR1 = currentGenJet.DeltaR(Genjet1);
 			 double DeltaR2 = currentGenJet.DeltaR(Genjet2);
@@ -245,9 +263,9 @@ void analysisClass::Loop()
 			 }
 		       } 
 		   }//end of Gen ak4 loop
-	       }
-	   }
-       }
+	       }// fid, pt cut
+	   } // fid, pt cut
+       }// end of two jets
 	    
      if(Genwj1_tmp.Pt() > Genwj2_tmp.Pt())
        {
@@ -259,33 +277,67 @@ void analysisClass::Loop()
 	 Genwj1 = Genwj2_tmp; 
 	 Genwj2 = Genwj1_tmp; 
        }
-       
-     double MJJWide = 0; 
-     double DeltaEtaJJWide = 0;
-     double DeltaPhiJJWide = 0;
-     double MJJWide_shift = 0; 
-     if( wj1.Pt()>0 && wj2.Pt()>0 )
+     
+     double GenMJJWide = 0; 
+     double GenDeltaEtaJJWide = 0;
+     double GenDeltaPhiJJWide = 0;
+     if( Genwj1.Pt()>0 && Genwj2.Pt()>0 )
        {
 	 // Create dijet system
-	 wdijet = wj1 + wj2;
-	 MJJWide = wdijet.M();
-	 DeltaEtaJJWide = fabs(wj1.Eta()-wj2.Eta());
-	 DeltaPhiJJWide = fabs(wj1.DeltaPhi(wj2));
+	 Genwdijet = Genwj1 + Genwj2;
+	 GenMJJWide = Genwdijet.M();
+	 GenDeltaEtaJJWide = fabs(Genwj1.Eta()-Genwj2.Eta());
+	 GenDeltaPhiJJWide = fabs(Genwj1.DeltaPhi(Genwj2));
 	 
-	 wdijet_shift = wj1_shift + wj2_shift;
-	 MJJWide_shift = wdijet_shift.M();
+	 //	 wdijet_shift = wj1_shift + wj2_shift;
+	 //	 MJJWide_shift = wdijet_shift.M();
 	 
 	 // Put widejets in the container
-	 widejets.push_back( wj1 );
-	 widejets.push_back( wj2 );
+	 Genwidejets.push_back( Genwj1 );
+	 Genwidejets.push_back( Genwj2 );
        }
-	    
-     */
+	  
+     //Gen AK4 jets
+     if(no_Genjets_ak4>=2)
+       {
+	 if( fabs(jetEtaGenAK4->at(sortedGenJetIdx[0])) < getPreCutValue1("jetFidRegion") 
+	     && jerFactors[sortedGenJetIdx[0]]*jetPtGenAK4->at(sortedGenJetIdx[0]) > getPreCutValue1("pt0Cut"))
+	   {
+	     if( fabs(jetEtaGenAK4->at(sortedGenJetIdx[1])) < getPreCutValue1("jetFidRegion") 
+		 && jerFactors[sortedGenJetIdx[1]]*jetPtGenAK4->at(sortedGenJetIdx[1]) > getPreCutValue1("pt1Cut"))
+	       {
+
+		 ak4Genj1.SetPtEtaPhiM(jerFactors[sortedGenJetIdx[0]]*jetPtGenAK4->at(sortedGenJetIdx[0])
+				      , jetEtaGenAK4->at(sortedGenJetIdx[0]), jetPhiGenAK4->at(sortedGenJetIdx[0])
+				      , jerFactors[sortedGenJetIdx[0]]*jetMassGenAK4->at(sortedGenJetIdx[0]) ) ;
+		 ak4Genj2.SetPtEtaPhiM(jerFactors[sortedGenJetIdx[1]]*jetPtGenAK4->at(sortedGenJetIdx[1])
+				      , jetEtaGenAK4->at(sortedGenJetIdx[1]), jetPhiGenAK4->at(sortedGenJetIdx[1])
+				      , jerFactors[sortedGenJetIdx[1]]*jetMassGenAK4->at(sortedGenJetIdx[1]) ) ;
+	       } // fid, pt cut
+	   } // fid, pt cut
+       } // end of two gen jets
+
+     double GenMJJAK4 = 0; 
+     double GenDeltaEtaJJAK4 = 0;
+     double GenDeltaPhiJJAK4 = 0;
+     
+     if( ak4Genj1.Pt()>0 && ak4Genj2.Pt()>0 )
+     {
+       // Create dijet system
+       ak4Gendijet = ak4Genj1 + ak4Genj2;
+       GenMJJAK4 = ak4Gendijet.M();
+       GenDeltaEtaJJAK4 = fabs(ak4Genj1.Eta()-ak4Genj2.Eta());
+       GenDeltaPhiJJAK4 = fabs(ak4Genj1.DeltaPhi(ak4Genj2));
+
+       // Put widejets in the container
+       AK4Genjets.push_back( ak4Genj1 );
+       AK4Genjets.push_back( ak4Genj2 );
+     }
 
 
-
-
-     //////////////////////////////////////// RECO
+     ////////////////////////////////////////////////
+     //                                RECO                                    //
+     ////////////////////////////////////////////////
 
      size_t no_jets_ak4=jetPtAK4->size();
 
@@ -303,7 +355,6 @@ void analysisClass::Loop()
      // holds sorted jet indices after the new JECs had been applied
      std::vector<unsigned> sortedJetIdx;
 
-
      if( int(getPreCutValue1("useJECs"))==1 )
        {
 	 // sort jets by increasing pT
@@ -319,6 +370,7 @@ void analysisClass::Loop()
 	     JetCorrector_data->setJetPt(jetPtAK4->at(j)/jetJecAK4->at(j)); //pTraw
 	     JetCorrector_data->setJetA(jetAreaAK4->at(j));
 	     JetCorrector_data->setRho(rho);
+
 
   	     //nominal value of JECs
 	     double correction;//, old_correction, nominal_correction;
@@ -344,15 +396,15 @@ void analysisClass::Loop()
 	       correction = correction + getPreCutValue2("shiftJECs")*uncertainty*correction;
 	       //  std::cout << "run:" << runNo << "    lumi:" << lumi << "   event:" << evtNo << "   jet pt:" << jetPtAK3->at(j)/jetJecAK4->at(j)*correction << "   correction:" << correction << "   uncertainty:" <<  uncertainty  << std::endl << std::endl;
 	       
-	     }
-
-	     jecFactors.push_back(correction);
-	     sortedJets.insert(std::make_pair((jetPtAK4->at(j)/jetJecAK4->at(j))*correction, j));
-	     
 	   }
-	 // get jet indices in decreasing pT order
-	 for(std::multimap<double, unsigned>::const_reverse_iterator it = sortedJets.rbegin(); it != sortedJets.rend(); ++it)
-	   sortedJetIdx.push_back(it->second);
+
+	 jecFactors.push_back(correction);
+	 sortedJets.insert(std::make_pair((jetPtAK4->at(j)/jetJecAK4->at(j))*correction, j));
+
+       }
+     // get jet indices in decreasing pT order
+     for(std::multimap<double, unsigned>::const_reverse_iterator it = sortedJets.rbegin(); it != sortedJets.rend(); ++it)
+	 sortedJetIdx.push_back(it->second);
      
      }
      else if( int(getPreCutValue1("noJECs"))==1  )
@@ -379,10 +431,18 @@ void analysisClass::Loop()
 	   }
        }
 
-
      //#############################################################
      //########## NOTE: from now on sortedJetIdx[ijet] should be used
      //#############################################################
+
+     // if(no_jets_ak4>=2){
+     //  if(!(fabs(jetEtaAK4->at(0)) < getPreCutValue1("jetFidRegion") && idTAK4->at(0) == getPreCutValue1("tightJetID"))){
+     //    std::cout << " JET 0 FAIL " << jetEtaAK4->at(0) << " JET 0  ID " << idTAK4->at(0) << std::endl;
+     //  }
+     //  if(!(fabs(jetEtaAK4->at(1)) < getPreCutValue1("jetFidRegion") && idTAK4->at(1) == getPreCutValue1("tightJetID"))){
+     //    std::cout << " JET 1 FAIL " << jetEtaAK4->at(1) << " JET 1  ID " << idTAK4->at(1) << std::endl;
+     //  }  
+     // }
 
      //count ak4 jets passing pt threshold and id criteria
      int Nak4 = 0;
@@ -592,17 +652,59 @@ void analysisClass::Loop()
        AK4jets.push_back( ak4j1 );
        AK4jets.push_back( ak4j2 );
      }
-    
+
      //== Fill Variables ==
 
      fillVariableWithValue("run",runNo);     
      fillVariableWithValue("event",evtNo);     
      fillVariableWithValue("lumi",lumi);     
      fillVariableWithValue("nVtx",nvtx);     
+     fillVariableWithValue("nGenJet",Genwidejets.size());
      fillVariableWithValue("nJet",widejets.size());
      fillVariableWithValue("metSig",metSig);
      fillVariableWithValue("Nak4",Nak4);
      fillVariableWithValue ( "PassJSON", passJSON (runNo, lumi, isData));
+
+     // gen jets
+
+     if( AK4Genjets.size() >=1 ){
+       fillVariableWithValue( "pTAK4_Genj1", AK4Genjets[0].Pt());
+       fillVariableWithValue( "etaAK4_Genj1", AK4Genjets[0].Eta());
+       fillVariableWithValue( "phiAK4_Genj1", AK4Genjets[0].Phi());  
+       fillVariableWithValue( "jetJerAK4_Genj1", jerFactors[sortedGenJetIdx[0]] );
+     }
+     if( AK4Genjets.size() >=2 ){
+       fillVariableWithValue( "pTAK4_Genj2", AK4Genjets[1].Pt() );
+       fillVariableWithValue( "etaAK4_Genj2", AK4Genjets[1].Eta());
+       fillVariableWithValue( "phiAK4_Genj2", AK4Genjets[1].Phi());
+       fillVariableWithValue( "jetJerAK4_Genj2", jerFactors[sortedGenJetIdx[1]]); 
+       // Gen dijet
+       fillVariableWithValue( "GenDijet_MassAK4", GenMJJAK4) ; 
+       fillVariableWithValue( "GenCosThetaStarAK4", TMath::TanH( (AK4Genjets[0].Eta()-AK4Genjets[1].Eta())/2 )); 
+       fillVariableWithValue( "GendeltaETAjjAK4", GenDeltaEtaJJAK4 ) ;
+       fillVariableWithValue( "GendeltaPHIjjAK4", GenDeltaPhiJJAK4 ) ;
+     }
+
+     if( Genwidejets.size() >= 1 ){
+         fillVariableWithValue( "pTWJ_Genj1", Genwidejets[0].Pt() );
+         fillVariableWithValue( "etaWJ_Genj1", Genwidejets[0].Eta());
+         fillVariableWithValue( "massWJ_Genj1", Genwidejets[0].M());
+         fillVariableWithValue( "phiWJ_Genj1", Genwidejets[0].Phi());
+       }
+
+     if( Genwidejets.size() >= 2 ){
+         fillVariableWithValue( "pTWJ_Genj2", Genwidejets[1].Pt() );
+         fillVariableWithValue( "etaWJ_Genj2", Genwidejets[1].Eta());
+         fillVariableWithValue( "massWJ_Genj2", Genwidejets[1].M());
+         fillVariableWithValue( "phiWJ_Genj2", Genwidejets[1].Phi());	
+	 //Gen wide mdijet
+         fillVariableWithValue( "Genmjj", GenMJJWide ) ;
+         fillVariableWithValue( "GenCosThetaStarWJ", TMath::TanH( (Genwidejets[0].Eta()-Genwidejets[1].Eta())/2 )); 
+	 fillVariableWithValue( "GendeltaETAjj", GenDeltaEtaJJWide ) ;
+	 fillVariableWithValue( "GendeltaPHIjj", GenDeltaPhiJJWide ) ;
+       }
+
+     /////////////// Reco quantities
 
      if( AK4jets.size() >=1 ){
        //cout << "AK4jets.size() " <<  AK4jets.size() << endl;

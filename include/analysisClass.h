@@ -23,7 +23,6 @@ typedef boost::shared_ptr<fastjet::JetDefinition>    JetDefPtr;
 #include "CondFormats/JetMETObjects/interface/FactorizedJetCorrector.h"
 #include "CondFormats/JetMETObjects/interface/JetCorrectionUncertainty.h"
 
-//#include "CondFormats/JetMETObjects/interface/JetCorrectorParameters.h"
 
 #include "JetMETCorrections/Modules/interface/JetResolution.h"
 //#include "CondFormats/JetMETObjects/interface/JetResolution.h"

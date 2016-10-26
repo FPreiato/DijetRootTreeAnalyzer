@@ -8,8 +8,8 @@
 #JSON data/json/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON_22Jul16_ICHEP.txt #round8 topup
 #JSON data/json/Cert_271036-278808_13TeV_PromptReco_Collisions16_JSON_NoL1T_19Aug16.txt #fall16 round1 ful
 #JSON data/json/Cert_271036-276811_13TeV_PromptReco_Collisions16_JSON_22Jul16_ICHEP.txt #ICHEP datasets
-#JSON data/json/Cert_271036-280385_13TeV_PromptReco_Collisions16_JSON_NoL1T_v2.txt #fall16 30 Sept
-JSON data/json/lumi_sofar_round7_and_cert_upto_276097_8Jul16.json # Juska 7.6/fb
+#JSON data/json/lumi_sofar_round7_and_cert_upto_276097_8Jul16.json # Juska 7.6/fb
+JSON data/json/Cert_271036-280385_13TeV_PromptReco_Collisions16_JSON_NoL1T_v2.txt #fall16 30 Sept
 #
 #############################     Example of file with list of cuts
 #
@@ -66,6 +66,11 @@ jetAlgo				AntiKt 		-		-		-		-1
 #------------	      ------------ -------------	------------	-------------	-----	----------------  ------------
 PassJSON              -1            1                   -               -               0       2 -0.5 1.5        SAVE  
 nVtx                  0             +inf                -               -               1       50  0 50	  SAVE
+nGenJet	      	      1     	    +inf		-		-		1	31 -0.5 30.5      SAVE
+pTWJ_Genj1	      	      60	    +inf		-	        -	        1	500 0 5000        SAVE
+etaWJ_Genj1             -2.5           2.5                 -               -               1       50  -2.5 2.5      SAVE
+pTWJ_Genj2	      	      30	    +inf		-	        -	        1	500 0 5000        SAVE
+etaWJ_Genj2             -2.5           2.5                 -               -               1       50  -2.5 2.5      SAVE
 IdTight_j1            0.5           1.5                 -               -               1       2  0 2.	  	  SAVE
 IdTight_j2            0.5           1.5                 -               -               1       2  0 2.	  	  SAVE
 nJet	      	      1     	    +inf		-		-		1	31 -0.5 30.5      SAVE
@@ -76,6 +81,8 @@ etaWJ_j2             -2.5           2.5                 -               -       
 deltaETAjj           -inf           +inf               	-               -               1       100 0. 3.         SAVE
 mjj            	     -inf           +inf                -               -               1       10000 0 10000      SAVE
 mjj_shiftJEC         -inf           +inf                -               -               1       10000 0 10000      SAVE
+GendeltaETAjj           -inf           +inf               	-               -               1       100 0. 3.         SAVE
+Genmjj            	     -inf           +inf                -               -               1       10000 0 10000      SAVE
 # no cut on these variables, just want to save histograms
 passHLT_PFHT800	     -inf           +inf                -	        -	        1       2  0 2.	  	  SAVE
 passHLT_PFHT650	     -inf           +inf                -	        -	        1       2  0 2.	  	  SAVE
@@ -101,6 +108,24 @@ run		     -inf	    +inf		-		-		1	50  0 100000	  SAVE
 event		     -inf	    +inf		-		-		1	50  0 100000	  SAVE
 lumi		     -inf	    +inf		-		-		1	50  0 10000	  SAVE
 trueVtx		     -inf	    +inf		-		-		1	50  0 50	  SAVE
+pTAK4_Genj1	     -inf	    +inf		-	        -	        1	500 0 5000        SAVE
+etaAK4_Genj1            -inf           +inf                -               -               1       50  -2.5 2.5      SAVE
+phiAK4_Genj1  	     -inf           +inf                -               -               1       200 -3.15 3.15    SAVE
+jetJerAK4_Genj1            -inf        +inf                -               -               1       90  0 3           SAVE
+pTAK4_Genj2	     -inf	    +inf		-	        -	        1	500 0 5000        SAVE
+etaAK4_Genj2            -inf           +inf                -               -               1       50  -2.5 2.5      SAVE
+phiAK4_Genj2  	     -inf           +inf                -               -               1       200 -3.15 3.15    SAVE
+jetJerAK4_Genj2            -inf        +inf                -               -               1       90  0 3           SAVE
+GenDijet_MassAK4  	     -inf           +inf                -               -               1       1000 0 10000      SAVE	
+GenCosThetaStarAK4	     -inf           +inf   		-		-		1	200 -1 1  	  SAVE
+GendeltaETAjjAK4        -inf           +inf                -               -               1       100 0. 3.         SAVE
+GendeltaPHIjjAK4        -inf           +inf                -               -               1       200 -3.15 3.15    SAVE
+massWJ_Genj1  	     -inf           +inf                -               -               1       200    0  1000    SAVE
+phiWJ_Genj1  	     -inf           +inf                -               -               1       200 -3.15 3.15    SAVE
+massWJ_Genj2  	     -inf           +inf                -               -               1       200    0  1000    SAVE
+phiWJ_Genj2  	     -inf           +inf                -               -               1       200 -3.15 3.15    SAVE
+GenCosThetaStarWJ	     -inf           +inf   		-		-		1	200 -1 1  	  SAVE	
+GendeltaPHIjj           -inf           +inf                -               -               1       200 -3.15 3.15    SAVE
 MET		     -inf           +inf                -               -               1       500 0 5000        SAVE
 metSig		     -inf           +inf                -               -               1       100 0 1           SAVE
 METoverHTAK4	     -inf	    +inf		-		-		1	1000 0 10000      SAVE
