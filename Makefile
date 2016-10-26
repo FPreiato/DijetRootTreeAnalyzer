@@ -1,7 +1,7 @@
 COMP=g++
 FLAGS = -std=c++11 -Wno-attributes -O0 -g
 #FLAGS += -DUSE_EXAMPLE
-FLAGS += -DSAVE_ALL_HISTOGRAMS 
+FLAGS += -DSAVE_ALL_HISTOGRAMS
 # FLAGS += -DCREATE_OPT_CUT_FILE
 ROOTLIBS = `root-config --glibs --cflags` -lMinuit 
 scram = $(shell cd ${CMSSW_BASE}; scram tool tag $(1) $(2))
@@ -9,7 +9,7 @@ INC= -I.. -I. -I./include  -I${CLHEP}/include -I${CMSSW_RELEASE_BASE}/src -I$(ca
 ROOTINC= -I${ROOTSYS}/include
 LIBS= -L.  ${ROOTLIBS} -L${CLHEP}/lib
 SRC= ./src
-SELECTIONLIB=$(SRC)/rootNtupleClass.o $(SRC)/baseClass.o $(SRC)/analysisClass.o ${CMSSW_RELEASE_BASE}/lib/${SCRAM_ARCH}/libCondFormatsJetMETObjects.so $(SRC)/jsonParser.o $(SRC)/pileupReweighter.o $(SRC)/qcdFitter.o $(SRC)/qcdFitter_V1.o  $(SRC)/likelihoodGetter.o $(SRC)/eventListHelper.o
+SELECTIONLIB=$(SRC)/rootNtupleClass.o $(SRC)/baseClass.o $(SRC)/analysisClass.o ${CMSSW_RELEASE_BASE}/lib/${SCRAM_ARCH}/libCondFormatsJetMETObjects.so $(SRC)/jsonParser.o $(SRC)/pileupReweighter.o $(SRC)/qcdFitter.o $(SRC)/qcdFitter_V1.o  $(SRC)/likelihoodGetter.o $(SRC)/eventListHelper.o ${CMSSW_RELEASE_BASE}/lib/${SCRAM_ARCH}/libJetMETCorrectionsModules.so
 EXE = main
 
 # ********** TEMPLATE *************
