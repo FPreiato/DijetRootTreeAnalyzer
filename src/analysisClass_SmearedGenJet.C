@@ -10,10 +10,14 @@
 #include <TRandom.h>
 #include <TRandom3.h>
 
+bool verbose;
+
 analysisClass::analysisClass(string * inputList, string * cutFile, string * treeName, string * outputFileName, string * cutEfficFile)
   :baseClass(inputList, cutFile, treeName, outputFileName, cutEfficFile)
 {
   std::cout << "analysisClass::analysisClass(): begins " << std::endl;
+
+  verbose = getPreCutValue1("verbose");
 
   std::string jetAlgo = getPreCutString1("jetAlgo");
   double rParam = getPreCutValue1("DeltaR");
@@ -79,8 +83,7 @@ analysisClass::analysisClass(string * inputList, string * cutFile, string * tree
   std::cout << "analysisClass::analysisClass(): ends " << std::endl;
 }
 
-analysisClass::~analysisClass()
-{
+analysisClass::~analysisClass(){
   std::cout << "analysisClass::~analysisClass(): begins " << std::endl;
 
   std::cout << "analysisClass::~analysisClass(): ends " << std::endl;
@@ -140,8 +143,8 @@ void analysisClass::Loop()
    ////// If the root version is updated and rootNtupleClass regenerated,     /////
    ////// these lines may need to be updated.                                 /////    
    Long64_t nbytes = 0, nb = 0;
-   //   for (Long64_t jentry=0; jentry<nentries;jentry++) {
-   for (Long64_t jentry=0; jentry<2000;jentry++) {
+   for (Long64_t jentry=0; jentry<nentries;jentry++) {
+   //for (Long64_t jentry=0; jentry<2000;jentry++) {
      Long64_t ientry = LoadTree(jentry);
      if (ientry < 0) break;
      nb = fChain->GetEntry(jentry);   nbytes += nb;
@@ -169,6 +172,13 @@ void analysisClass::Loop()
      if(idx_InTimeBX > -1 ) isData = 0;
      else isData = 1;
 
+     if(verbose)
+       {
+	 std:: cout<< std::endl;
+	 if(isData) std:: cout <<"Is Data"<< std::endl;
+	 if(! isData) std:: cout <<"Is MC"<< std::endl;
+       }
+     
      ///////////// Smearing of all GenJet --> then GenWidejet -- comparing 
 
      size_t no_Genjets_ak4=jetPtGenAK4->size();
@@ -209,16 +219,22 @@ void analysisClass::Loop()
 	     jerFactors.push_back(smearing);
 	     sortedGenJets.insert(std::make_pair(jetPtGenAK4->at(j)*smearing, j));
 	 
-	     std::cout<< "GenJet Pt = "<< jetPtGenAK4->at(j) << std::endl;
-	     std::cout<< "GenJet Resolution = "<< jerFactors[j] << std::endl;
-	     std::cout<< "New GenJet Pt = "<< jetPtGenAK4->at(j)*jerFactors[j] << std::endl;
+	     if(verbose)
+	       {
+		 std::cout<< "GenJet Pt = "<< jetPtGenAK4->at(j) << std::endl;
+		 std::cout<< "GenJet Resolution = "<< jerFactors[j] << std::endl;
+		 std::cout<< "New GenJet Pt = "<< jetPtGenAK4->at(j)*jerFactors[j] << std::endl;
+	       }
 
 	   }
-	 std::cout<< "Sorting..." << std::endl;
+	 if(verbose) std::cout<< "Sorting..." << std::endl;
 	 for(std::multimap<double, unsigned>::const_reverse_iterator it = sortedGenJets.rbegin(); it != sortedGenJets.rend(); ++it) //inline
 	   {
-	     std::cout<< "GenJet Pt = "<< it->first << std::endl;
-	     std::cout<< "index = "<< it->second << std::endl;
+	     if(verbose)
+	       {
+		 std::cout<< "GenJet Pt = "<< it->first << std::endl;
+		 std::cout<< "index = "<< it->second << std::endl;
+	       }
 	     sortedGenJetIdx.push_back(it->second);
 	   }
 	 
@@ -250,7 +266,9 @@ void analysisClass::Loop()
 			&& jerFactors[sortedGenJetIdx[ijet]]*jetPtGenAK4->at(sortedGenJetIdx[ijet]) > getPreCutValue1("ptCut"))
 		       {
 			 TLorentzVector currentGenJet;
-			 currentGenJet.SetPtEtaPhiM(jetPtGenAK4->at(ijet), jetEtaGenAK4->at(ijet), jetPhiGenAK4->at(ijet), jetMassGenAK4->at(ijet) );   
+			 currentGenJet.SetPtEtaPhiM(jerFactors[sortedGenJetIdx[ijet]]*jetPtGenAK4->at(sortedGenJetIdx[ijet])
+						    , jetEtaGenAK4->at(sortedGenJetIdx[ijet]), jetPhiGenAK4->at(sortedGenJetIdx[ijet])
+						    , jerFactors[sortedGenJetIdx[ijet]]*jetMassGenAK4->at(sortedGenJetIdx[ijet]) );   
 			 
 			 double DeltaR1 = currentGenJet.DeltaR(Genjet1);
 			 double DeltaR2 = currentGenJet.DeltaR(Genjet2);
@@ -514,7 +532,7 @@ void analysisClass::Loop()
        if(no_jets_ak4>=2)
 	 {
 	   if(fabs(jetEtaAK4->at(sortedJetIdx[0])) < getPreCutValue1("jetFidRegion") 
-	      && (jecFactors[sortedJetIdx[0]]/jetJecAK4->at(sortedJetIdx[0]))*jetPtAK4->at(sortedJetIdx[sortedJetIdx[0]]) > getPreCutValue1("pt0Cut"))
+	      && (jecFactors[sortedJetIdx[0]]/jetJecAK4->at(sortedJetIdx[0]))*jetPtAK4->at(sortedJetIdx[0]) > getPreCutValue1("pt0Cut"))
 	     {
 	       if(fabs(jetEtaAK4->at(sortedJetIdx[1])) < getPreCutValue1("jetFidRegion") 
 		  && (jecFactors[sortedJetIdx[1]]/jetJecAK4->at(sortedJetIdx[1]))*jetPtAK4->at(sortedJetIdx[1]) > getPreCutValue1("pt1Cut"))
@@ -531,7 +549,7 @@ void analysisClass::Loop()
 				      , (1+jecUncertainty[sortedJetIdx[0]])*(jecFactors[sortedJetIdx[0]]/jetJecAK4->at(sortedJetIdx[0])) * jetMassAK4->at(sortedJetIdx[0]));
 		   jet2_shift.SetPtEtaPhiM( (1+jecUncertainty[sortedJetIdx[1]])* (jecFactors[sortedJetIdx[1]]/jetJecAK4->at(sortedJetIdx[1])) *jetPtAK4->at(sortedJetIdx[1])
 				      ,jetEtaAK4->at(sortedJetIdx[1]),jetPhiAK4->at(sortedJetIdx[1])
-				      , (1+jecUncertainty[sortedJetIdx[0]])*(jecFactors[sortedJetIdx[1]]/jetJecAK4->at(sortedJetIdx[1])) * jetMassAK4->at(sortedJetIdx[1]));
+				      , (1+jecUncertainty[sortedJetIdx[1]])*(jecFactors[sortedJetIdx[1]]/jetJecAK4->at(sortedJetIdx[1])) * jetMassAK4->at(sortedJetIdx[1]));
 		   
 		   for(Long64_t ijet=0; ijet<no_jets_ak4; ijet++)
 		     { //jet loop for ak4
@@ -671,12 +689,14 @@ void analysisClass::Loop()
        fillVariableWithValue( "pTAK4_Genj1", AK4Genjets[0].Pt());
        fillVariableWithValue( "etaAK4_Genj1", AK4Genjets[0].Eta());
        fillVariableWithValue( "phiAK4_Genj1", AK4Genjets[0].Phi());  
+       fillVariableWithValue( "massAK4_Genj1", AK4Genjets[0].M());  
        fillVariableWithValue( "jetJerAK4_Genj1", jerFactors[sortedGenJetIdx[0]] );
      }
      if( AK4Genjets.size() >=2 ){
        fillVariableWithValue( "pTAK4_Genj2", AK4Genjets[1].Pt() );
        fillVariableWithValue( "etaAK4_Genj2", AK4Genjets[1].Eta());
        fillVariableWithValue( "phiAK4_Genj2", AK4Genjets[1].Phi());
+       fillVariableWithValue( "massAK4_Genj2", AK4Genjets[1].M());  
        fillVariableWithValue( "jetJerAK4_Genj2", jerFactors[sortedGenJetIdx[1]]); 
        // Gen dijet
        fillVariableWithValue( "GenDijet_MassAK4", GenMJJAK4) ; 
@@ -713,7 +733,7 @@ void analysisClass::Loop()
        fillVariableWithValue( "pTAK4_j1", AK4jets[0].Pt());
        fillVariableWithValue( "etaAK4_j1", AK4jets[0].Eta());
        fillVariableWithValue( "phiAK4_j1", AK4jets[0].Phi());
-       
+       fillVariableWithValue( "massAK4_j1", AK4jets[0].M());  
        //fillVariableWithValue( "jetPtAK4matchCaloJet_j1", jetPtAK4matchCaloJet->at(sortedJetIdx[0]));
        
        fillVariableWithValue( "jetJecAK4_j1", jecFactors[sortedJetIdx[0]] );
@@ -737,6 +757,7 @@ void analysisClass::Loop()
        fillVariableWithValue( "pTAK4_j2", AK4jets[1].Pt() );
        fillVariableWithValue( "etaAK4_j2", AK4jets[1].Eta());
        fillVariableWithValue( "phiAK4_j2", AK4jets[1].Phi());
+       fillVariableWithValue( "massAK4_j2", AK4jets[1].M());  
        //fillVariableWithValue( "jetPtAK4matchCaloJet_j2", jetPtAK4matchCaloJet->at(sortedJetIdx[1]));
        fillVariableWithValue( "jetJecAK4_j2", jecFactors[sortedJetIdx[1]]); 
        fillVariableWithValue( "jetJecUncAK4_j2", jecUncertainty[sortedJetIdx[1]] );
