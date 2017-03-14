@@ -27,47 +27,84 @@ analysisClass::analysisClass(string * inputList, string * cutFile, string * tree
   if( int(getPreCutValue1("useJECs"))==1 )
   {
     std::cout << "Reapplying JECs on the fly" << std::endl;
+    std::cout << "Using IOV implementation for periodic JEC..." << std::endl;
+
     std::string L1Path = "data/Summer15_25nsV7_MC/Summer15_25nsV7_MC_L1FastJet_AK4PFchs.txt";
     std::string L2Path = "data/Summer15_25nsV7_MC/Summer15_25nsV7_MC_L2Relative_AK4PFchs.txt";
     std::string L3Path = "data/Summer15_25nsV7_MC/Summer15_25nsV7_MC_L3Absolute_AK4PFchs.txt";
+
+    L1Par = new JetCorrectorParameters(L1Path);
+    L2Par = new JetCorrectorParameters(L2Path);
+    L3Par = new JetCorrectorParameters(L3Path);
+
+    std::vector<JetCorrectorParameters> vPar;
+    vPar.push_back(*L1Par);
+    vPar.push_back(*L2Par);
+    vPar.push_back(*L3Par);
+
+    JetCorrector = new FactorizedJetCorrector(vPar);
+
     // procedure for 2015 CaloScouting data:
     //std::string L1DATAPath = "data/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_MC/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_L1FastJet_AK4CaloHLT.txt";
     //std::string L2DATAPath = "data/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_MC/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_L2Relative_AK4CaloHLT.txt"; 
     //std::string L3DATAPath = "data/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_MC/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_L3Absolute_AK4CaloHLT.txt";
     //std::string L2L3ResidualPath = "data/Summer15_25nsV7_DATA/Summer15_25nsV7_DATA_L2L3Residual_AK4PF.txt" ;
+
     // procedure for 2016 CaloScouting data:
-    std::string L1DATAPath = "data/80X_dataRun2_HLT_frozen_v12/80X_dataRun2_HLT_frozen_v12_L1FastJet_AK4CaloHLT.txt";
-    std::string L2DATAPath = "data/80X_dataRun2_HLT_frozen_v12/80X_dataRun2_HLT_frozen_v12_L2Relative_AK4CaloHLT.txt";
-    std::string L3DATAPath = "data/80X_dataRun2_HLT_frozen_v12/80X_dataRun2_HLT_frozen_v12_L3Absolute_AK4CaloHLT.txt";
     // 76X 2015 data
     //std::string L2L3ResidualPath = "data/Fall15_25nsV2_DATA/Fall15_25nsV2_DATA_L2L3Residual_AK4PF.txt" ;
     // 2016 data for ICHEP
     //std::string L2L3ResidualPath = "data/Spring16_25nsV6_DATA/Spring16_25nsV6_DATA_L2L3Residual_AK4PF.txt";
     // 2016 data for Moriond
-    std::string L2L3ResidualPath = "data/Spring16_V8_DATA/Spring16_25nsV8p2_DATA_L2L3Residual_AK4PFchs.txt";
+    //    std::string L2L3ResidualPath = "data/Spring16_V8_DATA/Spring16_25nsV8p2_DATA_L2L3Residual_AK4PFchs.txt";
+
+    // Latest 2016 JEC for PromptReco
+    /*
+    std::string L1DATAPath = "data/80X_dataRun2_HLT_frozen_v12/80X_dataRun2_HLT_frozen_v12_L1FastJet_AK4CaloHLT.txt";
+    std::string L2DATAPath = "data/80X_dataRun2_HLT_frozen_v12/80X_dataRun2_HLT_frozen_v12_L2Relative_AK4CaloHLT.txt";
+    std::string L3DATAPath = "data/80X_dataRun2_HLT_frozen_v12/80X_dataRun2_HLT_frozen_v12_L3Absolute_AK4CaloHLT.txt";
+    std::string L2L3ResidualPath = "data/Spring16_25nsV10p2_DATA/Spring16_25nsV10p2_DATA_L2L3Residual_AK4PFchs.txt";
     
-    L1Par = new JetCorrectorParameters(L1Path);
-    L2Par = new JetCorrectorParameters(L2Path);
-    L3Par = new JetCorrectorParameters(L3Path);
     L1DATAPar = new JetCorrectorParameters(L1DATAPath);
     L2DATAPar = new JetCorrectorParameters(L2DATAPath);
     L3DATAPar = new JetCorrectorParameters(L3DATAPath);
     L2L3Residual = new JetCorrectorParameters(L2L3ResidualPath);
 
-    std::vector<JetCorrectorParameters> vPar;
-    std::vector<JetCorrectorParameters> vPar_data;
-    vPar.push_back(*L1Par);
-    vPar.push_back(*L2Par);
-    vPar.push_back(*L3Par);
-   
+    std::vector<JetCorrectorParameters> vPar_data;    
     //residuals are applied only to data
     vPar_data.push_back(*L1DATAPar);
     vPar_data.push_back(*L2DATAPar);
     vPar_data.push_back(*L3DATAPar);
     vPar_data.push_back(*L2L3Residual);
 
-    JetCorrector = new FactorizedJetCorrector(vPar);
     JetCorrector_data = new FactorizedJetCorrector(vPar_data);
+    */
+
+    // Using IOV JEC now. Now that's 2016. See include/IOV.h for changing versions.
+    // Note that the IOV implementation can be used with just one JEC if wanted. Juska.
+    
+    /*
+      Ranges for 2016 run periods from DAS as of 4 Nov 16.
+      Periods with no certified luminosity are omitted.
+      B-v2: 273150 - 275376
+      C-v2: 276282 - 276279
+      D-v2: 276315 - 276653
+      E-v2: 276824 - 277420
+      F-v1: 277816 - 278808
+      G-v1: 278816 - 280385
+      H-v2: 282807 - 283885
+      List obtained with commands like this:
+      [juska@lxplus069 workdir]$ das_client.py --query='run dataset=/JetHT/Run2016H-PromptReco-v2/MINIAOD' --limit 0
+    */
+    
+    // data
+    iov = new jec::IOV("AK4CaloHLT");
+    iov->add("BCD",1,276823,true); // Using start-1 of run E instead as upper
+    iov->add("E",276824,277815,true);  // Use start-1 of run F instead as upper
+    iov->add("F",277816,278801,true); // Note the division before F dataset ends as instructed by JEC group
+    iov->add("p2",278802,999999,true); // same as V8p2 for 29Sept ReReco (2016B --> 2016G) and for the last period of PromptReco (2016H)
+    
+    JetCorrector_data = new FactorizedJetCorrector(); // Will be filled later
 
     //uncertainty
     //unc = new JetCorrectionUncertainty("data/Summer15_50nsV5_DATA/Summer15_50nsV5_DATA_Uncertainty_AK4PFchs.txt");
@@ -78,7 +115,7 @@ analysisClass::analysisClass(string * inputList, string * cutFile, string * tree
     // for ICHEP 2016 CaloScouting 
     //unc = new JetCorrectionUncertainty("data/Spring16_25nsV6_DATA/Spring16_25nsV6_DATA_Uncertainty_AK4PFchs.txt");
     // for 2016 CaloScouting
-    unc = new JetCorrectionUncertainty("data/Spring16_V8_DATA/Spring16_25nsV8p2_DATA_Uncertainty_AK4PFchs.txt");
+    unc = new JetCorrectionUncertainty("data/Spring16_25nsV10_DATA/Spring16_25nsV10p2_DATA_Uncertainty_AK4PFchs.txt");
 
   }
   
@@ -155,16 +192,16 @@ void analysisClass::Loop()
    ////// If the root version is updated and rootNtupleClass regenerated,     /////
    ////// these lines may need to be updated.                                 /////    
    Long64_t nbytes = 0, nb = 0;
-     for (Long64_t jentry=0; jentry<nentries;jentry++) {
-      // for (Long64_t jentry=0; jentry<2000;jentry++) {
+   for (Long64_t jentry=0; jentry<nentries;jentry++) {
+     //for (Long64_t jentry=0; jentry<20000;jentry++) {
      Long64_t ientry = LoadTree(jentry);
      if (ientry < 0) break;
      nb = fChain->GetEntry(jentry);   nbytes += nb;
      if(jentry < 10 || jentry%1000 == 0) std::cout << "analysisClass::Loop(): jentry = " << jentry << std::endl;   
      // if (Cut(ientry) < 0) continue;
-
+     
      ////////////////////// User's code starts here ///////////////////////
-
+     
      ///Stuff to be done for every event
 
      size_t no_jets_ak4=jetPtAK4->size();
@@ -210,6 +247,8 @@ void analysisClass::Loop()
 	     JetCorrector->setJetA(jetAreaAK4->at(j));
 	     JetCorrector->setRho(rho);
 
+	     JetCorrector_data = iov->get(runNo); // Get IOV dependent JEC
+
   	     JetCorrector_data->setJetEta(jetEtaAK4->at(j));
 	     JetCorrector_data->setJetPt(jetPtAK4->at(j)/jetJecAK4->at(j)); //pTraw
 	     JetCorrector_data->setJetA(jetAreaAK4->at(j));
@@ -224,6 +263,9 @@ void analysisClass::Loop()
 	     //nominal_correction=correction;
 	     //old_correction = jetJecAK4->at(j);
 	     //}
+
+	     //	     std::cout << "Correction applied = "<< correction << std::endl;
+
 	     //JEC uncertainties
 	     unc->setJetEta(jetEtaAK4->at(j));
 	     unc->setJetPt(jetPtAK4->at(j)/jetJecAK4->at(j)*correction);
@@ -240,25 +282,25 @@ void analysisClass::Loop()
 	       correction = correction + getPreCutValue2("shiftJECs")*uncertainty*correction;
 	       //  std::cout << "run:" << runNo << "    lumi:" << lumi << "   event:" << evtNo << "   jet pt:" << jetPtAK3->at(j)/jetJecAK4->at(j)*correction << "   correction:" << correction << "   uncertainty:" <<  uncertainty  << std::endl << std::endl;
 	       
+	     }
+	     
+	     jecFactors.push_back(correction);
+	     
+	     bool idval = false;
+	     if( jetHadfAK4->at(j)<getPreCutValue1("hadFraction") && jetEmfAK4->at(j)<getPreCutValue1("emFraction") )
+	       idval = true;
+	   
+	     idCaloJet.push_back(idval);
+	 
+	     sortedJets.insert(std::make_pair((jetPtAK4->at(j)/jetJecAK4->at(j))*correction, j));
+	 
 	   }
-
-	 jecFactors.push_back(correction);
 	 
-	 bool idval = false;
-	 if( fabs(jetEtaAK4->at(j) < getPreCutValue1("jetFidRegion") ) ) 
-	   if ( jetHadfAK4->at(j) <  getPreCutValue1("hadFraction") && jetEmfAK4->at(j) <  getPreCutValue1("emFraction")  ) 
-	     idval = true;
-	 
-	 idCaloJet.push_back(idval);
-	 
-	 sortedJets.insert(std::make_pair((jetPtAK4->at(j)/jetJecAK4->at(j))*correction, j));
-
-       }
      // get jet indices in decreasing pT order
      for(std::multimap<double, unsigned>::const_reverse_iterator it = sortedJets.rbegin(); it != sortedJets.rend(); ++it)
 	 sortedJetIdx.push_back(it->second);
      
-     }
+       }
      else if( int(getPreCutValue1("noJECs"))==1  )
        {
 	 // sort jets by increasing pT
@@ -269,12 +311,11 @@ void analysisClass::Loop()
 	     jecFactors.push_back(1.);
 
 	     bool idval = false;
-	     if( fabs(jetEtaAK4->at(j) < getPreCutValue1("jetFidRegion") ) ) 
-	       if ( jetHadfAK4->at(j) <  getPreCutValue1("hadFraction") && jetEmfAK4->at(j) <  getPreCutValue1("emFraction")  ) 
-		 idval = true;
-	     	     
+	     if( jetHadfAK4->at(j)<getPreCutValue1("hadFraction") && jetEmfAK4->at(j)<getPreCutValue1("emFraction")  ) 
+	       idval = true;
+	     
 	     idCaloJet.push_back(idval);
-
+	     
 	     sortedJets.insert(std::make_pair((jetPtAK4->at(j)/jetJecAK4->at(j)), j)); //raw
 	   }       
 	 // get jet indices in decreasing pT order
@@ -289,12 +330,11 @@ void analysisClass::Loop()
 	     jecUncertainty.push_back(0.); 
 
 	     bool idval = false;
-	     if( fabs(jetEtaAK4->at(j) < getPreCutValue1("jetFidRegion") ) ) 
-	       if ( jetHadfAK4->at(j) <  getPreCutValue1("hadFraction") && jetEmfAK4->at(j) <  getPreCutValue1("emFraction")  ) 
-		 idval = true;
-	     	     
+	     if( jetHadfAK4->at(j)<getPreCutValue1("hadFraction") && jetEmfAK4->at(j)<getPreCutValue1("emFraction")  ) 
+	       idval = true;
+	     
 	     idCaloJet.push_back(idval);
-
+	     
 	     sortedJetIdx.push_back(j);
 	   }
        }
@@ -305,10 +345,10 @@ void analysisClass::Loop()
      //#############################################################
 
      // if(no_jets_ak4>=2){
-     //  if(!(fabs(jetEtaAK4->at(0)) < getPreCutValue1("jetFidRegion") && idTAK4->at(0) == getPreCutValue1("tightJetID"))){
+     //  if( !( fabs(jetEtaAK4->at(0)) < getPreCutValue1("jetFidRegion") && idTAK4->at(0) == getPreCutValue1("tightJetID"))){
      //    std::cout << " JET 0 FAIL " << jetEtaAK4->at(0) << " JET 0  ID " << idTAK4->at(0) << std::endl;
      //  }
-     //  if(!(fabs(jetEtaAK4->at(1)) < getPreCutValue1("jetFidRegion") && idTAK4->at(1) == getPreCutValue1("tightJetID"))){
+     //  if( !( fabs(jetEtaAK4->at(1)) < getPreCutValue1("jetFidRegion") && idTAK4->at(1) == getPreCutValue1("tightJetID"))){
      //    std::cout << " JET 1 FAIL " << jetEtaAK4->at(1) << " JET 1  ID " << idTAK4->at(1) << std::endl;
      //  }  
      // }
@@ -327,10 +367,10 @@ void analysisClass::Loop()
 	 //      << endl;
 
 	 //////////////cout << "id Tight jet" << sortedJetIdx[1] << " = " << idTAK4->at(sortedJetIdx[1]) << endl;
-	 if(fabs(jetEtaAK4->at(sortedJetIdx[ijet])) < getPreCutValue1("jetFidRegion")
-	    // && idTAK4->at(sortedJetIdx[ijet]) == getPreCutValue1("tightJetID") // figure out ARTUR
-	    && idCaloJet[sortedJetIdx[ijet]] == getPreCutValue1("tightJetID") 
-	    && (jecFactors[sortedJetIdx[ijet]]/jetJecAK4->at(sortedJetIdx[ijet]))*jetPtAK4->at(sortedJetIdx[ijet]) > getPreCutValue1("ptCut"))
+	 if( fabs(jetEtaAK4->at(sortedJetIdx[ijet])) < getPreCutValue1("jetFidRegion")
+	     // && idTAK4->at(sortedJetIdx[ijet]) == getPreCutValue1("tightJetID") // figure out ARTUR
+	     && idCaloJet[sortedJetIdx[ijet]] == getPreCutValue1("tightJetID") 
+	     && (jecFactors[sortedJetIdx[ijet]]/jetJecAK4->at(sortedJetIdx[ijet]))*jetPtAK4->at(sortedJetIdx[ijet]) > getPreCutValue1("ptCut"))
 	   {
 	     Nak4 += 1;
 	     HTak4 += (jecFactors[sortedJetIdx[ijet]]/jetJecAK4->at(sortedJetIdx[ijet]))*jetPtAK4->at(sortedJetIdx[ijet]);
@@ -345,10 +385,10 @@ void analysisClass::Loop()
 
        for(size_t j=0; j<no_jets_ak4; ++j)
        {
-	 if( !(jetEtaAK4->at(sortedJetIdx[j]) < getPreCutValue1("jetFidRegion")
+	 if( !( fabs(jetEtaAK4->at(sortedJetIdx[j])) < getPreCutValue1("jetFidRegion")
 	       // && idTAK4->at(sortedJetIdx[j]) == getPreCutValue1("tightJetID")
 	       && idCaloJet[sortedJetIdx[j]] == getPreCutValue1("tightJetID") 
-	       ) ) continue;
+		) ) continue;
 
 	 double rescale = (jecFactors[sortedJetIdx[j]]/jetJecAK4->at(sortedJetIdx[j]));
 
@@ -387,10 +427,10 @@ void analysisClass::Loop()
 
        if(no_jets_ak4>=2)
 	 {
-	   if(fabs(jetEtaAK4->at(sortedJetIdx[0])) < getPreCutValue1("jetFidRegion") 
-	      && (jecFactors[sortedJetIdx[0]]/jetJecAK4->at(sortedJetIdx[0]))*jetPtAK4->at(sortedJetIdx[sortedJetIdx[0]]) > getPreCutValue1("pt0Cut"))
+	   if( fabs(jetEtaAK4->at(sortedJetIdx[0])) < getPreCutValue1("jetFidRegion") 
+	      && (jecFactors[sortedJetIdx[0]]/jetJecAK4->at(sortedJetIdx[0]))*jetPtAK4->at(sortedJetIdx[0]) > getPreCutValue1("pt0Cut"))
 	     {
-	       if(fabs(jetEtaAK4->at(sortedJetIdx[1])) < getPreCutValue1("jetFidRegion") 
+	       if( fabs(jetEtaAK4->at(sortedJetIdx[1])) < getPreCutValue1("jetFidRegion") 
 		  && (jecFactors[sortedJetIdx[1]]/jetJecAK4->at(sortedJetIdx[1]))*jetPtAK4->at(sortedJetIdx[1]) > getPreCutValue1("pt1Cut"))
 		 {
 		   TLorentzVector jet1, jet2, jet1_shift, jet2_shift;
@@ -405,13 +445,13 @@ void analysisClass::Loop()
 				      , (1+jecUncertainty[sortedJetIdx[0]])*(jecFactors[sortedJetIdx[0]]/jetJecAK4->at(sortedJetIdx[0])) * jetMassAK4->at(sortedJetIdx[0]));
 		   jet2_shift.SetPtEtaPhiM( (1+jecUncertainty[sortedJetIdx[1]])* (jecFactors[sortedJetIdx[1]]/jetJecAK4->at(sortedJetIdx[1])) *jetPtAK4->at(sortedJetIdx[1])
 				      ,jetEtaAK4->at(sortedJetIdx[1]),jetPhiAK4->at(sortedJetIdx[1])
-				      , (1+jecUncertainty[sortedJetIdx[0]])*(jecFactors[sortedJetIdx[1]]/jetJecAK4->at(sortedJetIdx[1])) * jetMassAK4->at(sortedJetIdx[1]));
+				      , (1+jecUncertainty[sortedJetIdx[1]])*(jecFactors[sortedJetIdx[1]]/jetJecAK4->at(sortedJetIdx[1])) * jetMassAK4->at(sortedJetIdx[1]));
 		   
 		   for(Long64_t ijet=0; ijet<no_jets_ak4; ijet++)
 		     { //jet loop for ak4
 		       TLorentzVector currentJet;
 		       
-		       if(fabs(jetEtaAK4->at(sortedJetIdx[ijet])) < getPreCutValue1("jetFidRegion") 
+		       if( fabs(jetEtaAK4->at(sortedJetIdx[ijet])) < getPreCutValue1("jetFidRegion") 
 			  && idCaloJet[sortedJetIdx[ijet]] == getPreCutValue1("tightJetID") 
 			  && (jecFactors[sortedJetIdx[ijet]]/jetJecAK4->at(sortedJetIdx[ijet]))*jetPtAK4->at(sortedJetIdx[ijet]) > getPreCutValue1("ptCut"))
 			 {
@@ -481,13 +521,9 @@ void analysisClass::Loop()
 
        float f1 = p0 + p1 * pow( 0.01 * wj1.Pt() , p2);
        float f2 = p0 + p1 * pow( 0.01 * wj2.Pt() , p2);
-       
-       corr1 = 1. / (1. + 0.01*f1);
-       corr2 = 1. / (1. + 0.01*f2);
-       
-       wj1 = wj1*corr1;
-       wj2 = wj2*corr2;
-       
+       */
+
+       /*
        // old 2016 bias correction from Mikko/Federico
        // (page 4 https://indico.cern.ch/event/546408/contributions/2217944/attachments/1298388/1936977/Giugno-24-2016_-_CaloScouting.pdf)
        float p0 = 0.419;
@@ -500,11 +536,9 @@ void analysisClass::Loop()
 
        float f1 = p0 + p1 * pow( wj1.Pt() , p2) + p3/wj1.Pt() + p4 * exp( -0.5 * ((wj1.Pt() - p5)/p6) * ((wj1.Pt() - p5)/p6) );
        float f2 = p0 + p1 * pow( wj2.Pt() , p2) + p3/wj2.Pt() + p4 * exp( -0.5 * ((wj2.Pt() - p5)/p6) * ((wj2.Pt() - p5)/p6) );
-       
-       corr1 = 1. / (1. + 0.01*f1);
-       corr2 = 1. / (1. + 0.01*f2);
        */
-       
+
+       /*     
        // new 2016 bias correction from Federico
        // (page 10 https://www.dropbox.com/s/7sporqeim01675d/Luglio_20_2016_CaloScouting.pdf?dl=1)
        // flattened above 993.264 (point of zero slope)
@@ -523,7 +557,27 @@ void analysisClass::Loop()
 	 f2 = p0 + p1 * log( 993.264 ) + p2 * log( 993.264 ) * log( 993.264 ) ;
        else	 
 	 f2 = p0 + p1 * log( wj2.Pt() ) + p2 * log( wj2.Pt() ) * log( wj2.Pt() ) ;
-       
+       */
+
+       // new 2016 bias correction -- full 2016 dataset
+       // TF1 *f3 = new TF1("f3","[0]*pow(x,[1]) + [2]*pow(max(0.,log(x/700.)),1.2)",180,2500)
+
+       float p0 = -1.55133e+02;
+       float p1 = -7.09058e-01;
+       float p2 = -3.11990e-01;
+
+       float f1 = 0;
+       float f2 = 0;
+
+       f1 = p0 * pow(wj1.Pt(),p1) + p2 * pow(max(0.,log( wj1.Pt()/700. )),1.2) ;
+       f2 = p0 * pow(wj2.Pt(),p1) + p2 * pow(max(0.,log( wj2.Pt()/700. )),1.2) ;
+
+       // new 2016 bias correction with IOV system also for CaloHLT jets -- full 2016 dataset
+       // TO BE DONE YET
+
+       /////////////////////////////////////////
+
+
        corr1 = 1. / (1. + 0.01*f1);
        corr2 = 1. / (1. + 0.01*f2);
 
@@ -560,10 +614,10 @@ void analysisClass::Loop()
        //cout << "eta j1 " << jetEtaAK4->at(sortedJetIdx[0]) << endl;
        //cout << "pt j1 " << (jecFactors[sortedJetIdx[0]]/jetJecAK4->at(sortedJetIdx[0])) *jetPtAK4->at(sortedJetIdx[0]) << endl;
        {
-	 if(fabs(jetEtaAK4->at(sortedJetIdx[0])) < getPreCutValue1("jetFidRegion") 
+	 if( fabs(jetEtaAK4->at(sortedJetIdx[0])) < getPreCutValue1("jetFidRegion") 
 	    && (jecFactors[sortedJetIdx[0]]/jetJecAK4->at(sortedJetIdx[0]))*jetPtAK4->at(sortedJetIdx[0]) > getPreCutValue1("pt0Cut"))
 	   {
-	     if(fabs(jetEtaAK4->at(sortedJetIdx[1])) < getPreCutValue1("jetFidRegion") 
+	     if( fabs(jetEtaAK4->at(sortedJetIdx[1])) < getPreCutValue1("jetFidRegion") 
 		&& (jecFactors[sortedJetIdx[1]]/jetJecAK4->at(sortedJetIdx[1]))*jetPtAK4->at(sortedJetIdx[1]) > getPreCutValue1("pt1Cut"))
 	       {
 		 //cout << "filling ak4j1 and ak4j2" << endl;

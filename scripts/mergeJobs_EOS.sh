@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR='/eos/cms/store/group/phys_exotica/dijet/Dijet13TeVScouting/rootTrees_reduced/ScoutingPFCommissioning__09_03_2016/ScoutingPFCommissioning__09_03_2016_20160309_225640/'
+DIR='/eos/cms/store/group/phys_exotica/dijet/Dijet13TeVScouting/rootTrees_reduced/ScoutingCaloCommissioning_2017-01-18/CommissioningE/JEC_CaloHLT_plus_V10p2_20170119_001102/'
 eos="/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select"
 $eos mkdir -p $DIR/merged/
 ENDPOINT="root://eoscms/"

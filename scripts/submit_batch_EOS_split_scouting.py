@@ -176,7 +176,7 @@ for line in  ins:
     outputfile = open(outputname,'w')
     #outputfile.write('#!/bin/bash\n')
     outputfile.write('#!/usr/bin/env bash -x\n')
-    outputfile.write('export SCRAM_ARCH=slc6_amd64_gcc491\n')
+    outputfile.write('export SCRAM_ARCH=slc6_amd64_gcc530\n')
     outputfile.write('pwd\n')
     outputfile.write('export TWD=$PWD\n')
     outputfile.write('cd '+pwd+' \n')
@@ -189,9 +189,9 @@ for line in  ins:
     outputfile.write("xrdcp -f $TWD/rootfile_"+sample+"_"+newTag+"_"+str(jj)+".root root://eoscms/"+opt.output+"/"+newTag+"/rootfile_"+sample+"_"+newTag+"_"+str(jj)+".root\n")##NEW
     outputfile.write("xrdcp -f $TWD/cutEfficiencyFile_"+sample+"_"+newTag+"_"+str(jj)+".dat root://eoscms/"+opt.output+"/"+newTag+"/cutEfficiencyFile_"+sample+"_"+newTag+"_"+str(jj)+".dat\n")##NEW
     #outputfile.write("xrdcp -f $TWD/logfile_"+sample+"_"+newTag+"_"+str(jj)+".log "+pwd+"/"+logfile+"\n")##NEW
-    outputfile.write("rm $TWD/rootfile_"+sample+"_"+newTag+"_"+str(jj)+"_reduced_skim.root\n")
-    outputfile.write("rm $TWD/rootfile_"+sample+"_"+newTag+"_"+str(jj)+".root\n")
-    outputfile.write("rm $TWD/cutEfficiencyFile_"+sample+"_"+newTag+"_"+str(jj)+".dat\n")
+#    outputfile.write("rm $TWD/rootfile_"+sample+"_"+newTag+"_"+str(jj)+"_reduced_skim.root\n")
+#    outputfile.write("rm $TWD/rootfile_"+sample+"_"+newTag+"_"+str(jj)+".root\n")
+#    outputfile.write("rm $TWD/cutEfficiencyFile_"+sample+"_"+newTag+"_"+str(jj)+".dat\n")
     #outputfile.write("rm $TWD/logfile_"+sample+"_"+newTag+"_"+str(jj)+".log\n")
     outputfile.write("ls -lrth $TWD/\n")
     outputfile.close()  

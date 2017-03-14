@@ -33,7 +33,8 @@ proc = subprocess.Popen(["ls %s | grep .src | grep -v \"\~\"" % opt.inputDir], s
 out = out.splitlines()
 #print out[:10]
 
-procEOS = subprocess.Popen(["ls %s | grep _reduced_skim.root | grep -v \"\~\"" % opt.storageDir], stdout=subprocess.PIPE, shell=True)
+#procEOS = subprocess.Popen(["ls %s | grep _reduced_skim.root | grep -v \"\~\"" % opt.storageDir], stdout=subprocess.PIPE, shell=True)
+procEOS = subprocess.Popen(["eos ls %s | grep _reduced_skim.root | grep -v \"\~\"" % opt.storageDir], stdout=subprocess.PIPE, shell=True)
 (outEOS, errEOS) = procEOS.communicate()
 outEOS = outEOS.splitlines()
 #print outEOS
@@ -92,16 +93,17 @@ for srcFile in out:
     ##     resubmit = 1
     ##     overallresubmit = 1
 
-    ## #check content of crablogfile
-    ## proccrablogcont = subprocess.Popen(["less %s" % opt.inputDir+"/"+crablogfile], stdout=subprocess.PIPE, shell=True)
-    ## (outcrablogcont, errcrablogcont) = proccrablogcont.communicate()
-    ## #print outcrablogcont
-    ## if ("Successfully completed." in outcrablogcont)==False:
-    ##     resubmit = 1
-    ##     overallresubmit = 1
+    #check content of crablogfile
+    proccrablogcont = subprocess.Popen(["less %s" % opt.inputDir+"/"+crablogfile], stdout=subprocess.PIPE, shell=True)
+    (outcrablogcont, errcrablogcont) = proccrablogcont.communicate()
+     #print outcrablogcont
+    if ("Successfully completed." in outcrablogcont)==False:
+        resubmit = 1
+        overallresubmit = 1
 
     #check presence of output file in EOS directory    
-    procroot = subprocess.Popen(["ls %s" % opt.storageDir+"/"+rootfilereduced], stdout=subprocess.PIPE, shell=True)
+#    procroot = subprocess.Popen(["ls %s" % opt.storageDir+"/"+rootfilereduced], stdout=subprocess.PIPE, shell=True)
+    procroot = subprocess.Popen(["eos ls %s" % opt.storageDir+"/"+rootfilereduced], stdout=subprocess.PIPE, shell=True)
     (outroot, errroot) = procroot.communicate()
     if len(outroot) == 0:
         resubmit = 1
@@ -111,7 +113,9 @@ for srcFile in out:
     if resubmit == 1:
         print "=== job "+numberOfJob+" should be resubmmitted"
         print outResub[int(numberOfJob)]
+        # automatic resubmit
         #os.system(outResub[int(numberOfJob)])
+
         #print 'source %s/%s'%(opt.inputDir,srcFile)
         #os.system('source %s/%s'%(opt.inputDir,srcFile))
         toBeResubmitted += 1

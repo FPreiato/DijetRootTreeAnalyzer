@@ -8,8 +8,6 @@
 #include <TVector2.h>
 #include <TVector3.h>
 
-
-
 analysisClass::analysisClass(string * inputList, string * cutFile, string * treeName, string * outputFileName, string * cutEfficFile)
   :baseClass(inputList, cutFile, treeName, outputFileName, cutEfficFile)
 {
