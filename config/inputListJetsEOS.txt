@@ -1,0 +1,1 @@
+root://eoscms.cern.ch//eos/cms/store/group/phys_exotica/dijet/Dijet13TeVScouting/rootTrees_big/2016/ScoutingCaloHT_Run2016B-v1_Jun-10-2016_20160610_230443/ScoutingCaloHT/crab_ScoutingCaloHT__Run2016B-v1__RAW/160610_210501/0000/ScoutingCaloHT__Run2016B-v1__RAW_100.root
