@@ -5,8 +5,7 @@ import sys
 import optparse
 import datetime
 
-usage = "usage: To be run from DijetRootTreeAnalyzer/ :  python scripts/submit_batch_T2_split.py -q cmslong -i config/list_to_run -o output --split 10 --tag ParkingScoutingMonitor -c co\
-nfig/cutFile_mainDijetScoutingMonitor.txt"
+usage = "usage: To be run from DijetRootTreeAnalyzer/ :  python scripts/submit_batch_T2_split.py -q cmslong -i config/list_to_run -o output --split 10 --tag ParkingScoutingMonitor -c config/cutFile_mainDijetScoutingMonitor.txt"
 
 parser = optparse.OptionParser("submitAllGJetsID.py")
 parser.add_option('-q', '--queue',       action='store',     dest='queue',       
@@ -80,8 +79,10 @@ njobs_list = []
 #hadd_cmd = []
 #filenames_skim = []
 splittedDir = "splitted"+"_"+simpletimeMarker
+
 ##create a directory to store logfiles containing the "tag" in the name
 os.system("mkdir batch/"+newTag)
+submitCommandsFile = open("batch/"+newTag+"/bsub_commands.txt","a+")
 os.system("mkdir "+opt.input+"/"+splittedDir)
 
 ##loop over lists (one for datasets) to create splitted lists
@@ -161,7 +162,10 @@ for line in  ins:
     
     print outputname 
     if opt.interactive==False:
-      os.system("bsub -q "+opt.queue+" -o "+logfile+" source "+pwd+"/"+outputname)
+      bsubCommand = "bsub -q "+opt.queue+" -o "+logfile+" source "+pwd+"/"+outputname
+      print bsubCommand ##NEW
+      submitCommandsFile.write(bsubCommand+"\n")      
+      os.system(bsubCommand)
     else:
       print logfile
       if imc==0: os.system(command+" >&! "+logfile+"&")
