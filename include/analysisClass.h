@@ -45,10 +45,17 @@ private :
   JetCorrectorParameters *L1Par;
   JetCorrectorParameters *L2Par;
   JetCorrectorParameters *L3Par;
+<<<<<<< HEAD
+  // JetCorrectorParameters *L1DATAPar;
+  // JetCorrectorParameters *L2DATAPar;
+  // JetCorrectorParameters *L3DATAPar;
+  // JetCorrectorParameters *L2L3Residual;
+=======
   JetCorrectorParameters *L1DATAPar;
   JetCorrectorParameters *L2DATAPar;
   JetCorrectorParameters *L3DATAPar;
   JetCorrectorParameters *L2L3Residual;
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
   JetCorrectorParameters *L1DATAHLTPar;
   JetCorrectorParameters *L2DATAHLTPar;
   JetCorrectorParameters *L3DATAHLTPar;
@@ -61,6 +68,7 @@ private :
   BTagCalibrationReader  *breader_medium;
   BTagCalibrationReader  *breader_tight;
   jec::IOV *iov;
+  jec::IOV *iovCalo;
 };
 
 #endif

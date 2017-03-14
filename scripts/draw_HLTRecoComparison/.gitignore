@@ -1,0 +1,24 @@
+drawAsymmetry
+drawHLTRecoComparison
+drawHLTRecoComparison_2Files
+drawHLTRecoComparison_Binning
+drawRawJetsStudy
+*Test*
+*/*.png
+Plot
+# Pictures and plots #
+######################
+*.png
+*.pdf
+*.eps
+*.svg
+
+# Rootfiles
+#################
+*.root
+
+*.d
+
+##################
+\#*
+*~

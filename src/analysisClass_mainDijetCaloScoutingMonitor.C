@@ -30,93 +30,64 @@ analysisClass::analysisClass(string * inputList, string * cutFile, string * tree
   if( int(getPreCutValue1("useJECs"))==1 )
   {
     std::cout << "Reapplying JECs on the fly" << std::endl;
+    std::cout << "Using IOV implementation for periodic JEC..." << std::endl;
 
-    /* JEC v6
-    std::string L1Path = "data/Summer15_25nsV6_MC/Summer15_25nsV6_MC_L1FastJet_AK4PFchs.txt";
-    std::string L2Path = "data/Summer15_25nsV6_MC/Summer15_25nsV6_MC_L2Relative_AK4PFchs.txt"; 
-    std::string L3Path = "data/Summer15_25nsV6_MC/Summer15_25nsV6_MC_L3Absolute_AK4PFchs.txt";
+    // MC JEC done the old way for convenience. Should be updated to V8.
+    // Uncertainties also from a single file for now. My best guess was to use V8p2.
 
-    std::string L1DATAPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L1FastJet_AK4PFchs.txt";
-    std::string L2DATAPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L2Relative_AK4PFchs.txt"; 
-    std::string L3DATAPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L3Absolute_AK4PFchs.txt";
-    std::string L2L3ResidualPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L2L3Residual_AK4PFchs.txt" ;
-
-    std::string L1DATAHLTPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L1FastJet_AK4PFchs.txt";
-    std::string L2DATAHLTPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L2Relative_AK4PFchs.txt"; 
-    std::string L3DATAHLTPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L3Absolute_AK4PFchs.txt";
-    std::string L2L3ResidualHLTPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L2L3Residual_AK4PFchs.txt" ;
-    */
-
-    /*
-    // HLT + v6Res
-    std::string L1Path = "data/Summer15_25nsV6_MC/Summer15_25nsV6_MC_L1FastJet_AK4PFchs.txt";
-    std::string L2Path = "data/Summer15_25nsV6_MC/Summer15_25nsV6_MC_L2Relative_AK4PFchs.txt"; 
-    std::string L3Path = "data/Summer15_25nsV6_MC/Summer15_25nsV6_MC_L3Absolute_AK4PFchs.txt";
-
-    std::string L1DATAPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L1FastJet_AK4PFchs.txt";
-    std::string L2DATAPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L2Relative_AK4PFchs.txt"; 
-    std::string L3DATAPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L3Absolute_AK4PFchs.txt";
-    std::string L2L3ResidualPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L2L3Residual_AK4PFchs.txt" ;
-
-    std::string L1DATAHLTPath = "data/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_MC/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_L1FastJet_AK4PFchs.txt";
-    std::string L2DATAHLTPath = "data/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_MC/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_L2Relative_AK4PFchs.txt"; 
-    std::string L3DATAHLTPath = "data/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_MC/74X_HLT_mcRun2_asymptotic_fromSpring15DR_v0_L3Absolute_AK4PFchs.txt";
-    std::string L2L3ResidualHLTPath = "data/Summer15_25nsV6_DATA/Summer15_25nsV6_DATA_L2L3Residual_AK4PFchs.txt" ;
-    */
-
-    // HLT + v7Res
-    // MC non used
-    std::string L1Path = "data/Summer15_25nsV7_MC/Summer15_25nsV7_MC_L1FastJet_AK4PFchs.txt";
-    std::string L2Path = "data/Summer15_25nsV7_MC/Summer15_25nsV7_MC_L2Relative_AK4PFchs.txt"; 
-    std::string L3Path = "data/Summer15_25nsV7_MC/Summer15_25nsV7_MC_L3Absolute_AK4PFchs.txt";
-    // data: PFReco
-    std::string L1DATAPath = "data/Spring16_25nsV6_DATA/Spring16_25nsV6_DATA_L1FastJet_AK4PFchs.txt";
-    std::string L2DATAPath = "data/Spring16_25nsV6_DATA/Spring16_25nsV6_DATA_L2Relative_AK4PFchs.txt"; 
-    std::string L3DATAPath = "data/Spring16_25nsV6_DATA/Spring16_25nsV6_DATA_L3Absolute_AK4PFchs.txt";
-    std::string L2L3ResidualPath = "data/Spring16_25nsV6_DATA/Spring16_25nsV6_DATA_L2L3Residual_AK4PFchs.txt" ;
-    // data: CaloHLT
-    std::string L1DATAHLTPath = "data/80X_dataRun2_HLT_frozen_v12/80X_dataRun2_HLT_frozen_v12_L1FastJet_AK4CaloHLT.txt";
-    std::string L2DATAHLTPath = "data/80X_dataRun2_HLT_frozen_v12/80X_dataRun2_HLT_frozen_v12_L2Relative_AK4CaloHLT.txt"; 
-    std::string L3DATAHLTPath = "data/80X_dataRun2_HLT_frozen_v12/80X_dataRun2_HLT_frozen_v12_L3Absolute_AK4CaloHLT.txt";
-    std::string L2L3ResidualHLTPath = "data/Spring16_25nsV6_DATA/Spring16_25nsV6_DATA_L2L3Residual_AK4PFchs.txt";
+    // MC -  Not used    
+    std::string L1Path = "data/Spring16_25nsV6_MC/Spring16_25nsV6_MC_L1FastJet_AK4PFchs.txt";
+    std::string L2Path = "data/Spring16_25nsV6_MC/Spring16_25nsV6_MC_L2Relative_AK4PFchs.txt";
+    std::string L3Path = "data/Spring16_25nsV6_MC/Spring16_25nsV6_MC_L3Absolute_AK4PFchs.txt";
 
     L1Par = new JetCorrectorParameters(L1Path);
     L2Par = new JetCorrectorParameters(L2Path);
     L3Par = new JetCorrectorParameters(L3Path);
 
-    L1DATAPar = new JetCorrectorParameters(L1DATAPath);
-    L2DATAPar = new JetCorrectorParameters(L2DATAPath);
-    L3DATAPar = new JetCorrectorParameters(L3DATAPath);
-    L2L3Residual = new JetCorrectorParameters(L2L3ResidualPath);
-
-    L1DATAHLTPar = new JetCorrectorParameters(L1DATAHLTPath);
-    L2DATAHLTPar = new JetCorrectorParameters(L2DATAHLTPath);
-    L3DATAHLTPar = new JetCorrectorParameters(L3DATAHLTPath);
-    L2L3ResidualHLT = new JetCorrectorParameters(L2L3ResidualHLTPath);
-
     std::vector<JetCorrectorParameters> vPar;
-    std::vector<JetCorrectorParameters> vPar_data;
-    std::vector<JetCorrectorParameters> vPar_dataHLT;
     vPar.push_back(*L1Par);
     vPar.push_back(*L2Par);
     vPar.push_back(*L3Par);
-    //residuals are applied only to data
-    vPar_data.push_back(*L1DATAPar);
-    vPar_data.push_back(*L2DATAPar);
-    vPar_data.push_back(*L3DATAPar);
-    vPar_data.push_back(*L2L3Residual);
-    //residuals are applied only to data -- HLT
-    vPar_dataHLT.push_back(*L1DATAHLTPar);
-    vPar_dataHLT.push_back(*L2DATAHLTPar);
-    vPar_dataHLT.push_back(*L3DATAHLTPar);
-    vPar_dataHLT.push_back(*L2L3ResidualHLT);
 
-    JetCorrector = new FactorizedJetCorrector(vPar);
-    JetCorrector_data = new FactorizedJetCorrector(vPar_data);
-    JetCorrector_dataHLT = new FactorizedJetCorrector(vPar_dataHLT);
+    JetCorrector = new FactorizedJetCorrector(vPar); assert(JetCorrector);
+
+    // Using IOV JEC now. Now that's 2016. See include/IOV.h for changing versions.
+    // Note that the IOV implementation can be used with just one JEC if wanted. Juska.
+    
+    /*
+   Ranges for 2016 run periods from DAS as of 4 Nov 16.
+   Periods with no certified luminosity are omitted.
+   B-v2: 273150 - 275376
+   C-v2: 276282 - 276279
+   D-v2: 276315 - 276653
+   E-v2: 276824 - 277420
+   F-v1: 277816 - 278808
+   G-v1: 278816 - 280385
+   H-v2: 282807 - 283885
+   List obtained with commands like this:
+   [juska@lxplus069 workdir]$ das_client.py --query='run dataset=/JetHT/Run2016H-PromptReco-v2/MINIAOD' --limit 0
+    */
+
+    // data: PFReco with IOV   
+    iov = new jec::IOV("AK4PFchs");
+    iov->add("BCD",1,276823,true); // Using start-1 of run E instead as upper
+    iov->add("E",276824,277815,true);  // Use start-1 of run F instead as upper
+    iov->add("F",277816,278801,true); // Note the division before F dataset ends as instructed by JEC group
+    iov->add("p2",278802,999999,true); // same as V8p2 for 29Sept ReReco (2016B --> 2016G) and for the last period of PromptReco (2016H)
+    
+    JetCorrector_data = new FactorizedJetCorrector(); // Will be filled later
+ 
+    // data: CaloHLT
+    iovCalo = new jec::IOV("AK4CaloHLT");
+    iovCalo->add("BCD",1,276823,true); // Using start-1 of run E instead as upper
+    iovCalo->add("E",276824,277815,true);  // Use start-1 of run F instead as upper
+    iovCalo->add("F",277816,278801,true); // Note the division before F dataset ends as instructed by JEC group
+    iovCalo->add("p2",278802,999999,true); // same as V8p2 for 29Sept ReReco (2016B --> 2016G) and for the last period of PromptReco (2016H)
+    
+    JetCorrector_dataHLT = new FactorizedJetCorrector(); // Will be filled later
 
     //uncertainty
-    unc = new JetCorrectionUncertainty("data/Spring16_25nsV6_DATA/Spring16_25nsV6_DATA_Uncertainty_AK4PFchs.txt");
+    unc = new JetCorrectionUncertainty("data/Spring16_25nsV10_DATA/Spring16_25nsV10p2_DATA_Uncertainty_AK4PFchs.txt");
   }
   
   std::cout << "analysisClass::analysisClass(): ends " << std::endl;
@@ -239,8 +210,11 @@ void analysisClass::Loop()
 	     JetCorrector->setJetPt(jetPtAK4reco->at(j)/jetJecAK4reco->at(j)); //pTraw
 	     JetCorrector->setJetA(jetAreaAK4reco->at(j));
 	     JetCorrector->setRho(rhoreco);
+
+	     JetCorrector_data = iov->get(runNo); // Get IOV dependent JEC
+
 	     //Data
-  	     JetCorrector_data->setJetEta(jetEtaAK4reco->at(j));
+	     JetCorrector_data->setJetEta(jetEtaAK4reco->at(j));
 	     JetCorrector_data->setJetPt(jetPtAK4reco->at(j)/jetJecAK4reco->at(j)); //pTraw
 	     JetCorrector_data->setJetA(jetAreaAK4reco->at(j));
 	     JetCorrector_data->setRho(rhoreco);
@@ -290,12 +264,15 @@ void analysisClass::Loop()
 	     JetCorrector->setJetPt(jetPtAK4calo->at(j)/jetJecAK4calo->at(j)); //pTraw
 	     JetCorrector->setJetA(jetAreaAK4calo->at(j));
 	     JetCorrector->setRho(rhocalo);
-	     
+
+	     JetCorrector_dataHLT = iovCalo->get(runNo); // Get IOV dependent JEC
+
+	     //Data
 	     JetCorrector_dataHLT->setJetEta(jetEtaAK4calo->at(j));
 	     JetCorrector_dataHLT->setJetPt(jetPtAK4calo->at(j)/jetJecAK4calo->at(j)); //pTraw
 	     JetCorrector_dataHLT->setJetA(jetAreaAK4calo->at(j));
 	     JetCorrector_dataHLT->setRho(rhocalo);
-	     
+
 	     //nominal value of JECs
 	     double correction;//, old_correction, nominal_correction;
 	     //if( int(getPreCutValue1("shiftJECs"))==0 ){
@@ -307,7 +284,7 @@ void analysisClass::Loop()
 	     //nominal_correction=correction;
 	     //old_correction = jetJecAK4calo->at(j);
 	     //}
-	     
+
 	     //JEC uncertainties
 	     unc->setJetEta(jetEtaAK4calo->at(j));
 	     unc->setJetPt(jetPtAK4calo->at(j)/jetJecAK4calo->at(j)*correction);

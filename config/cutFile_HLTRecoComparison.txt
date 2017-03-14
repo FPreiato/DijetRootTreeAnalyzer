@@ -31,7 +31,11 @@ pt1Cut				30		-		-		-		-1
 ptCut				30		-		-		-		-1
 verbose				0		-		-		-		-1
 # mJJ cuts on recowidejets for HLT_Reco Comparison
+<<<<<<< HEAD
+MJJCut				50		-		-		-		-1
+=======
 MJJCut				400		-		-		-		-1
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
 # deltaEtaJJ cuts on recowidejets for HLT_Reco Comparison
 DeltaEtaJJ			1.3		-		-		-		-1
 #delta R for HLT-Reco Matching

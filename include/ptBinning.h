@@ -45,15 +45,20 @@ class PtBinning {
       return std::vector<std::pair<float, float> >(mPtBins.begin() + from, mPtBins.begin() + to);
     }
 
-    int get_PtStep(){   
-      return step_pt;
-    }
+    //    int get_PtStep(){   
+    //   return step_pt;
+    // }
 
 
   private:
     std::vector<std::pair<float, float> > mPtBins;
+<<<<<<< HEAD
     int step_pt = 200;
     int pT_max= 5000;
+=======
+    //    int step_pt = 100;
+    //    int pT_max= 3000;
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
 
     void fillPtBins() {
       
@@ -64,6 +69,34 @@ class PtBinning {
 	int pt_max = (jj*step_pt)+step_pt;
 	
       mPtBins.push_back(std::make_pair(pt_min, pt_max));
+<<<<<<< HEAD
+=======
+      }
+      */
+
+      //  double ptBins[] = {60, 140, 190, 215, 240, 270, 300, 390, 10000};                                                           
+      
+      mPtBins.push_back(std::make_pair(30. , 100.));                        
+      mPtBins.push_back(std::make_pair(100., 300.));                        
+      mPtBins.push_back(std::make_pair(300., 400.)); 
+      mPtBins.push_back(std::make_pair(400., 500.));                                               
+      mPtBins.push_back(std::make_pair(500., 600.));                                               
+      mPtBins.push_back(std::make_pair(600., 700.));
+      //Per gli AK4 questo e' l'ultimo bin "buono"                                               
+      mPtBins.push_back(std::make_pair(700., 800.));
+      mPtBins.push_back(std::make_pair(800., 900.));
+      mPtBins.push_back(std::make_pair(900., 1000.));
+      mPtBins.push_back(std::make_pair(1000., 1200.));
+      mPtBins.push_back(std::make_pair(1200., 1400.));
+      mPtBins.push_back(std::make_pair(1400., 1600.));
+      mPtBins.push_back(std::make_pair(1600., 1800.));
+      mPtBins.push_back(std::make_pair(1800., 2000.)); 
+      // bin 200 - Inf
+      mPtBins.push_back(std::make_pair(2000., 2500.)); 
+      
+    }
+};
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
 
 	}
     } 
