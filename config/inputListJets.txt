@@ -1,1 +1,1 @@
-../DijetScoutingRootTreeMaker/ntuple/bigTree_scouting_monitor-Jan13.root
+ntuple_test/ScoutingCaloHT__Run2016B-v1__RAW_100.root
