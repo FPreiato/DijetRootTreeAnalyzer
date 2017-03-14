@@ -1402,6 +1402,7 @@ void baseClass::CreateAndFillUserTProfile(const char* nameAndTitle, Int_t nbinsx
     }
 }
 //////////////////
+<<<<<<< HEAD
 void baseClass::CreateAndFillUserTProfileOptErrors(const char* nameAndTitle, Int_t nbinsx, Double_t xlow, Double_t xup, Double_t ylow, Double_t yup, Double_t xvalue, Double_t yvalue, Double_t weight)
 {
   map<std::string , TProfile*>::iterator nh_h = userTProfiles_.find(std::string(nameAndTitle));
@@ -1420,6 +1421,8 @@ void baseClass::CreateAndFillUserTProfileOptErrors(const char* nameAndTitle, Int
     }
 }
 ////////////////////////////////////////////
+=======
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
 void baseClass::CreateAndFillUserTProfile(const char* nameAndTitle, Int_t nbinsx, Double_t xVariableBin[], Double_t ylow, Double_t yup, Double_t xvalue, Double_t yvalue, Double_t weight)
 {
   map<std::string , TProfile*>::iterator nh_h = userTProfiles_.find(std::string(nameAndTitle));
@@ -1437,6 +1440,7 @@ void baseClass::CreateAndFillUserTProfile(const char* nameAndTitle, Int_t nbinsx
     }
 }
 //////////////////
+<<<<<<< HEAD
 void baseClass::CreateAndFillUserTProfileOptErrors(const char* nameAndTitle, Int_t nbinsx, Double_t xVariableBin[], Double_t ylow, Double_t yup, Double_t xvalue, Double_t yvalue, Double_t weight)
 {
   map<std::string , TProfile*>::iterator nh_h = userTProfiles_.find(std::string(nameAndTitle));
@@ -1455,6 +1459,8 @@ void baseClass::CreateAndFillUserTProfileOptErrors(const char* nameAndTitle, Int
     }
 }
 //////////////////////////////////////////////
+=======
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
 void baseClass::CreateAndFillUserTH2D(const char* nameAndTitle, Int_t nbinsx, Double_t xlow, Double_t xup, Int_t nbinsy, Double_t ylow, Double_t yup,  Double_t value_x,  Double_t value_y, Double_t weight)
 {
   map<std::string , TH2D*>::iterator nh_h = userTH2Ds_.find(std::string(nameAndTitle));

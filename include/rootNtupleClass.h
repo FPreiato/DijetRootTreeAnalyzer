@@ -1,6 +1,10 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
+<<<<<<< HEAD
 // Thu Mar  2 13:56:38 2017 by ROOT version 6.06/01
+=======
+// Tue Mar 29 22:55:33 2016 by ROOT version 6.02/05
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
 // from TChain rootTupleTree/tree/
 //////////////////////////////////////////////////////////
 
@@ -32,6 +36,7 @@ public :
    Double_t        CosThetaStarWJreco;
    Double_t        Dijet_MassAK4;
    Double_t        Dijet_MassAK4reco;
+<<<<<<< HEAD
    Double_t        ElectromFrac_j1;
    Double_t        ElectromFrac_j2;
    Double_t        ElectromFrac_recoj1;
@@ -40,6 +45,8 @@ public :
    Double_t        HadEnFrac_j2;
    Double_t        HadEnFrac_recoj1;
    Double_t        HadEnFrac_recoj2;
+=======
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    Double_t        IdTight_j1;
    Double_t        IdTight_j2;
    Double_t        IdTight_j3;
@@ -53,10 +60,23 @@ public :
    Double_t        Nak4;
    Double_t        Nak4reco;
    Double_t        PassJSON;
+<<<<<<< HEAD
    Double_t        chargedElectromFrac_recoj1;
    Double_t        chargedElectromFrac_recoj2;
    Double_t        chargedHadEnFrac_recoj1;
    Double_t        chargedHadEnFrac_recoj2;
+=======
+   Double_t        chargedElectromFrac_j1;
+   Double_t        chargedElectromFrac_j2;
+   Double_t        chargedElectromFrac_recoj1;
+   Double_t        chargedElectromFrac_recoj2;
+   Double_t        chargedHadEnFrac_j1;
+   Double_t        chargedHadEnFrac_j2;
+   Double_t        chargedHadEnFrac_recoj1;
+   Double_t        chargedHadEnFrac_recoj2;
+   Double_t        chargedMult_j1;
+   Double_t        chargedMult_j2;
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    Double_t        chargedMult_recoj1;
    Double_t        chargedMult_recoj2;
    Double_t        deltaETAjj;
@@ -67,6 +87,11 @@ public :
    Double_t        deltaPHIjjAK4;
    Double_t        deltaPHIjjAK4reco;
    Double_t        deltaPHIjjreco;
+<<<<<<< HEAD
+=======
+   Double_t        eleEnFract_j1;
+   Double_t        eleEnFract_j2;
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    Double_t        eleEnFract_recoj1;
    Double_t        eleEnFract_recoj2;
    Double_t        etaAK4_j1;
@@ -118,18 +143,40 @@ public :
    Double_t        mjj_shiftJEC;
    Double_t        mjjreco;
    Double_t        mjjreco_shiftJEC;
+<<<<<<< HEAD
+=======
+   Double_t        muEnFract_j1;
+   Double_t        muEnFract_j2;
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    Double_t        muEnFract_recoj1;
    Double_t        muEnFract_recoj2;
    Double_t        nJet;
    Double_t        nJetreco;
    Double_t        nVtx;
    Double_t        nVtxreco;
+<<<<<<< HEAD
    Double_t        neutrElectromFrac_recoj1;
    Double_t        neutrElectromFrac_recoj2;
    Double_t        neutrHadEnFrac_recoj1;
    Double_t        neutrHadEnFrac_recoj2;
    Double_t        neutrMult_recoj1;
    Double_t        neutrMult_recoj2;
+=======
+   Double_t        neutrElectromFrac_j1;
+   Double_t        neutrElectromFrac_j2;
+   Double_t        neutrElectromFrac_recoj1;
+   Double_t        neutrElectromFrac_recoj2;
+   Double_t        neutrHadEnFrac_j1;
+   Double_t        neutrHadEnFrac_j2;
+   Double_t        neutrHadEnFrac_recoj1;
+   Double_t        neutrHadEnFrac_recoj2;
+   Double_t        neutrMult_j1;
+   Double_t        neutrMult_j2;
+   Double_t        neutrMult_recoj1;
+   Double_t        neutrMult_recoj2;
+   Double_t        offMet;
+   Double_t        offMetSig;
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    Double_t        pTAK4_j1;
    Double_t        pTAK4_j2;
    Double_t        pTAK4_j3;
@@ -140,6 +187,7 @@ public :
    Double_t        pTWJ_j2;
    Double_t        pTWJ_recoj1;
    Double_t        pTWJ_recoj2;
+<<<<<<< HEAD
    Double_t        passHLT_BTagScoutingHT410;
    Double_t        passHLT_CaloBTagScoutingHT250;
    Double_t        passHLT_CaloJet40_BTagScouting;
@@ -155,6 +203,22 @@ public :
    Double_t        passHLT_PFScoutingHT410;
    Double_t        passHLT_ZeroBias_BTagScouting;
    Double_t        passHLT_ZeroBias_CaloScouting_PFScouting;
+=======
+   Double_t        passHLT_CaloJet40;
+   Double_t        passHLT_CaloJet40_BtagSeq;
+   Double_t        passHLT_CaloScoutingHT250;
+   Double_t        passHLT_HT450;
+   Double_t        passHLT_HT450_BtagSeq;
+   Double_t        passHLT_L1DoubleMu;
+   Double_t        passHLT_L1DoubleMu_BtagSeq;
+   Double_t        passHLT_L1HTT150;
+   Double_t        passHLT_L1HTT150_BtagSeq;
+   Double_t        passHLT_PFHT650MJJ900;
+   Double_t        passHLT_PFHT650MJJ950;
+   Double_t        passHLT_PFHT800;
+   Double_t        passHLT_ZeroBias;
+   Double_t        passHLT_ZeroBias_BtagSeq;
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    Double_t        phiAK4_j1;
    Double_t        phiAK4_j2;
    Double_t        phiAK4_j3;
@@ -165,8 +229,17 @@ public :
    Double_t        phiWJ_j2;
    Double_t        phiWJ_recoj1;
    Double_t        phiWJ_recoj2;
+<<<<<<< HEAD
    Double_t        photonEnFrac_recoj1;
    Double_t        photonEnFrac_recoj2;
+=======
+   Double_t        photonEnFrac_j1;
+   Double_t        photonEnFrac_j2;
+   Double_t        photonEnFrac_recoj1;
+   Double_t        photonEnFrac_recoj2;
+   Double_t        photonMult_j1;
+   Double_t        photonMult_j2;
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    Double_t        photonMult_recoj1;
    Double_t        photonMult_recoj2;
    Double_t        run;
@@ -178,6 +251,7 @@ public :
    TBranch        *b_CosThetaStarWJreco;   //!
    TBranch        *b_Dijet_MassAK4;   //!
    TBranch        *b_Dijet_MassAK4reco;   //!
+<<<<<<< HEAD
    TBranch        *b_ElectromFrac_j1;   //!
    TBranch        *b_ElectromFrac_j2;   //!
    TBranch        *b_ElectromFrac_recoj1;   //!
@@ -186,6 +260,8 @@ public :
    TBranch        *b_HadEnFrac_j2;   //!
    TBranch        *b_HadEnFrac_recoj1;   //!
    TBranch        *b_HadEnFrac_recoj2;   //!
+=======
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    TBranch        *b_IdTight_j1;   //!
    TBranch        *b_IdTight_j2;   //!
    TBranch        *b_IdTight_j3;   //!
@@ -199,10 +275,23 @@ public :
    TBranch        *b_Nak4;   //!
    TBranch        *b_Nak4reco;   //!
    TBranch        *b_PassJSON;   //!
+<<<<<<< HEAD
    TBranch        *b_chargedElectromFrac_recoj1;   //!
    TBranch        *b_chargedElectromFrac_recoj2;   //!
    TBranch        *b_chargedHadEnFrac_recoj1;   //!
    TBranch        *b_chargedHadEnFrac_recoj2;   //!
+=======
+   TBranch        *b_chargedElectromFrac_j1;   //!
+   TBranch        *b_chargedElectromFrac_j2;   //!
+   TBranch        *b_chargedElectromFrac_recoj1;   //!
+   TBranch        *b_chargedElectromFrac_recoj2;   //!
+   TBranch        *b_chargedHadEnFrac_j1;   //!
+   TBranch        *b_chargedHadEnFrac_j2;   //!
+   TBranch        *b_chargedHadEnFrac_recoj1;   //!
+   TBranch        *b_chargedHadEnFrac_recoj2;   //!
+   TBranch        *b_chargedMult_j1;   //!
+   TBranch        *b_chargedMult_j2;   //!
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    TBranch        *b_chargedMult_recoj1;   //!
    TBranch        *b_chargedMult_recoj2;   //!
    TBranch        *b_deltaETAjj;   //!
@@ -213,6 +302,11 @@ public :
    TBranch        *b_deltaPHIjjAK4;   //!
    TBranch        *b_deltaPHIjjAK4reco;   //!
    TBranch        *b_deltaPHIjjreco;   //!
+<<<<<<< HEAD
+=======
+   TBranch        *b_eleEnFract_j1;   //!
+   TBranch        *b_eleEnFract_j2;   //!
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    TBranch        *b_eleEnFract_recoj1;   //!
    TBranch        *b_eleEnFract_recoj2;   //!
    TBranch        *b_etaAK4_j1;   //!
@@ -264,18 +358,40 @@ public :
    TBranch        *b_mjj_shiftJEC;   //!
    TBranch        *b_mjjreco;   //!
    TBranch        *b_mjjreco_shiftJEC;   //!
+<<<<<<< HEAD
+=======
+   TBranch        *b_muEnFract_j1;   //!
+   TBranch        *b_muEnFract_j2;   //!
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    TBranch        *b_muEnFract_recoj1;   //!
    TBranch        *b_muEnFract_recoj2;   //!
    TBranch        *b_nJet;   //!
    TBranch        *b_nJetreco;   //!
    TBranch        *b_nVtx;   //!
    TBranch        *b_nVtxreco;   //!
+<<<<<<< HEAD
    TBranch        *b_neutrElectromFrac_recoj1;   //!
    TBranch        *b_neutrElectromFrac_recoj2;   //!
    TBranch        *b_neutrHadEnFrac_recoj1;   //!
    TBranch        *b_neutrHadEnFrac_recoj2;   //!
    TBranch        *b_neutrMult_recoj1;   //!
    TBranch        *b_neutrMult_recoj2;   //!
+=======
+   TBranch        *b_neutrElectromFrac_j1;   //!
+   TBranch        *b_neutrElectromFrac_j2;   //!
+   TBranch        *b_neutrElectromFrac_recoj1;   //!
+   TBranch        *b_neutrElectromFrac_recoj2;   //!
+   TBranch        *b_neutrHadEnFrac_j1;   //!
+   TBranch        *b_neutrHadEnFrac_j2;   //!
+   TBranch        *b_neutrHadEnFrac_recoj1;   //!
+   TBranch        *b_neutrHadEnFrac_recoj2;   //!
+   TBranch        *b_neutrMult_j1;   //!
+   TBranch        *b_neutrMult_j2;   //!
+   TBranch        *b_neutrMult_recoj1;   //!
+   TBranch        *b_neutrMult_recoj2;   //!
+   TBranch        *b_offMet;   //!
+   TBranch        *b_offMetSig;   //!
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    TBranch        *b_pTAK4_j1;   //!
    TBranch        *b_pTAK4_j2;   //!
    TBranch        *b_pTAK4_j3;   //!
@@ -286,6 +402,7 @@ public :
    TBranch        *b_pTWJ_j2;   //!
    TBranch        *b_pTWJ_recoj1;   //!
    TBranch        *b_pTWJ_recoj2;   //!
+<<<<<<< HEAD
    TBranch        *b_passHLT_BTagScoutingHT410;   //!
    TBranch        *b_passHLT_CaloBTagScoutingHT250;   //!
    TBranch        *b_passHLT_CaloJet40_BTagScouting;   //!
@@ -301,6 +418,22 @@ public :
    TBranch        *b_passHLT_PFScoutingHT410;   //!
    TBranch        *b_passHLT_ZeroBias_BTagScouting;   //!
    TBranch        *b_passHLT_ZeroBias_CaloScouting_PFScouting;   //!
+=======
+   TBranch        *b_passHLT_CaloJet40;   //!
+   TBranch        *b_passHLT_CaloJet40_BtagSeq;   //!
+   TBranch        *b_passHLT_CaloScoutingHT250;   //!
+   TBranch        *b_passHLT_HT450;   //!
+   TBranch        *b_passHLT_HT450_BtagSeq;   //!
+   TBranch        *b_passHLT_L1DoubleMu;   //!
+   TBranch        *b_passHLT_L1DoubleMu_BtagSeq;   //!
+   TBranch        *b_passHLT_L1HTT150;   //!
+   TBranch        *b_passHLT_L1HTT150_BtagSeq;   //!
+   TBranch        *b_passHLT_PFHT650MJJ900;   //!
+   TBranch        *b_passHLT_PFHT650MJJ950;   //!
+   TBranch        *b_passHLT_PFHT800;   //!
+   TBranch        *b_passHLT_ZeroBias;   //!
+   TBranch        *b_passHLT_ZeroBias_BtagSeq;   //!
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    TBranch        *b_phiAK4_j1;   //!
    TBranch        *b_phiAK4_j2;   //!
    TBranch        *b_phiAK4_j3;   //!
@@ -311,8 +444,17 @@ public :
    TBranch        *b_phiWJ_j2;   //!
    TBranch        *b_phiWJ_recoj1;   //!
    TBranch        *b_phiWJ_recoj2;   //!
+<<<<<<< HEAD
    TBranch        *b_photonEnFrac_recoj1;   //!
    TBranch        *b_photonEnFrac_recoj2;   //!
+=======
+   TBranch        *b_photonEnFrac_j1;   //!
+   TBranch        *b_photonEnFrac_j2;   //!
+   TBranch        *b_photonEnFrac_recoj1;   //!
+   TBranch        *b_photonEnFrac_recoj2;   //!
+   TBranch        *b_photonMult_j1;   //!
+   TBranch        *b_photonMult_j2;   //!
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    TBranch        *b_photonMult_recoj1;   //!
    TBranch        *b_photonMult_recoj2;   //!
    TBranch        *b_run;   //!
@@ -351,7 +493,11 @@ rootNtupleClass::rootNtupleClass(TTree *tree) : fChain(0)
       // The following code should be used if you want this class to access a chain
       // of trees.
       TChain * chain = new TChain("rootTupleTree/tree","");
+<<<<<<< HEAD
       chain->Add("output_TagAndProbe_LowerCuts_IOVSystemForCalo/20170301_122841/rootfile_ParkingScoutingMonitor__Run2016B-PromptReco-v2__MINIAOD_TagAndProbe_LowerCuts_IOVSystemForCalo_20170301_122841_0_reduced_skim.root/rootTupleTree/tree");
+=======
+      chain->Add("output/ParkingScountingMonitor/JEC_HLT_v7_HLTRecoSameCuts_20160329_185349/merged/rootfile_ParkingScoutingMonitor_Run2015D-PromptReco-v4_JEC_HLT_v7_HLTRecoSameCuts_20160329_reduced_skim.root/rootTupleTree/tree");
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
       tree = chain;
 #endif // SINGLE_TREE
 
@@ -406,6 +552,7 @@ void rootNtupleClass::Init(TTree *tree)
    fChain->SetBranchAddress("CosThetaStarWJreco", &CosThetaStarWJreco, &b_CosThetaStarWJreco);
    fChain->SetBranchAddress("Dijet_MassAK4", &Dijet_MassAK4, &b_Dijet_MassAK4);
    fChain->SetBranchAddress("Dijet_MassAK4reco", &Dijet_MassAK4reco, &b_Dijet_MassAK4reco);
+<<<<<<< HEAD
    fChain->SetBranchAddress("ElectromFrac_j1", &ElectromFrac_j1, &b_ElectromFrac_j1);
    fChain->SetBranchAddress("ElectromFrac_j2", &ElectromFrac_j2, &b_ElectromFrac_j2);
    fChain->SetBranchAddress("ElectromFrac_recoj1", &ElectromFrac_recoj1, &b_ElectromFrac_recoj1);
@@ -414,6 +561,8 @@ void rootNtupleClass::Init(TTree *tree)
    fChain->SetBranchAddress("HadEnFrac_j2", &HadEnFrac_j2, &b_HadEnFrac_j2);
    fChain->SetBranchAddress("HadEnFrac_recoj1", &HadEnFrac_recoj1, &b_HadEnFrac_recoj1);
    fChain->SetBranchAddress("HadEnFrac_recoj2", &HadEnFrac_recoj2, &b_HadEnFrac_recoj2);
+=======
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    fChain->SetBranchAddress("IdTight_j1", &IdTight_j1, &b_IdTight_j1);
    fChain->SetBranchAddress("IdTight_j2", &IdTight_j2, &b_IdTight_j2);
    fChain->SetBranchAddress("IdTight_j3", &IdTight_j3, &b_IdTight_j3);
@@ -427,10 +576,23 @@ void rootNtupleClass::Init(TTree *tree)
    fChain->SetBranchAddress("Nak4", &Nak4, &b_Nak4);
    fChain->SetBranchAddress("Nak4reco", &Nak4reco, &b_Nak4reco);
    fChain->SetBranchAddress("PassJSON", &PassJSON, &b_PassJSON);
+<<<<<<< HEAD
    fChain->SetBranchAddress("chargedElectromFrac_recoj1", &chargedElectromFrac_recoj1, &b_chargedElectromFrac_recoj1);
    fChain->SetBranchAddress("chargedElectromFrac_recoj2", &chargedElectromFrac_recoj2, &b_chargedElectromFrac_recoj2);
    fChain->SetBranchAddress("chargedHadEnFrac_recoj1", &chargedHadEnFrac_recoj1, &b_chargedHadEnFrac_recoj1);
    fChain->SetBranchAddress("chargedHadEnFrac_recoj2", &chargedHadEnFrac_recoj2, &b_chargedHadEnFrac_recoj2);
+=======
+   fChain->SetBranchAddress("chargedElectromFrac_j1", &chargedElectromFrac_j1, &b_chargedElectromFrac_j1);
+   fChain->SetBranchAddress("chargedElectromFrac_j2", &chargedElectromFrac_j2, &b_chargedElectromFrac_j2);
+   fChain->SetBranchAddress("chargedElectromFrac_recoj1", &chargedElectromFrac_recoj1, &b_chargedElectromFrac_recoj1);
+   fChain->SetBranchAddress("chargedElectromFrac_recoj2", &chargedElectromFrac_recoj2, &b_chargedElectromFrac_recoj2);
+   fChain->SetBranchAddress("chargedHadEnFrac_j1", &chargedHadEnFrac_j1, &b_chargedHadEnFrac_j1);
+   fChain->SetBranchAddress("chargedHadEnFrac_j2", &chargedHadEnFrac_j2, &b_chargedHadEnFrac_j2);
+   fChain->SetBranchAddress("chargedHadEnFrac_recoj1", &chargedHadEnFrac_recoj1, &b_chargedHadEnFrac_recoj1);
+   fChain->SetBranchAddress("chargedHadEnFrac_recoj2", &chargedHadEnFrac_recoj2, &b_chargedHadEnFrac_recoj2);
+   fChain->SetBranchAddress("chargedMult_j1", &chargedMult_j1, &b_chargedMult_j1);
+   fChain->SetBranchAddress("chargedMult_j2", &chargedMult_j2, &b_chargedMult_j2);
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    fChain->SetBranchAddress("chargedMult_recoj1", &chargedMult_recoj1, &b_chargedMult_recoj1);
    fChain->SetBranchAddress("chargedMult_recoj2", &chargedMult_recoj2, &b_chargedMult_recoj2);
    fChain->SetBranchAddress("deltaETAjj", &deltaETAjj, &b_deltaETAjj);
@@ -441,6 +603,11 @@ void rootNtupleClass::Init(TTree *tree)
    fChain->SetBranchAddress("deltaPHIjjAK4", &deltaPHIjjAK4, &b_deltaPHIjjAK4);
    fChain->SetBranchAddress("deltaPHIjjAK4reco", &deltaPHIjjAK4reco, &b_deltaPHIjjAK4reco);
    fChain->SetBranchAddress("deltaPHIjjreco", &deltaPHIjjreco, &b_deltaPHIjjreco);
+<<<<<<< HEAD
+=======
+   fChain->SetBranchAddress("eleEnFract_j1", &eleEnFract_j1, &b_eleEnFract_j1);
+   fChain->SetBranchAddress("eleEnFract_j2", &eleEnFract_j2, &b_eleEnFract_j2);
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    fChain->SetBranchAddress("eleEnFract_recoj1", &eleEnFract_recoj1, &b_eleEnFract_recoj1);
    fChain->SetBranchAddress("eleEnFract_recoj2", &eleEnFract_recoj2, &b_eleEnFract_recoj2);
    fChain->SetBranchAddress("etaAK4_j1", &etaAK4_j1, &b_etaAK4_j1);
@@ -492,18 +659,40 @@ void rootNtupleClass::Init(TTree *tree)
    fChain->SetBranchAddress("mjj_shiftJEC", &mjj_shiftJEC, &b_mjj_shiftJEC);
    fChain->SetBranchAddress("mjjreco", &mjjreco, &b_mjjreco);
    fChain->SetBranchAddress("mjjreco_shiftJEC", &mjjreco_shiftJEC, &b_mjjreco_shiftJEC);
+<<<<<<< HEAD
+=======
+   fChain->SetBranchAddress("muEnFract_j1", &muEnFract_j1, &b_muEnFract_j1);
+   fChain->SetBranchAddress("muEnFract_j2", &muEnFract_j2, &b_muEnFract_j2);
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    fChain->SetBranchAddress("muEnFract_recoj1", &muEnFract_recoj1, &b_muEnFract_recoj1);
    fChain->SetBranchAddress("muEnFract_recoj2", &muEnFract_recoj2, &b_muEnFract_recoj2);
    fChain->SetBranchAddress("nJet", &nJet, &b_nJet);
    fChain->SetBranchAddress("nJetreco", &nJetreco, &b_nJetreco);
    fChain->SetBranchAddress("nVtx", &nVtx, &b_nVtx);
    fChain->SetBranchAddress("nVtxreco", &nVtxreco, &b_nVtxreco);
+<<<<<<< HEAD
    fChain->SetBranchAddress("neutrElectromFrac_recoj1", &neutrElectromFrac_recoj1, &b_neutrElectromFrac_recoj1);
    fChain->SetBranchAddress("neutrElectromFrac_recoj2", &neutrElectromFrac_recoj2, &b_neutrElectromFrac_recoj2);
    fChain->SetBranchAddress("neutrHadEnFrac_recoj1", &neutrHadEnFrac_recoj1, &b_neutrHadEnFrac_recoj1);
    fChain->SetBranchAddress("neutrHadEnFrac_recoj2", &neutrHadEnFrac_recoj2, &b_neutrHadEnFrac_recoj2);
    fChain->SetBranchAddress("neutrMult_recoj1", &neutrMult_recoj1, &b_neutrMult_recoj1);
    fChain->SetBranchAddress("neutrMult_recoj2", &neutrMult_recoj2, &b_neutrMult_recoj2);
+=======
+   fChain->SetBranchAddress("neutrElectromFrac_j1", &neutrElectromFrac_j1, &b_neutrElectromFrac_j1);
+   fChain->SetBranchAddress("neutrElectromFrac_j2", &neutrElectromFrac_j2, &b_neutrElectromFrac_j2);
+   fChain->SetBranchAddress("neutrElectromFrac_recoj1", &neutrElectromFrac_recoj1, &b_neutrElectromFrac_recoj1);
+   fChain->SetBranchAddress("neutrElectromFrac_recoj2", &neutrElectromFrac_recoj2, &b_neutrElectromFrac_recoj2);
+   fChain->SetBranchAddress("neutrHadEnFrac_j1", &neutrHadEnFrac_j1, &b_neutrHadEnFrac_j1);
+   fChain->SetBranchAddress("neutrHadEnFrac_j2", &neutrHadEnFrac_j2, &b_neutrHadEnFrac_j2);
+   fChain->SetBranchAddress("neutrHadEnFrac_recoj1", &neutrHadEnFrac_recoj1, &b_neutrHadEnFrac_recoj1);
+   fChain->SetBranchAddress("neutrHadEnFrac_recoj2", &neutrHadEnFrac_recoj2, &b_neutrHadEnFrac_recoj2);
+   fChain->SetBranchAddress("neutrMult_j1", &neutrMult_j1, &b_neutrMult_j1);
+   fChain->SetBranchAddress("neutrMult_j2", &neutrMult_j2, &b_neutrMult_j2);
+   fChain->SetBranchAddress("neutrMult_recoj1", &neutrMult_recoj1, &b_neutrMult_recoj1);
+   fChain->SetBranchAddress("neutrMult_recoj2", &neutrMult_recoj2, &b_neutrMult_recoj2);
+   fChain->SetBranchAddress("offMet", &offMet, &b_offMet);
+   fChain->SetBranchAddress("offMetSig", &offMetSig, &b_offMetSig);
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    fChain->SetBranchAddress("pTAK4_j1", &pTAK4_j1, &b_pTAK4_j1);
    fChain->SetBranchAddress("pTAK4_j2", &pTAK4_j2, &b_pTAK4_j2);
    fChain->SetBranchAddress("pTAK4_j3", &pTAK4_j3, &b_pTAK4_j3);
@@ -514,6 +703,7 @@ void rootNtupleClass::Init(TTree *tree)
    fChain->SetBranchAddress("pTWJ_j2", &pTWJ_j2, &b_pTWJ_j2);
    fChain->SetBranchAddress("pTWJ_recoj1", &pTWJ_recoj1, &b_pTWJ_recoj1);
    fChain->SetBranchAddress("pTWJ_recoj2", &pTWJ_recoj2, &b_pTWJ_recoj2);
+<<<<<<< HEAD
    fChain->SetBranchAddress("passHLT_BTagScoutingHT410", &passHLT_BTagScoutingHT410, &b_passHLT_BTagScoutingHT410);
    fChain->SetBranchAddress("passHLT_CaloBTagScoutingHT250", &passHLT_CaloBTagScoutingHT250, &b_passHLT_CaloBTagScoutingHT250);
    fChain->SetBranchAddress("passHLT_CaloJet40_BTagScouting", &passHLT_CaloJet40_BTagScouting, &b_passHLT_CaloJet40_BTagScouting);
@@ -529,6 +719,22 @@ void rootNtupleClass::Init(TTree *tree)
    fChain->SetBranchAddress("passHLT_PFScoutingHT410", &passHLT_PFScoutingHT410, &b_passHLT_PFScoutingHT410);
    fChain->SetBranchAddress("passHLT_ZeroBias_BTagScouting", &passHLT_ZeroBias_BTagScouting, &b_passHLT_ZeroBias_BTagScouting);
    fChain->SetBranchAddress("passHLT_ZeroBias_CaloScouting_PFScouting", &passHLT_ZeroBias_CaloScouting_PFScouting, &b_passHLT_ZeroBias_CaloScouting_PFScouting);
+=======
+   fChain->SetBranchAddress("passHLT_CaloJet40", &passHLT_CaloJet40, &b_passHLT_CaloJet40);
+   fChain->SetBranchAddress("passHLT_CaloJet40_BtagSeq", &passHLT_CaloJet40_BtagSeq, &b_passHLT_CaloJet40_BtagSeq);
+   fChain->SetBranchAddress("passHLT_CaloScoutingHT250", &passHLT_CaloScoutingHT250, &b_passHLT_CaloScoutingHT250);
+   fChain->SetBranchAddress("passHLT_HT450", &passHLT_HT450, &b_passHLT_HT450);
+   fChain->SetBranchAddress("passHLT_HT450_BtagSeq", &passHLT_HT450_BtagSeq, &b_passHLT_HT450_BtagSeq);
+   fChain->SetBranchAddress("passHLT_L1DoubleMu", &passHLT_L1DoubleMu, &b_passHLT_L1DoubleMu);
+   fChain->SetBranchAddress("passHLT_L1DoubleMu_BtagSeq", &passHLT_L1DoubleMu_BtagSeq, &b_passHLT_L1DoubleMu_BtagSeq);
+   fChain->SetBranchAddress("passHLT_L1HTT150", &passHLT_L1HTT150, &b_passHLT_L1HTT150);
+   fChain->SetBranchAddress("passHLT_L1HTT150_BtagSeq", &passHLT_L1HTT150_BtagSeq, &b_passHLT_L1HTT150_BtagSeq);
+   fChain->SetBranchAddress("passHLT_PFHT650MJJ900", &passHLT_PFHT650MJJ900, &b_passHLT_PFHT650MJJ900);
+   fChain->SetBranchAddress("passHLT_PFHT650MJJ950", &passHLT_PFHT650MJJ950, &b_passHLT_PFHT650MJJ950);
+   fChain->SetBranchAddress("passHLT_PFHT800", &passHLT_PFHT800, &b_passHLT_PFHT800);
+   fChain->SetBranchAddress("passHLT_ZeroBias", &passHLT_ZeroBias, &b_passHLT_ZeroBias);
+   fChain->SetBranchAddress("passHLT_ZeroBias_BtagSeq", &passHLT_ZeroBias_BtagSeq, &b_passHLT_ZeroBias_BtagSeq);
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    fChain->SetBranchAddress("phiAK4_j1", &phiAK4_j1, &b_phiAK4_j1);
    fChain->SetBranchAddress("phiAK4_j2", &phiAK4_j2, &b_phiAK4_j2);
    fChain->SetBranchAddress("phiAK4_j3", &phiAK4_j3, &b_phiAK4_j3);
@@ -539,8 +745,17 @@ void rootNtupleClass::Init(TTree *tree)
    fChain->SetBranchAddress("phiWJ_j2", &phiWJ_j2, &b_phiWJ_j2);
    fChain->SetBranchAddress("phiWJ_recoj1", &phiWJ_recoj1, &b_phiWJ_recoj1);
    fChain->SetBranchAddress("phiWJ_recoj2", &phiWJ_recoj2, &b_phiWJ_recoj2);
+<<<<<<< HEAD
    fChain->SetBranchAddress("photonEnFrac_recoj1", &photonEnFrac_recoj1, &b_photonEnFrac_recoj1);
    fChain->SetBranchAddress("photonEnFrac_recoj2", &photonEnFrac_recoj2, &b_photonEnFrac_recoj2);
+=======
+   fChain->SetBranchAddress("photonEnFrac_j1", &photonEnFrac_j1, &b_photonEnFrac_j1);
+   fChain->SetBranchAddress("photonEnFrac_j2", &photonEnFrac_j2, &b_photonEnFrac_j2);
+   fChain->SetBranchAddress("photonEnFrac_recoj1", &photonEnFrac_recoj1, &b_photonEnFrac_recoj1);
+   fChain->SetBranchAddress("photonEnFrac_recoj2", &photonEnFrac_recoj2, &b_photonEnFrac_recoj2);
+   fChain->SetBranchAddress("photonMult_j1", &photonMult_j1, &b_photonMult_j1);
+   fChain->SetBranchAddress("photonMult_j2", &photonMult_j2, &b_photonMult_j2);
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
    fChain->SetBranchAddress("photonMult_recoj1", &photonMult_recoj1, &b_photonMult_recoj1);
    fChain->SetBranchAddress("photonMult_recoj2", &photonMult_recoj2, &b_photonMult_recoj2);
    fChain->SetBranchAddress("run", &run, &b_run);

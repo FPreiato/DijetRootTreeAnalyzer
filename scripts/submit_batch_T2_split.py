@@ -5,8 +5,7 @@ import sys
 import optparse
 import datetime
 
-usage = "usage: To be run from DijetRootTreeAnalyzer/ :  python scripts/submit_batch_T2_split.py -q cmslong -i config/list_to_run -o output --split 10 --tag ParkingScoutingMonitor -c co\
-nfig/cutFile_mainDijetScoutingMonitor.txt"
+usage = "usage: To be run from DijetRootTreeAnalyzer/ :  python scripts/submit_batch_T2_split.py -q cmslong -i config/list_to_run -o output --split 10 --tag ParkingScoutingMonitor -c config/cutFile_mainDijetScoutingMonitor.txt"
 
 parser = optparse.OptionParser("submitAllGJetsID.py")
 parser.add_option('-q', '--queue',       action='store',     dest='queue',       
@@ -46,15 +45,18 @@ parser.add_option("-c", "--cut", dest="cutfile",
 
 (opt, args) = parser.parse_args()
 ################################################
-
 ###
 current_time = datetime.datetime.now()
-simpletimeMarker = "_%04d%02d%02d_%02d%02d%02d" % (current_time.year,current_time.month,current_time.day,current_time.hour,current_time.minute,current_time.second) 
+simpletimeMarker = "_%04d%02d%02d_%02d%02d%02d" % (current_time.year,current_time.month,current_time.day,current_time.hour,current_time.minute,current_time.second)
 timeMarker = "mycutFile_%04d%02d%02d_%02d%02d%02d__" % (current_time.year,current_time.month,current_time.day,current_time.hour,current_time.minute,current_time.second) 
 cutfileName = timeMarker+os.path.split(opt.cutfile)[1]
 print cutfileName
+newTag = opt.tag+simpletimeMarker
+#print newTag
 ###
-os.system("mkdir -p "+opt.output+simpletimeMarker)
+#os.system("mkdir -p "+opt.output+simpletimeMarker)
+os.system("mkdir -p "+opt.output+newTag)
+print (opt.output+newTag)
 #os.system("rm -rf batch")
 os.system("mkdir -p batch")
 pwd = os.environ['PWD']
@@ -71,7 +73,6 @@ else:
   os.system("ls "+opt.input+" | grep "+opt.match+"  > config/lists_to_run.txt")
 
 ins = open("config/lists_to_run.txt", "r") 
-
 
 #lists of lists (in each position there is a list of commads)
 inputlists = []
@@ -152,9 +153,12 @@ for line in  ins:
     outputfile.write('cd '+pwd+' \n')
     outputfile.write('eval `scramv1 runtime -sh`\n')
     outputfile.write(command+"\n")
-    outputfile.write("dccp /tmp/rootfile_"+sample+"_"+newTag+"_"+str(jj)+"_reduced_skim.root "+opt.output+simpletimeMarker+"\n")
-    outputfile.write("dccp /tmp/rootfile_"+sample+"_"+newTag+"_"+str(jj)+".root "+opt.output+simpletimeMarker+"\n")
-    outputfile.write("dccp /tmp/cutEfficiencyFile_"+sample+"_"+newTag+"_"+str(jj)+".dat "+opt.output+simpletimeMarker+"\n")
+#    outputfile.write("dccp /tmp/rootfile_"+sample+"_"+newTag+"_"+str(jj)+"_reduced_skim.root "+opt.output+simpletimeMarker+"\n")
+#    outputfile.write("dccp /tmp/rootfile_"+sample+"_"+newTag+"_"+str(jj)+".root "+opt.output+simpletimeMarker+"\n")
+#    outputfile.write("dccp /tmp/cutEfficiencyFile_"+sample+"_"+newTag+"_"+str(jj)+".dat "+opt.output+simpletimeMarker+"\n")
+    outputfile.write("dccp /tmp/rootfile_"+sample+"_"+newTag+"_"+str(jj)+"_reduced_skim.root "+opt.output+newTag+"\n")
+    outputfile.write("dccp /tmp/rootfile_"+sample+"_"+newTag+"_"+str(jj)+".root "+opt.output+newTag+"\n")
+    outputfile.write("dccp /tmp/cutEfficiencyFile_"+sample+"_"+newTag+"_"+str(jj)+".dat "+opt.output+newTag+"\n")
     outputfile.write("rm /tmp/rootfile_"+sample+"_"+newTag+"_"+str(jj)+"_reduced_skim.root\n")
     outputfile.write("rm /tmp/rootfile_"+sample+"_"+newTag+"_"+str(jj)+".root\n")
     outputfile.write("rm /tmp/cutEfficiencyFile_"+sample+"_"+newTag+"_"+str(jj)+".dat\n")

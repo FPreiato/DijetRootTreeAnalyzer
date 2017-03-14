@@ -1,0 +1,24 @@
+HLTRecoCorrections
+mJJCorrections
+AK4Jets_ClosureTest
+AK4Jets_Corrections
+WideJets_Corrections
+Plot
+Plot_mJJ
+# Pictures and plots #
+######################
+*.png
+*.pdf
+*.eps
+*.svg
+
+
+# Rootfiles
+#################
+*.root
+
+*.d
+
+##################
+\#*
+*~

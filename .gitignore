@@ -59,5 +59,11 @@ Thumbs.db
 # Directory #
 ###########
 batch
+<<<<<<< HEAD
 
 *tuple*
+=======
+main
+src/rootNtupleClass.C
+src/analysisClass.C
+>>>>>>> da78e7f5b677718b9fbbdc988cf98717054e0e18
