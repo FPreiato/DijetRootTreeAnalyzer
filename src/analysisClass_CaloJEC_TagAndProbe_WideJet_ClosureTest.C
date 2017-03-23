@@ -315,6 +315,7 @@ void analysisClass::Loop()
 		    N_passCaloScoutingHT250++;
 		    CreateAndFillUserTH2D("h_ptRatio_vs_pt_CaloScoutingHT250", 56, 200, 3000, 1000, -5., 5., ptRef, ptRatio);		
 		    CreateAndFillUserTProfile("p_ptRatio_vs_pt_CaloScoutingHT250",  56, 200, 3000, -5., 5., ptRef, ptRatio);		
+		    CreateAndFillUserTProfileOptErrors("p_ptRatio_vs_pt_CaloScoutingHT250_OptS",  56, 200, 3000, -5., 5., ptRef, ptRatio);		
 		  }
 		}// for sui jet
 		
@@ -379,6 +380,7 @@ void analysisClass::Loop()
 		  
 		  CreateAndFillUserTH2D("h_mJJRatio_vs_mJJ_CaloScoutingHT250", 52, 450, 3050, 1000, -5., 5., mJJRef, mJJRatio);		
 		  CreateAndFillUserTProfile("p_mJJRatio_vs_mJJ_CaloScoutingHT250",  52, 450, 3050, -5., 5., mJJRef, mJJRatio);		
+		  CreateAndFillUserTProfileOptErrors("p_mJJRatio_vs_mJJ_CaloScoutingHT250_OptS",  52, 450, 3050, -5., 5., mJJRef, mJJRatio);		
 		}
 
 	      }// Matching	    
